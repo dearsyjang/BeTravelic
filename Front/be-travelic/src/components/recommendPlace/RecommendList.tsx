@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import "../css/RecommendList.css";
-import "./RecommendListItem";
 import RecommendListItem from "./RecommendListItem";
 
 const dummyData = [
