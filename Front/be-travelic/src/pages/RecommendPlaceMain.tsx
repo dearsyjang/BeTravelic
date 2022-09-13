@@ -32,10 +32,10 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
           center: new window.kakao.maps.LatLng(latitude, longitude),
           level: 13,
         };
-        const markerPosition = new window.kakao.maps.LatLng(
-          latitude,
-          longitude,
-        );
+        // const markerPosition = new window.kakao.maps.LatLng(
+        //   latitude,
+        //   longitude,
+        // );
         const map = new window.kakao.maps.Map(container, options);
         // 아래는 마커 테스트 및 센터 좌표 구하기 위함
         // const marker = new window.kakao.maps.Marker({
