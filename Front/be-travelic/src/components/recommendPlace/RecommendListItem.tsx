@@ -16,23 +16,24 @@ function RecommendListItem({
   return (
     <div className='RecommendListItemContainer'>
       {/* 이미지 부분 */}
-      <div className='RecommendPlaceImage'>이미지 자리</div>
+      <div className='RecommendPlaceImage'>
+        <img src={`${process.env.PUBLIC_URL}/logo192.png`} />
+      </div>
       {/* 정보 부분 */}
       <div>
-        <div>{title}</div>
-        <div>{imgUrl}</div>
+        <div className='RecommendListTitle'>{title}</div>
         {/* 별점 표시 */}
-        <div>
+        <div className='RecommendListRating'>
           {(function () {
             let stars = [];
             for (let i = 0; i < rating; i++) {
-              stars.push(<span>★</span>);
+              stars.push(<span>★ </span>);
             }
             return stars;
           })()}
         </div>
-        <div>{address}</div>
-        <div>{detailInfo}</div>
+        <div className='RecommendListAddress'>{address}</div>
+        <div className='RecommendListDetail'>{detailInfo}</div>
       </div>
     </div>
   );

@@ -25,10 +25,40 @@
   height: 60px;
 }
 .RecommendPlaceImage {
-  width: 100px;
+  width: 200px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.RecommendPlaceImage img {
+  width: 300px;
   height: 100px;
 }
 .RecommendListItemContainer {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* 리스트 제목 */
+.RecommendListTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+/* 리스트 별점(평점) */
+.RecommendListRating {
+  color: #ffce31;
+  font-weight: bold;
+}
+/* 리스트 상세 정보 */
+.RecommendListDetail {
+}
+/* 리스트 주소 */
+.RecommendListAddress {
+}
+.RecommendListCoverContainer {
+  width: 100%;
 }

@@ -13,6 +13,7 @@
   top: 100px;
   right: 100px;
   border-radius: 10px;
+  box-shadow: 3px 3px 5px #cfd2cf;
 }
 .placeInfoContainer {
   height: 320px;
