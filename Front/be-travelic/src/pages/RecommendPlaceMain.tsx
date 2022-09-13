@@ -13,6 +13,10 @@ interface MapProps {
   latitude: number;
   longitude: number;
 }
+// 레저 & 스포츠는 텍스트 길이가 길어서 폰트 사이즈 그 부분만 조정
+const minFont = {
+  fontSize: "14px",
+};
 
 function RecommendPlaceMain({ latitude, longitude }: MapProps) {
   useEffect(() => {
@@ -59,7 +63,58 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
     <>
       <div id='RecommendPlaceMap'>
         <div id='RecommendListContainer'>
-          <RecommendList />
+          <div id='RecommendList_Head'>
+            <p>000 님을 위한 추천 여행지</p>
+          </div>
+          <div id='RecommendListIcons'>
+            <div className='RecommendIconsItem'>
+              <img
+                src={`${process.env.PUBLIC_URL}/icons/palace.png`}
+                alt='NOIMAGE'
+              />
+              관광지
+            </div>
+            <div className='RecommendIconsItem'>
+              <img
+                src={`${process.env.PUBLIC_URL}/icons/museum.png`}
+                alt='NOIMAGE'
+              />
+              박물관
+            </div>
+            <div className='RecommendIconsItem'>
+              <img
+                src={`${process.env.PUBLIC_URL}/icons/festival.png`}
+                alt='NOIMAGE'
+              />
+              축제
+            </div>
+            <div className='RecommendIconsItem' style={minFont}>
+              <img
+                src={`${process.env.PUBLIC_URL}/icons/leisure.png`}
+                alt='NOIMAGE'
+              />
+              레저&스포츠
+            </div>
+            <div className='RecommendIconsItem'>
+              <img
+                src={`${process.env.PUBLIC_URL}/icons/shopping.png`}
+                alt='NOIMAGE'
+              />
+              쇼핑
+            </div>
+            <div className='RecommendIconsItem'>
+              <img
+                src={`${process.env.PUBLIC_URL}/icons/restaurant.png`}
+                alt='NOIMAGE'
+              />
+              음식점
+            </div>
+          </div>
+          <hr />
+          <h3>목록</h3>
+          <div className='placeInfoContainer'>
+            <RecommendList />
+          </div>
         </div>
       </div>
     </>

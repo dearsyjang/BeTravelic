@@ -14,9 +14,27 @@ function RecommendListItem({
   detailInfo,
 }: placeInfo) {
   return (
-    <div id='RecommendListItemContainer'>
-      <div id='RecommendPlaceImage'>이미지 자리</div>
-      <div>정보들 들어갈 곳</div>
+    <div className='RecommendListItemContainer'>
+      {/* 이미지 부분 */}
+      <div className='RecommendPlaceImage'>이미지 자리</div>
+      {/* 정보 부분 */}
+      <div>
+        <div>{title}</div>
+        <div>{imgUrl}</div>
+        {/* 별점 표시 */}
+        <div>
+          {(function () {
+            let stars = [];
+            for (let i = 0; i < rating; i++) {
+              stars.push(<span>★</span>);
+            }
+            return stars;
+          })()}
+        </div>
+        <div>{address}</div>
+        <div>{detailInfo}</div>
+      </div>
     </div>
   );
 }
+export default RecommendListItem;

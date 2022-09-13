@@ -18,8 +18,17 @@
 }
 .RecommendIconsItem {
   margin: 10px;
+  text-align: center;
 }
 .RecommendIconsItem img {
   width: 60px;
   height: 60px;
+}
+.RecommendPlaceImage {
+  width: 100px;
+  height: 100px;
+}
+.RecommendListItemContainer {
+  display: flex;
+  flex-direction: row;
 }

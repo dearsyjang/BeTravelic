@@ -1,23 +1,67 @@
 import { useEffect } from "react";
 import "../css/RecommendList.css";
+import "./RecommendListItem";
+import RecommendListItem from "./RecommendListItem";
+
+const dummyData = [
+  {
+    placeId: 101,
+    title: "관광지 이름1",
+    imgUrl: "관광지 이미지 URL",
+    rating: 5,
+    address: "관광지 주소1",
+    detailInfo: "관광지 상세정보1",
+  },
+  {
+    placeId: 102,
+    title: "관광지 이름2",
+    imgUrl: "관광지 이미지 URL",
+    rating: 2,
+    address: "관광지 주소2",
+    detailInfo: "관광지 상세정보2",
+  },
+  {
+    placeId: 103,
+    title: "관광지 이름3",
+    imgUrl: "관광지 이미지 URL",
+    rating: 5,
+    address: "관광지 주소3",
+    detailInfo: "관광지 상세정보3",
+  },
+  {
+    placeId: 104,
+    title: "관광지 이름4",
+    imgUrl: "관광지 이미지 URL",
+    rating: 4,
+    address: "관광지 주소4",
+    detailInfo: "관광지 상세정보4",
+  },
+  {
+    placeId: 105,
+    title: "관광지 이름5",
+    imgUrl: "관광지 이미지 URL",
+    rating: 3,
+    address: "관광지 주소5",
+    detailInfo: "관광지 상세정보5",
+  },
+];
+
 function RecommendList() {
   return (
     <div>
-      <div id='RecommendList_Head'>
-        <p>000 님을 위한 추천 여행지</p>
+      <div>
+        {dummyData.map((place) => (
+          <div key='{place.placeId}'>
+            <RecommendListItem
+              title={place.title}
+              imgUrl={place.imgUrl}
+              rating={place.rating}
+              address={place.address}
+              detailInfo={place.detailInfo}
+            />
+          </div>
+        ))}
       </div>
-      <div id='RecommendListIcons'>
-        <div className='RecommendIconsItem'>
-          <img src='../../assets/image/palace.png' alt='NOIMAGE' />
-          관광지
-        </div>
-        <div className='RecommendIconsItem'>박물관</div>
-        <div className='RecommendIconsItem'>축제</div>
-        <div className='RecommendIconsItem'>레저&스포츠</div>
-        <div className='RecommendIconsItem'>쇼핑</div>
-        <div className='RecommendIconsItem'>음식점</div>
-      </div>
-      <h3>리스트 출력</h3>
     </div>
   );
 }
