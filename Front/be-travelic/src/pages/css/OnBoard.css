@@ -1,0 +1,48 @@
+.onBoardBackGround {
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.mainDiv {
+  background-color: #F7FBFC;
+  width: 780px;
+  height: 630px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.mainDiv img {
+}
+
+.kakao {
+  height: 80%;
+}
+
+.onBoardBody {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* bg만 opacity 적용 */
+.onBoardBody::before {
+  content: "";
+  background-image: url("../../assets/image/onboard.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.4;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}

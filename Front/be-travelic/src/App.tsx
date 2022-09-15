@@ -3,10 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import { RecommendPlaceMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
+import OnBoard from "./pages/OnBoard";
 
 function App() {
   return (
     <>
+    {/* <OnBoard /> */}
       <Navbar />
       <Routes>
         <Route
