@@ -1,7 +1,3 @@
-.onBoardBackGround {
-  position: relative;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
@@ -9,32 +5,14 @@
   min-height: 100vh;
 }
 
-.mainDiv {
-  background-color: #f7fbfc;
-  width: 780px;
-  height: 630px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.mainDiv img {
-}
-
-.kakao {
-  height: 80%;
-}
-
-.onBoardBody {
+.surveyBody {
   height: 100vh;
   width: 100vw;
   position: relative;
 }
 
 /* bg만 opacity 적용 */
-.onBoardBody::before {
+.surveyBody::before {
   content: "";
   background-image: url("../../assets/image/onboard.png");
   background-repeat: no-repeat;

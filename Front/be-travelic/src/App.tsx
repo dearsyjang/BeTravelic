@@ -4,11 +4,13 @@ import { RecommendPlaceMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
 import OnBoard from "./pages/OnBoard";
+import Survey from "./pages/Survey";
 
 function App() {
   return (
     <>
     {/* <OnBoard /> */}
+    {/* <Survey /> */}
       <Navbar />
       <Routes>
         <Route
