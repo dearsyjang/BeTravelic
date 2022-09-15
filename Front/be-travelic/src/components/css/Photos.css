@@ -1,0 +1,17 @@
+.wrapper {
+}
+
+.imageContainer {
+  flex: 1;
+  min-width: 650px;
+}
+.photo {
+  width: 650px;
+  height: 500px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.photo:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
