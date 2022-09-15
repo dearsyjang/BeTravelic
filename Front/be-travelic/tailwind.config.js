@@ -4,22 +4,22 @@ module.exports = {
   theme: {
     colors: {
       // 백그라운드
-      'blue-100': '#F7FBFC', 
-      'blue-200': '#D6E6F2',
+      "blue-100": "#F7FBFC",
+      "blue-200": "#D6E6F2",
       // Nav
-      'blue-300': '#769FCD',
-      'blue-400': '#3C64B1',
+      "blue-300": "#769FCD",
+      "blue-400": "#3C64B1",
       // link active 시 강조
-      'highlighter' :' #FFD24C',
-      'dark-gray': '#484848',
-      'gray': '#767676',
+      highlighter: " #FFD24C",
+      "dark-gray": "#484848",
+      gray: "#767676",
       // footer
-      'light-gray': '#CFD2CF',
+      "light-gray": "#CFD2CF",
       // 별점
-      'rate': '#FFCE31',
-      'white': '#FFFFFF'
+      rate: "#FFCE31",
+      white: "#FFFFFF",
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };

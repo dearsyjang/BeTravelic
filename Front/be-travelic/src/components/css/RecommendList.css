@@ -61,4 +61,6 @@
 }
 .RecommendListCoverContainer {
   width: 100%;
+  height: 310px;
+  overflow: auto;
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RecommendList } from "../components/index";
 import "./css/RecommendPlaceMain.css";
 
@@ -19,6 +19,7 @@ const minFont = {
 };
 
 function RecommendPlaceMain({ latitude, longitude }: MapProps) {
+  const [openTab, setOpenTab] = useState(1);
   useEffect(() => {
     // console.log("UseEffect CALL in RecommendPlaceMain");
     // const KakaoAppKey = process.env.REACT_APP_KAKAO_API_KEY;
@@ -63,57 +64,123 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
     <>
       <div id='RecommendPlaceMap'>
         <div id='RecommendListContainer'>
-          <div id='RecommendList_Head'>
-            <p>000 님을 위한 추천 여행지</p>
-          </div>
-          <div id='RecommendListIcons'>
-            <div className='RecommendIconsItem'>
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/palace.png`}
-                alt='NOIMAGE'
-              />
-              관광지
+          <div className='grid grid-cols-1 p-3 mt-2'>
+            <ul
+              className='flex mb-0 list-none flex-wrap flex-row'
+              role='tablist'
+            >
+              <li className='w-1/3 flex-auto text-center'>
+                <a
+                  className={
+                    "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
+                    (openTab === 1
+                      ? "text-white bg-blue-400"
+                      : "text-gray-600 bg-white")
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTab(1);
+                  }}
+                  href='#link1'
+                  data-toggle='tab'
+                  role='tablist'
+                >
+                  추천 여행지
+                </a>
+              </li>
+              <li className='w-1/3 flex-auto text-center'>
+                <a
+                  className={
+                    "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
+                    (openTab === 2
+                      ? "text-white bg-blue-400"
+                      : "text-gray-600 bg-white")
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTab(2);
+                  }}
+                  href='#link2'
+                  data-toggle='tab'
+                  role='tablist'
+                >
+                  전체 여행지
+                </a>
+              </li>
+              <li className='w-1/3 flex-ato text-center'>
+                <a
+                  className={
+                    "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
+                    (openTab === 3
+                      ? "text-white bg-blue-400"
+                      : "text-gray-600 bg-white")
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTab(3);
+                  }}
+                  href='#link1'
+                  data-toggle='tab'
+                  role='tablist'
+                >
+                  북마크
+                </a>
+              </li>
+            </ul>
+
+            <div id='RecommendListIcons'>
+              <div className='RecommendIconsItem'>
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/palace.png`}
+                  alt='NOIMAGE'
+                />
+                관광지
+              </div>
+              <div className='RecommendIconsItem'>
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/museum.png`}
+                  alt='NOIMAGE'
+                />
+                박물관
+              </div>
+              <div className='RecommendIconsItem'>
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/festival.png`}
+                  alt='NOIMAGE'
+                />
+                축제
+              </div>
+              <div className='RecommendIconsItem' style={minFont}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/leisure.png`}
+                  alt='NOIMAGE'
+                />
+                레저&스포츠
+              </div>
+              <div className='RecommendIconsItem'>
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/shopping.png`}
+                  alt='NOIMAGE'
+                />
+                쇼핑
+              </div>
+              <div className='RecommendIconsItem'>
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/restaurant.png`}
+                  alt='NOIMAGE'
+                />
+                음식점
+              </div>
             </div>
-            <div className='RecommendIconsItem'>
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/museum.png`}
-                alt='NOIMAGE'
-              />
-              박물관
+
+            <div className={openTab === 1 ? "block" : "hidden"}>
+              <RecommendList />{" "}
             </div>
-            <div className='RecommendIconsItem'>
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/festival.png`}
-                alt='NOIMAGE'
-              />
-              축제
+            <div className={openTab === 2 ? "block" : "hidden"}>
+              {" "}
+              전체 여행지 List{" "}
             </div>
-            <div className='RecommendIconsItem' style={minFont}>
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/leisure.png`}
-                alt='NOIMAGE'
-              />
-              레저&스포츠
-            </div>
-            <div className='RecommendIconsItem'>
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/shopping.png`}
-                alt='NOIMAGE'
-              />
-              쇼핑
-            </div>
-            <div className='RecommendIconsItem'>
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/restaurant.png`}
-                alt='NOIMAGE'
-              />
-              음식점
-            </div>
-          </div>
-          <hr />
-          <h3>목록</h3>
-          <div className='placeInfoContainer'>
-            <RecommendList />
+            <div className={openTab === 3 ? "block" : "hidden"}> 북마크 </div>
           </div>
         </div>
       </div>
