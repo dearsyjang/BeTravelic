@@ -35,6 +35,9 @@ function RecommendListItem({
         <div className='RecommendListAddress'>{address}</div>
         <div className='RecommendListDetail'>{detailInfo}</div>
       </div>
+      <div className='recommendDetailInfo_btn'>
+        <button>상세보기</button>
+      </div>
     </div>
   );
 }

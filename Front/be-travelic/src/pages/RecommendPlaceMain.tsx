@@ -114,7 +114,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
               className='flex mb-0 list-none flex-wrap flex-row'
               role='tablist'
             >
-              <li className='w-1/3 flex-auto text-center'>
+              <li className='w-1/2 flex-auto text-center'>
                 <a
                   className={
                     "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
@@ -133,26 +133,8 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
                   추천 여행지
                 </a>
               </li>
-              <li className='w-1/3 flex-auto text-center'>
-                <a
-                  className={
-                    "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
-                    (openTab === 2
-                      ? "text-white bg-blue-400"
-                      : "text-gray-600 bg-white")
-                  }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(2);
-                  }}
-                  href='#link2'
-                  data-toggle='tab'
-                  role='tablist'
-                >
-                  전체 여행지
-                </a>
-              </li>
-              <li className='w-1/3 flex-ato text-center'>
+
+              <li className='w-1/2 flex-ato text-center'>
                 <a
                   className={
                     "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
@@ -248,10 +230,6 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
 
             <div className={openTab === 1 ? "block" : "hidden"}>
               <RecommendList />{" "}
-            </div>
-            <div className={openTab === 2 ? "block" : "hidden"}>
-              {" "}
-              전체 여행지 List{" "}
             </div>
             <div className={openTab === 3 ? "block" : "hidden"}> 북마크 </div>
           </div>
