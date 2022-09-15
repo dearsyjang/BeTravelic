@@ -47,7 +47,7 @@ const dummyData = [
 
 function RecommendList() {
   return (
-    <div>
+    <div className='RecommendListCoverContainer'>
       <div>
         {dummyData.map((place) => (
           <div key='{place.placeId}'>
