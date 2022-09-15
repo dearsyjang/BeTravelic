@@ -5,8 +5,8 @@
   display: flex;
 }
 #RecommendListContainer {
-  height: 500px;
-  width: 500px;
+  height: 600px;
+  width: 750px;
   background-color: white;
   z-index: 2;
   position: absolute;

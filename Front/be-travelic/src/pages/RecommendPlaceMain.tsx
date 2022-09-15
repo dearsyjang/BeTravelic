@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { RecommendList } from "../components/index";
+import { RadioGroup } from "@headlessui/react";
 import "./css/RecommendPlaceMain.css";
 
 // 카카오 맵 이용하기 위해서 전역변수로 인터페이스 Window 사용
@@ -17,9 +18,50 @@ interface MapProps {
 const minFont = {
   fontSize: "14px",
 };
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+const contentTypes = [
+  {
+    typeNum: 12,
+    name: "관광지",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/palace.png`,
+  },
+  {
+    typeNum: 14,
+    name: "박물관",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/museum.png`,
+  },
+  {
+    typeNum: 15,
+    name: "축제",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/festival.png`,
+  },
+  {
+    typeNum: 28,
+    name: "레저스포츠",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/leisure.png`,
+  },
+  {
+    typeNum: 32,
+    name: "숙박",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/travel-bag.png`,
+  },
+  {
+    typeNum: 38,
+    name: "쇼핑",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/shopping.png`,
+  },
+  {
+    typeNum: 39,
+    name: "음식점",
+    imageUrl: `${process.env.PUBLIC_URL}/icons/restaurant.png`,
+  },
+];
 
 function RecommendPlaceMain({ latitude, longitude }: MapProps) {
   const [openTab, setOpenTab] = useState(1);
+  const [contentType, setContentType] = useState(0);
   useEffect(() => {
     // console.log("UseEffect CALL in RecommendPlaceMain");
     // const KakaoAppKey = process.env.REACT_APP_KAKAO_API_KEY;
@@ -35,7 +77,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
         const container = document.getElementById("RecommendPlaceMap");
         const options = {
           center: new window.kakao.maps.LatLng(latitude, longitude),
-          level: 13,
+          level: 12,
         };
         // const markerPosition = new window.kakao.maps.LatLng(
         //   latitude,
@@ -46,12 +88,12 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
         // const marker = new window.kakao.maps.Marker({
         //   position: markerPosition,
         // });
-        // window.kakao.maps.event.addListener(map, "center_changed", function () {
-        //   var level = map.getLevel();
-        //   var latlng = map.getCenter();
-        //   console.log("Center : " + latlng.getLat() + " ," + latlng.getLng());
-        //   console.log("Level : " + level);
-        // });
+        window.kakao.maps.event.addListener(map, "center_changed", function () {
+          var level = map.getLevel();
+          var latlng = map.getCenter();
+          console.log("Center : " + latlng.getLat() + " ," + latlng.getLng());
+          console.log("Level : " + level);
+        });
         // marker.setMap(map);
       });
     };
@@ -59,7 +101,10 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
 
     return () => mapScript.removeEventListener("load", onLoadKakaoMap);
   }, [latitude, longitude]);
-
+  function changeContentType(type: number) {
+    setContentType(type);
+    console.log(contentType);
+  }
   return (
     <>
       <div id='RecommendPlaceMap'>
@@ -119,7 +164,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
                     e.preventDefault();
                     setOpenTab(3);
                   }}
-                  href='#link1'
+                  href='#link3'
                   data-toggle='tab'
                   role='tablist'
                 >
@@ -128,49 +173,77 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
               </li>
             </ul>
 
-            <div id='RecommendListIcons'>
-              <div className='RecommendIconsItem'>
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/palace.png`}
-                  alt='NOIMAGE'
-                />
-                관광지
-              </div>
-              <div className='RecommendIconsItem'>
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/museum.png`}
-                  alt='NOIMAGE'
-                />
-                박물관
-              </div>
-              <div className='RecommendIconsItem'>
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/festival.png`}
-                  alt='NOIMAGE'
-                />
-                축제
-              </div>
-              <div className='RecommendIconsItem' style={minFont}>
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/leisure.png`}
-                  alt='NOIMAGE'
-                />
-                레저&스포츠
-              </div>
-              <div className='RecommendIconsItem'>
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/shopping.png`}
-                  alt='NOIMAGE'
-                />
-                쇼핑
-              </div>
-              <div className='RecommendIconsItem'>
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/restaurant.png`}
-                  alt='NOIMAGE'
-                />
-                음식점
-              </div>
+            <div
+              id='RecommendListIcons'
+              className='gird gap-2 grid-cols-6 grid-rows-1'
+            >
+              <RadioGroup
+                value={contentType}
+                onChange={setContentType}
+                className='mt-4'
+              >
+                <div className='grid grid-cols-7 gap-2 sm:grid-cols-7 lg:grid-cols-7'>
+                  {contentTypes.map((contentType, idx) => (
+                    <div>
+                      <RadioGroup.Option
+                        key={contentType.name}
+                        value={contentType.typeNum}
+                        disabled={false}
+                        className={({ active }) =>
+                          classNames(
+                            true
+                              ? "bg-white shadow-sm text-gray-900 cursor-pointer"
+                              : "bg-gray-50 text-gray-200 cursor-not-allowed",
+                            active ? "ring-2 ring-indigo-500" : "",
+                            "group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6",
+                          )
+                        }
+                      >
+                        {({ active, checked }) => (
+                          <>
+                            <RadioGroup.Label as='span'>
+                              <img src={contentType.imageUrl} />
+                              {contentType.name}
+                            </RadioGroup.Label>
+                            {true ? (
+                              <span
+                                className={classNames(
+                                  active ? "border" : "border-2",
+                                  checked
+                                    ? "border-indigo-500"
+                                    : "border-transparent",
+                                  "pointer-events-none absolute -inset-px rounded-md",
+                                )}
+                                aria-hidden='true'
+                              />
+                            ) : (
+                              <span
+                                aria-hidden='true'
+                                className='pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200'
+                              >
+                                <svg
+                                  className='absolute inset-0 h-full w-full stroke-2 text-gray-200'
+                                  viewBox='0 0 100 100'
+                                  preserveAspectRatio='none'
+                                  stroke='currentColor'
+                                >
+                                  <line
+                                    x1={0}
+                                    y1={100}
+                                    x2={100}
+                                    y2={0}
+                                    vectorEffect='non-scaling-stroke'
+                                  />
+                                </svg>
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </RadioGroup.Option>
+                    </div>
+                  ))}
+                </div>
+              </RadioGroup>
             </div>
 
             <div className={openTab === 1 ? "block" : "hidden"}>
