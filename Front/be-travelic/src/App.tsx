@@ -23,9 +23,9 @@ function App() {
           }
         />
         <Route
-          path='/place/1'
+          path='/place/:id'
           element={
-            <PlaceDetailMain/>
+            <PlaceDetailMain />
           }
         />
       </Routes>
