@@ -1,0 +1,25 @@
+hr {
+  margin: 5px;
+  margin-bottom: 8px;
+  border: 0;
+  width: auto;
+  height: 1px;
+  background: #C3CBCD;
+}
+
+#placeDetailInfoCard {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #C3CBCD;
+}
+
+#placeDetailInfo {
+  margin: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#line{
+  border: 3px;
+  color: black;
+}
