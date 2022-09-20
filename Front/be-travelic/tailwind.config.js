@@ -18,6 +18,8 @@ module.exports = {
       // 별점
       rate: "#FFCE31",
       white: "#FFFFFF",
+      // red
+      'red-100': "#FF6464"
     },
     extend: {},
   },
