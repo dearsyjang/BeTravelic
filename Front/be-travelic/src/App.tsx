@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
-import OnBoard from "./pages/OnBoard";
+// import OnBoard from "./pages/OnBoard";
 import MyPage from "./pages/MyPage";
 import Survey from "./pages/Survey";
 
