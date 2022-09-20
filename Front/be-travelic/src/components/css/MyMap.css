@@ -1,0 +1,10 @@
+path {
+  stroke: black;
+  stroke-width: 1px;
+  z-index: 0;
+}
+
+path:hover {
+  /* fill: blue; */
+  cursor: pointer;
+}
