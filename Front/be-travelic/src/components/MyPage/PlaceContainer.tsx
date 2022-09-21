@@ -45,7 +45,7 @@ const PlaceContainer = () => {
   };
 
   return (
-    <div className="placeContainer">
+    <div className="placeContainer no-scroll">
       <ul className="flex list-none flex-wrap flex-row" role="tablist">
         <li className="w-1/2 flex-auto text-center">
           <a

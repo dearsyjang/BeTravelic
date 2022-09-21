@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import ArticleModal from "../components/common/ArticleModal";
 import MyMap from "../components/MyPage/MyMap";
 import MyPageCard from "../components/MyPage/MyPageCard";
 import PhotoInputModal from "../components/MyPage/PhotoInputModal";
@@ -7,6 +8,7 @@ import PlaceContainer from "../components/MyPage/PlaceContainer";
 
 const MyPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showArticleModal, setShowArticleModal] = useState<boolean>(false);
 
   const openModal = () => {
     setShowModal(true);
@@ -18,7 +20,15 @@ const MyPage = () => {
 
   return (
     <div className="bg-blue-100">
-      {showModal && <PhotoInputModal setShowModal={setShowModal} />}
+      {showArticleModal && (
+        <ArticleModal setShowArticleModal={setShowArticleModal} />
+      )}
+      {showModal && (
+        <PhotoInputModal
+          setShowModal={setShowModal}
+          setShowArticleModal={setShowArticleModal}
+        />
+      )}
       {/* 프로필 */}
       <div className="flex justify-around">
         <section>

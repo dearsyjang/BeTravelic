@@ -1,30 +1,45 @@
 import React, { useRef, useState } from "react";
-import "../css/InputProfilePhoto.css";
+import "../css/UploadPhoto.css";
+import logo from "../../assets/image/logo.png";
 
-const InputProfilePhoto = () => {
-  const [avatar, setAvatar] = useState<string>(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
+type DefaultImage = {
+  type: string;
+};
+
+const AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
+const UploadPhoto = ({ type }: DefaultImage) => {
+  const [image, setImage] = useState<string>(() => {
+    if (type === "place") {
+      return logo;
+    }
+    return AVATAR;
+  });
 
   const [file, setFile] = useState<File>();
 
   const imageInput = useRef<HTMLInputElement>(null);
+
   const changePhotoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.files![0]);
     if (event.target.files![0]) {
       setFile(event.target.files![0]);
     } else {
       //업로드 취소할 시
-      setAvatar(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-      );
-      return;
+      if (type === "place") {
+        setImage(logo);
+        return;
+      } else if (type === "avatar") {
+        setImage(AVATAR);
+        return;
+      }
     }
-    //화면에 프로필 사진 표시
+
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2 && typeof reader.result === "string") {
-        setAvatar(reader.result);
+        setImage(reader.result);
       }
     };
     reader.readAsDataURL(event.target.files![0]);
@@ -36,7 +51,11 @@ const InputProfilePhoto = () => {
 
   return (
     <>
+      {type === "place" && image === logo && (
+        <label htmlFor="upload-image">사진 업로드</label>
+      )}
       <input
+        id="upload-image"
         type="file"
         style={{ display: "none" }}
         accept="image/jpg,impge/png,image/jpeg"
@@ -46,9 +65,9 @@ const InputProfilePhoto = () => {
       />
       <div className="flex justify-center pt-5">
         <img
-          src={avatar}
+          src={image}
           alt="avatar"
-          className="avatar"
+          className={`${type === "avatar" ? "avatar" : "place"}`}
           onClick={uploadImageHandler}
         />
       </div>
@@ -56,4 +75,4 @@ const InputProfilePhoto = () => {
   );
 };
 
-export default InputProfilePhoto;
+export default UploadPhoto;
