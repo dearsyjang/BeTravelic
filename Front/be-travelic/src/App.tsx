@@ -6,6 +6,8 @@ import Footer from "./components/common/Footer";
 // import OnBoard from "./pages/OnBoard";
 import MyPage from "./pages/MyPage";
 import Survey from "./pages/Survey";
+import SNS from "./pages/SNS"
+import OnBoard from "./pages/OnBoard";
 
 function App() {
   return (
@@ -28,6 +30,12 @@ function App() {
           path='/place/:id'
           element={
             <PlaceDetailMain />
+          }
+        />
+        <Route
+          path='/feed'
+          element={
+            <SNS />
           }
         />
       </Routes>
