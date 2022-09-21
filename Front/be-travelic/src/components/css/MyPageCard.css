@@ -17,6 +17,12 @@
   border-color: #d6e6f2;
   border-width: 1px;
   overflow: auto;
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .card {

@@ -11,3 +11,11 @@
 .avatar:hover {
   cursor: pointer;
 }
+
+.place {
+  border-radius: 24px;
+}
+
+.place:hover {
+  cursor: pointer;
+}
