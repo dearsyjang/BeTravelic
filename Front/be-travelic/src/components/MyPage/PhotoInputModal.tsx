@@ -31,29 +31,27 @@ const PhotoInputModal: React.FC<{
   };
 
   return (
-    <>
-      <div className="backdrop">
-        <div className="modalContainer">
-          <div className="titleContainer">
-            <h2 className="title">추억을 기록하세요</h2>
-            <div className="closeBtnContainer" onClick={modalCloseHandler}>
-              <CloseButton />
-            </div>
-          </div>
-          <div className="btnContainer">
-            <button
-              className="bg-blue-400 mx-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={showArticleModalHandler}
-            >
-              게시글 작성
-            </button>
-            <button className="bg-red-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              사진 삭제
-            </button>
+    <div className="backdrop">
+      <div className="modalContainer">
+        <div className="titleContainer">
+          <h2 className="title">추억을 기록하세요</h2>
+          <div className="closeBtnContainer" onClick={modalCloseHandler}>
+            <CloseButton />
           </div>
         </div>
+        <div className="btnContainer">
+          <button
+            className="bg-blue-400 mx-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={showArticleModalHandler}
+          >
+            게시글 작성
+          </button>
+          <button className="bg-red-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            사진 삭제
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
