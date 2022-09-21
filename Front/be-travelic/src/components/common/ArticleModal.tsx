@@ -58,7 +58,10 @@ const ArticleModal: React.FC<{
             >
               등록
             </button>
-            <button className="bg-red-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              className="bg-red-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={modalCloseHandler}
+            >
               취소
             </button>
           </div>
