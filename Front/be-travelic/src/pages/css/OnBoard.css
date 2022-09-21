@@ -18,13 +18,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-radius: 24px;
 }
 
 .mainDiv img {
+  padding-bottom: 24px;
 }
 
 .kakao {
-  height: 80%;
+  margin-top: 16px;
 }
 
 .onBoardBody {
