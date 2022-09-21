@@ -1,0 +1,21 @@
+.avatarContainer {
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.avatar:hover {
+  cursor: pointer;
+}
+
+.place {
+  border-radius: 24px;
+}
+
+.place:hover {
+  cursor: pointer;
+}

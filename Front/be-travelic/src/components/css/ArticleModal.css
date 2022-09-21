@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+  }
+  
+  div {
+    box-sizing: border-box;
+  }
+  
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer {
+    width: 25%;
+    background: #d6e6f2;
+    border-radius: 8px;
+    padding: 20px;
+    /* display: flex; */
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  
+  .btnContainer {
+    /* display: flex; */
+    text-align: center;
+  }
+  
+  .titleContainer {
+    margin-bottom: 8px;
+    /* display: flex; */
+    text-align: center;
+  }
+  
+  .title {
+    font-weight: bold;
+  }
+  
+  .closeBtnContainer {
+    position: absolute; 
+    top: 0;
+    right: 0;
+  }
+  

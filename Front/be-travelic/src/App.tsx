@@ -3,8 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
-import OnBoard from "./pages/OnBoard";
+// import OnBoard from "./pages/OnBoard";
+import MyPage from "./pages/MyPage";
 import Survey from "./pages/Survey";
+import SNS from "./pages/SNS"
+import OnBoard from "./pages/OnBoard";
 
 function App() {
   return (
@@ -13,6 +16,7 @@ function App() {
       {/* <Survey /> */}
       <Navbar />
       <Routes>
+        <Route path="/mypage" element={<MyPage />} />
         <Route
           path='/recommendMain'
           element={
@@ -26,6 +30,12 @@ function App() {
           path='/place/:id'
           element={
             <PlaceDetailMain />
+          }
+        />
+        <Route
+          path='/feed'
+          element={
+            <SNS />
           }
         />
       </Routes>
