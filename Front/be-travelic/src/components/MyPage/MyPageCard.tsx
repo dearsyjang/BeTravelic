@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/MyPageCard.css";
 import FrequentPlace from "./FrequentPlace";
-import InputProfilePhoto from "./UploadPhoto";
+import UploadPhoto from "./UploadPhoto";
 import TripStyle from "./TripStyle";
 import UserInfo from "./UserInfo";
 
@@ -9,7 +9,7 @@ const MyPageCard = () => {
   return (
     <div className="cardContainer">
       <div>
-        <InputProfilePhoto type="avatar" />
+        <UploadPhoto type="avatar" />
       </div>
       <div className="mt-10">
         <UserInfo />

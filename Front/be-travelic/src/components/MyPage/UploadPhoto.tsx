@@ -63,7 +63,14 @@ const UploadPhoto = ({ type }: DefaultImage) => {
         onChange={changePhotoHandler}
         ref={imageInput}
       />
-      <div className="flex justify-center pt-5">
+      <div className="flex relative justify-center pt-5">
+        {/* jwt !== 해당 페이지 유저 */}
+        <button
+          id="FollowButton"
+          className="flex absolute right-3 ml-auto bg-indigo-500 border-0 py-1 px-2 focus:outline-none rounded"
+        >
+          팔로우
+        </button>
         <img
           src={image}
           alt="avatar"

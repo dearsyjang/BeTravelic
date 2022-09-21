@@ -1,9 +1,6 @@
 import React, { useRef, useState } from "react";
-import CloseButton from "../MyPage/CloseButton";
 import UploadPhoto from "../MyPage/UploadPhoto";
-import InputProfilePhoto from "../MyPage/UploadPhoto";
 import DatePick from "./DatePick";
-import InputPhoto from "./InputPhoto";
 import PlaceSearchBar from "./PlaceSearchBar";
 import StarRatings from "./StarRatings";
 
