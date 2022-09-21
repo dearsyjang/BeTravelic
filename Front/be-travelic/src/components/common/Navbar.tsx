@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import logo from '../../assets/image/logo.png'
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <header className="text-primary body-font bg-blue-300">
