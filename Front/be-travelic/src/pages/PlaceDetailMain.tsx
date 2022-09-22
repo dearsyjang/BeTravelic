@@ -49,7 +49,6 @@ function PlaceDetailMain() {
         detail={DetailData.detail}
         phoneNumber={DetailData.phoneNumber}
       />
-
       </div>
 
       <div className="container px-5 mx-auto">
