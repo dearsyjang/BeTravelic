@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'recommend',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'drf_yasg',
    
 ]
 
