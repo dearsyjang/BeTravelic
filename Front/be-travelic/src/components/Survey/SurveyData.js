@@ -1,0 +1,98 @@
+export const dummyPhotos = [
+  {
+    id: 1,
+    src: require("../../assets/image/survey/data1.jpg"),
+    keyword_name: ["함께", "전통"],
+    category_id: 1,
+  },
+  {
+    id: 2,
+    src: require("../../assets/image/survey/data2.jpg"),
+    keyword_name: ["꿀잼", "액티비티", "함께"],
+    category_id: 1,
+  },
+  {
+    id: 3,
+    src: require("../../assets/image/survey/data3.jpg"),
+    keyword_name: ["함께", "힐링", "낭만"],
+    category_id: 1,
+  },
+  {
+    id: 4,
+    src: require("../../assets/image/survey/data4.jpg"),
+    keyword_name: ["일탈", "힐링", "섬", "기대"],
+    category_id: 1,
+  },
+  {
+    id: 5,
+    src: require("../../assets/image/survey/data5.jpg"),
+    keyword_name: ["역사", "인상", "감동", "혼자"],
+    category_id: 2,
+  },
+  {
+    id: 6,
+    src: require("../../assets/image/survey/data6.jpg"),
+    keyword_name: ["낭만", "인상", "감동", "혼자"],
+    category_id: 2,
+  },
+  {
+    id: 7,
+    src: require("../../assets/image/survey/data7.jpg"),
+    keyword_name: ["일탈", "기대", "낭만"],
+    category_id: 2,
+  },
+  {
+    id: 8,
+    src: require("../../assets/image/survey/data8.jpg"),
+    keyword_name: ["감동", "몰입", "인상"],
+    category_id: 2,
+  },
+  {
+    id: 9,
+    src: require("../../assets/image/survey/data9.jpg"),
+    keyword_name: ["계절", "겨울", "함께"],
+    category_id: 2,
+  },
+  {
+    id: 10,
+    src: require("../../assets/image/survey/data10.jpg"),
+    keyword_name: ["재미", "힐링", "함께"],
+    category_id: 2,
+  },
+  {
+    id: 11,
+    src: require("../../assets/image/survey/data11.jpg"),
+    keyword_name: ["겨울", "액티비티", "낭만", "함께"],
+    category_id: 2,
+  },
+  {
+    id: 12,
+    src: require("../../assets/image/survey/data12.jpg"),
+    keyword_name: ["액티비티", "재미", "인상"],
+    category_id: 2,
+  },
+  {
+    id: 13,
+    src: require("../../assets/image/survey/data13.jpg"),
+    keyword_name: ["액티비티", "힐링"],
+    category_id: 4,
+  },
+  {
+    id: 14,
+    src: require("../../assets/image/survey/data14.jpg"),
+    keyword_name: ["인상", "만족", "함께"],
+    category_id: 5,
+  },
+  {
+    id: 15,
+    src: require("../../assets/image/survey/data15.jpg"),
+    keyword_name: ["인상", "새로", "재미"],
+    category_id: 5,
+  },
+  {
+    id: 16,
+    src: require("../../assets/image/survey/data16.jpg"),
+    keyword_name: ["전통", "이국"],
+    category_id: 5,
+  },
+];
