@@ -1,0 +1,61 @@
+.imageContainer {
+  flex: 1;
+  /* min-width: 650px; */
+  justify-content: center;
+  margin: 16px;
+  animation: fadein 3s;
+  -moz-animation: fadein 3s; /* Firefox */
+  -webkit-animation: fadein 3s; /* Safari and Chrome */
+  -o-animation: fadein 3s; /* Opera */
+}
+.photo {
+  width: 600px;
+  height: 500px;
+  transition: 0.5s;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.photo:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.photo.transparent {
+  opacity: 0;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

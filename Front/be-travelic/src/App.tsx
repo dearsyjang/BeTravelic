@@ -8,14 +8,23 @@ import MyPage from "./pages/MyPage";
 import Survey from "./pages/Survey";
 import Redirect from "./components/oauth/Redirect";
 import SNS from "./pages/SNS";
+import { Provider, useSelector } from "react-redux";
+import store, { RootState } from "./store";
 
 function App() {
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  // const isSurveyed = useSelector((state: RootState) => state.auth.isSurveyed);
+
   return (
     <>
-      <OnBoard />
-      {/* <Survey /> */}
-      {/* <Navbar /> */}
+      {/* {isAuthenticated && <Navbar />} */}
+      {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
+      <Navbar />
       <Routes>
+        <Route path="/" element={<OnBoard />} />
+        <Route path="/survey" element={<Survey />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route
           path="/recommendMain"
@@ -31,6 +40,7 @@ function App() {
         <Route path="/feed" element={<SNS />} />
       </Routes>
       <Footer />
+      {/* {isAuthenticated && <Footer />} */}
     </>
   );
 }
