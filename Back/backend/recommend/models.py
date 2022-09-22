@@ -196,6 +196,20 @@ class Follow(models.Model):
         db_table = 'follow'
 
 
+class RecommendUser(models.Model):
+    recommend_user_id = models.IntegerField(primary_key=True)
+    contents = models.CharField(max_length=500, blank=True, null=True)
+    image_x = models.CharField(max_length=500, blank=True, null=True)
+    image_y = models.CharField(max_length=500, blank=True, null=True)
+    nickname = models.CharField(max_length=45, blank=True, null=True)
+    review = models.ForeignKey('Review', models.DO_NOTHING)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    place = models.ForeignKey(Place, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'recommenduser'
+
 
 # class User(models.Model):
 #     user_id = models.IntegerField(primary_key=True)
