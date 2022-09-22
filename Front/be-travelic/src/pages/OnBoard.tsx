@@ -1,6 +1,5 @@
 import React from "react";
 import "./css/OnBoard.css";
-import logo from "../assets/image/logo.png";
 import logo from "../assets/image/logo(black).png";
 import kakao from "../assets/image/kakao-button.png";
 import { login } from "../apis/auth";
@@ -19,13 +18,8 @@ const OnBoard = () => {
       <div className='wrapper'>
         <div className='mainDiv'>
           <img src={logo} />
-<<<<<<< HEAD
-          <button>
-            <img src={kakao} className='kakao' />
-=======
           <button onClick={loginHandler}>
-            <img src={kakao} className="kakao" />
->>>>>>> develop
+            <img src={kakao} className='kakao' />
           </button>
         </div>
       </div>
