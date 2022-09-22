@@ -42,8 +42,8 @@ place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on=
 user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
 
 
-selected_user_id= 3 
-def sns_recommendations(selected_user_id):
+current_user_id= 3 
+def sns_recommendations(current_user_id):
 
     
 
@@ -67,11 +67,11 @@ def sns_recommendations(selected_user_id):
 
     ans=[]
     for i in lst:
-        if i != selected_user_id:
+        if i != current_user_id:
             ans.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
     print(ans)
 
-print(sns_recommendations(selected_user_id))
+print(sns_recommendations(current_user_id))
 
 
 ################################################################################################
