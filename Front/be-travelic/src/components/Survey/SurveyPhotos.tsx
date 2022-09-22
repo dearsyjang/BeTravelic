@@ -1,33 +1,27 @@
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import React, { useEffect, useState } from "react";
-import "../css/Photos.css";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../../store/auth";
+import "../css/SurveyPhotos.css";
+import { dummyPhotos } from "./SurveyData";
 
 interface Photo {
   id: number;
-  src: string;
+  src: any;
+  keyword_name: string[];
+  category_id?: number;
+  selected_category?: number[];
 }
 
-const dummyPhotos: Photo[] = [
-  {
-    id: 1,
-    src: require("../../assets/image/survey/dummy1.jpg"),
-  },
-  {
-    id: 2,
-    src: require("../../assets/image/survey/dummy2.jpg"),
-  },
-  {
-    id: 3,
-    src: require("../../assets/image/survey/dummy3.jpg"),
-  },
-  {
-    id: 4,
-    src: require("../../assets/image/survey/dummy4.jpg"),
-  },
-];
+// 1. display에 포토 저장함
+// 2. winners에 keyword 저장, selected_category저장
 
 const SurveyPhotos: React.FC = () => {
-  const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const [index, setIndex] = useState(0);
   const [photos, setPhotos] = useState<Photo[]>();
   const [displays, setDisplays] = useState<Photo[]>();
   const [winners, setWinners] = useState<Photo[]>([]);
@@ -39,9 +33,27 @@ const SurveyPhotos: React.FC = () => {
   }, []);
 
   const clickHandler = (photo: Photo) => {
-    setDisplays([dummyPhotos[index], dummyPhotos[index + 1]]);
-    setIndex(index + 2);
-    // 클릭 된 것 저장
+    if (index < dummyPhotos.length) {
+      setDisplays([dummyPhotos[index], dummyPhotos[index + 1]]);
+      setIndex(index + 2);
+    } else {
+      // axios 요청 + loading spinner + 다른 곳으로 route
+      console.log(winners, "winners");
+
+      // spinner
+
+      // routes
+      dispatch(authActions.authenticate({ token: "" }));
+      navigate("/mypage");
+    }
+
+    // setWinners에 category id랑 keyword name만 저장
+    // const newPhoto = {
+    //   keyword_name: [...photo.keyword_name],
+    //   category_id: photo.category_id,
+    // };
+
+    setWinners((prev) => [...prev, photo]);
   };
 
   return (
