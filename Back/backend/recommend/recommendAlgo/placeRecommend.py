@@ -178,9 +178,9 @@ def place_recommendations(current_user_id, selected_category):
 
 
 
-#current_user_id = 1         
-#selected_category= "음식점"   
-#print(place_recommendations(current_user_id, selected_category))
+current_user_id = 1         
+selected_category= "음식점"   
+place_recommendations(current_user_id, selected_category)
 
 
 ##############################################################################################

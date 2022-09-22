@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../css/Photos.css";
 
-const dummyPhotos: { id: number; src: string }[] = [
+interface Photo {
+  id: number;
+  src: string;
+}
+
+const dummyPhotos: Photo[] = [
   {
     id: 1,
     src: require("../../assets/image/survey/dummy1.jpg"),
@@ -20,23 +25,23 @@ const dummyPhotos: { id: number; src: string }[] = [
   },
 ];
 
+const SurveyPhotos: React.FC = () => {
+  const [index, setIndex] = useState(0);
 
-
-const Photos: React.FC = () => {
-
-
-  const [photos, setPhotos] = useState<{}[]>();
-  const [displays, setDisplays] = useState<{ id: number; src: string }[]>();
-  const [winners, setWinners] = useState<[]>();
+  const [photos, setPhotos] = useState<Photo[]>();
+  const [displays, setDisplays] = useState<Photo[]>();
+  const [winners, setWinners] = useState<Photo[]>([]);
   useEffect(() => {
     dummyPhotos.sort(() => Math.random() - 0.5);
     setPhotos(dummyPhotos);
-    setDisplays([dummyPhotos[0], dummyPhotos[1]]);
+    setDisplays([dummyPhotos[index], dummyPhotos[index + 1]]);
+    setIndex(index + 2);
   }, []);
 
-  const clickHandler = (photo: {}) => {
-    console.log(photo);
-    console.log("aaa");
+  const clickHandler = (photo: Photo) => {
+    setDisplays([dummyPhotos[index], dummyPhotos[index + 1]]);
+    setIndex(index + 2);
+    // 클릭 된 것 저장
   };
 
   return (
@@ -57,4 +62,4 @@ const Photos: React.FC = () => {
   );
 };
 
-export default Photos;
+export default SurveyPhotos;

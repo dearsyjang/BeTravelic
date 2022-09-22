@@ -77,9 +77,38 @@ def another_recommendations(selected_place_name, cosine_sim=cosine_sim):
     # 가장 유사한 10개의 여행지의 인덱스를 얻는다.
     place_indices = [idx[0] for idx in sim_scores]
 
+    info_list=[]
+    for i in place_indices:
+        for j in range(len(place_data)):
+            if i == place_data.index[j]:
+                info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
+    
     # 가장 유사한 10개의 여행지의 이름을 리턴한다.
-    return list(place_data['title'].iloc[place_indices])
+    #return list(place_data['title'].iloc[place_indices])
 
-#selected_place_name='양산문화원'
-#another_recommendations(selected_place_name)
+    df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
+
+    def mysql_save(info_list):
+        conn=pymysql.connect(host='localhost',
+                            user='root',
+                            password='ssafyd205',
+                            db='D205_2',
+                            charset='utf8')
+        cursor=conn.cursor()
+        sql = "truncate recommendplace"
+        cursor.execute(sql)
+        
+
+        #cursor=conn.cursor()
+        sql="insert into recommendplace(recommend_id,place_id,addr,score,mapx,mapy,title,image,overview) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql,info_list)
+        conn.commit()
+        conn.close()
+    mysql_save(info_list)
+
+
+selected_place_name='양산문화원'
+another_recommendations(selected_place_name)
+
+
 

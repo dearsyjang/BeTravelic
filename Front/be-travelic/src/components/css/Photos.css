@@ -3,13 +3,16 @@
 
 .imageContainer {
   flex: 1;
-  min-width: 650px;
+  /* min-width: 650px; */
+  justify-content: center;
+  margin: 16px;
 }
 .photo {
-  width: 650px;
+  width: 600px;
   height: 500px;
   transition: 0.5s;
   cursor: pointer;
+  border-radius: 16px;
 }
 .photo:hover {
   transform: scale(1.1);

@@ -1,15 +1,13 @@
 #SNS{
   justify-content: center;
-  margin: none;
+  margin-right: 250px;
 }
 
 #FeedContainer{
-  width: 800px;
   height: auto;
-  margin-right: 5px;
 }
 
-#UserRecommend{
-  position:;
+#CategoryListIcons{
+  width: 50%;
+  justify-content: center;
 }
-
