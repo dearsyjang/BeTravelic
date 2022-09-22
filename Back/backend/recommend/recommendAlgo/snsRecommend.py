@@ -61,7 +61,7 @@ def sns_recommendations(selected_user_id):
    
     users = place_user_score.columns
     users_list = list(users)
-    coffey_hands = users_list.index(selected_user_id)
+    coffey_hands = users_list.index(current_user_id)
     corr_coffey_hands = corr[coffey_hands]
     lst= list(users[(corr_coffey_hands>=0.9)] )
 
