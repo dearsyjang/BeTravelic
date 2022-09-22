@@ -5,12 +5,12 @@ import kakao from "../assets/image/kakao-button.png";
 
 const OnBoard = () => {
   return (
-    <div className="onBoardBody">
-      <div className="wrapper">
-        <div className="mainDiv">
+    <div className='onBoardBody'>
+      <div className='wrapper'>
+        <div className='mainDiv'>
           <img src={logo} />
           <button>
-            <img src={kakao} className="kakao" />
+            <img src={kakao} className='kakao' />
           </button>
         </div>
       </div>
