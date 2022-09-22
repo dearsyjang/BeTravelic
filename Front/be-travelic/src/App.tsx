@@ -12,8 +12,8 @@ import SNS from "./pages/SNS";
 function App() {
   return (
     <>
-      <OnBoard />
-      {/* <Survey /> */}
+      {/* <OnBoard /> */}
+      <Survey />
       {/* <Navbar /> */}
       <Routes>
         <Route path="/mypage" element={<MyPage />} />
