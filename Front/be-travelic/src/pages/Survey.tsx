@@ -1,7 +1,7 @@
 import React from "react";
-import Photos from "../components/Survey/Photos";
+import SurveyPhotos from "../components/Survey/SurveyPhotos";
 import "./css/Survey.css";
-import logo from "../assets/image/logo.png";
+import logo from "../assets/image/logo(black).png";
 
 const Survey = () => {
   return (
@@ -13,7 +13,7 @@ const Survey = () => {
             <h1>더 끌리는 사진을 선택해주세요. </h1>
           </div>
           <div className="photosContainer">
-            <Photos />
+            <SurveyPhotos />
           </div>
         </div>
       </div>
