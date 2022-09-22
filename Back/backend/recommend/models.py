@@ -187,9 +187,8 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     follow_id = models.IntegerField(primary_key=True)
-    following_user_id = models.IntegerField()
-    follower_user_id = models.IntegerField()
-    user = models.ForeignKey('User', models.DO_NOTHING)
+    follower_user = models.ForeignKey('User', models.DO_NOTHING, related_name="follower_user")
+    following_user = models.ForeignKey('User', models.DO_NOTHING, related_name="following_user")
 
     class Meta:
         managed = False
