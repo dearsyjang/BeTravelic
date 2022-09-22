@@ -31,21 +31,23 @@ const UserRecommendData = [
 
 function UserRecommend() {
     return (
-        <div id="UserRecommend" className="mt-20">
-          <div id="UserRecommendCard" className="flex flex-col">
-              <div id="UserRecommendCardHeader">
-                  <h2 className="m-4 text-center text-gray-900">다른 사용자 추천 🚀</h2>
+        <div id="UserRecommendCard" className="mt-20">
+          <div id="UserRecommendCardContainer" className="flex flex-col">
+            <div id="UserRecommendCardHeader" className="justify-content-center align-content-center item-center">
+                  <h2 className="text-center text-gray-900 m-3">다른 사용자 추천 🚀</h2>
               </div>
-              {UserRecommendData.map((user) => (
-              <div key='{user.userid}'>
-                  <UserRecommendItem
-                      userid={user.userid}
-                      nickname={user.nickname}
-                  />
+              <div>
+                {UserRecommendData.map((user) => (
+                <div key='{user.userid}'>
+                    <UserRecommendItem
+                        userid={user.userid}
+                        nickname={user.nickname}
+                    />
+                </div>
+                ))}
               </div>
-              ))}
+            </div>
           </div>                    
-        </div>
     )
 }
 

@@ -1,4 +1,0 @@
-function CommentList() {
-  <div>
-  </div>
-}
