@@ -183,8 +183,8 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
                       >
                         {({ active, checked }) => (
                           <>
-                            <RadioGroup.Label as='span'>
-                              <img src={contentType.imageUrl} />
+                            <RadioGroup.Label as='span' className='flex flex-col items-center'>
+                              <img className="w-8 flex justify-center" src={contentType.imageUrl} />
                               {contentType.name}
                             </RadioGroup.Label>
                             {true ? (
