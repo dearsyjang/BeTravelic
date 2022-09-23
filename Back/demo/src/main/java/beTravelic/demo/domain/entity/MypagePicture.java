@@ -1,37 +1,38 @@
 package beTravelic.demo.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
-
-//  마이페이지 대표 사진
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Picture {
+public class MypagePicture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "picture_id")
-    private Long id;
+    @Column(name = "pictureSeq")
+    private Long pictureSeq;
 
     //  유저
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "userSeq")
+    private User userSeq;
 
     //  지역
-    @OneToOne
-    @JoinColumn(name = "region_id")
-    private Region region;
+    private String region;
 
     //  이미지는 서버에 저장
     //  여기에는 서버의 이미지 주소 저장
     //  대표 이미지
     @Column
     private String image;
+
+    @Builder
+    public MypagePicture(User userSeq, String region, String image){
+        this.userSeq = userSeq;
+        this.region  = region;
+        this.image = image;
+    }
 }
