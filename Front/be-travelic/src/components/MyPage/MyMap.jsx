@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import * as d3 from "d3";
 import korea from "../../assets/geojson/korea.json";
 import "../css/MyMap.css";
@@ -10,7 +10,23 @@ const MyMap = (props) => {
   const initialX = -12000; //초기 위치값 X
   const initialY = 4150; //초기 위치값 Y
 
-  const path = d3.select("path");
+  // const path = d3.select("path");
+
+  // 전역 변수로 timer를 선언하여 if state에서 접근할 수 있게 함.
+  let timer;
+
+  const fetchRecordsHandler = (e) => {
+    if (e.type == "mouseover") {
+      timer = setTimeout(() => {
+        console.log("지역", e.target.__data__.properties.name);
+      }, 3000);
+    }
+
+    if (e.type === "mouseleave") {
+      console.log(timer, "클리어 번호");
+      clearTimeout(timer);
+    }
+  };
 
   useEffect(() => {
     function areaFn(d) {
@@ -66,7 +82,9 @@ const MyMap = (props) => {
       .attr("d", path)
       .attr("class", "countries")
       .attr("fill", fillFn)
-      .on("click", showModalHandler);
+      .on("click", showModalHandler)
+      .on("mouseover", fetchRecordsHandler)
+      .on("mouseleave", fetchRecordsHandler);
 
     const defs = svg.append("defs");
     defs
