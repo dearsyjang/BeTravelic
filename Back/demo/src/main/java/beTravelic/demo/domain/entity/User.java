@@ -4,21 +4,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class User {
     @Id
-    @Column(name = "userSeq") @GeneratedValue
+    @Column(name = "userSeq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
+
+    @Column(name = "userId", nullable = false, unique = true)
     private String id;
     private String pw;
-
+    @Column(unique = true)
     private String nickName;
     private String refreshToken;
     public void updateRefreshToken(String refreshToken){

@@ -44,4 +44,5 @@ public class UserService {
              new RuntimeException("일치하는 사용자 없음"));
         return UserInfoResponseDto.ofUser(user);
     }
+    
 }

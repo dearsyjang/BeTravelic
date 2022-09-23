@@ -16,17 +16,17 @@ public class Follow {
     @Id @GeneratedValue
     @Column(name = "followSeq")
     private Long followSeq;
-
     @ManyToOne
     @JoinColumn(name = "userSeq")
-    private User userId;
+    private User userSeq;
     private String following_user_id;
     private String follower_user_id;
 
     @Builder
-    public Follow(User userId, String follower_user_id, String following_user_id){
+    public Follow(User userSeq, String follower_user_id, String following_user_id){
         this.follower_user_id = follower_user_id;
         this.following_user_id = following_user_id;
+        this.userSeq = userSeq;
     }
 
 }

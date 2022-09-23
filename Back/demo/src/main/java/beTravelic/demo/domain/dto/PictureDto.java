@@ -1,4 +1,4 @@
-package beTravelic.demo.domain.dto;
-
-public class PictureDto {
-}
+//package beTravelic.demo.domain.dto;
+//
+//public class PictureDto {
+//}
