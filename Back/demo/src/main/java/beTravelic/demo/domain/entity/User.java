@@ -16,7 +16,7 @@ import java.util.List;
 public class User {
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long user_id;
     @Column(name = "id", nullable = false, unique = true)
     private String id;
@@ -68,10 +68,11 @@ public class User {
         this.refreshToken = refreshToken;
     }
     @Builder
-    public User(String pw, String id, String nickname){
+    public User(String pw, String id, String nickname, String email){
         this.id = id;
         this.pw = pw;
         this.nickname = nickname;
+        this.email = email;
     }
 
 }
