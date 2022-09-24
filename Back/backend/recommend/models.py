@@ -38,8 +38,8 @@ class Place(models.Model):
     score = models.IntegerField()
     content_id = models.IntegerField()
     overview = models.CharField(max_length=500)
-    region = models.ForeignKey('PlaceRegion', models.DO_NOTHING, db_column='region', blank=True, null=True)
-    category = models.ForeignKey('PlaceCategory', models.DO_NOTHING, db_column='category', blank=True, null=True)
+    region_id = models.ForeignKey('Regions', models.DO_NOTHING, db_column='region_id', blank=True, null=True)
+    category_id = models.ForeignKey('Categories', models.DO_NOTHING, db_column='category_id', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -69,7 +69,7 @@ class Keywords(models.Model):
 class Picture(models.Model):
     picture_id = models.IntegerField(primary_key=True)
     image = models.CharField(max_length=500)
-    region = models.ForeignKey('PlaceRegion', models.DO_NOTHING)
+    region = models.ForeignKey('Regions', models.DO_NOTHING)
     user = models.ForeignKey('User', models.DO_NOTHING)
 
     class Meta:
@@ -77,14 +77,14 @@ class Picture(models.Model):
         db_table = 'picture'
 
 
-class PlaceCategory(models.Model):
+class Categories(models.Model):
     category = models.IntegerField(primary_key=True)
     category_name = models.CharField(max_length=45)
     content_type_id = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'place_category'
+        db_table = 'categories'
 
 
 class PlaceKeywords(models.Model):
@@ -97,14 +97,15 @@ class PlaceKeywords(models.Model):
         db_table = 'place_keywords'
 
 
-class PlaceRegion(models.Model):
+class Regions(models.Model):
     region_id = models.IntegerField(primary_key=True)
     area_code = models.IntegerField()
     do_gwangyuksi = models.CharField(max_length=45)
+    places = models.ForeignKey(Place, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'place_region'
+        db_table = 'regions'
 
 
 class Review(models.Model):
@@ -129,14 +130,14 @@ class Reviewlike(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'reviewlike'
+        db_table = 'reviewLike'
 
 
 
 
 class UserCategories(models.Model):
     user_categories_id = models.IntegerField(primary_key=True)
-    category = models.ForeignKey(PlaceCategory, models.DO_NOTHING)
+    category = models.ForeignKey(Categories, models.DO_NOTHING)
     user = models.ForeignKey(User, models.DO_NOTHING)
 
     class Meta:
