@@ -9,7 +9,7 @@ import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import PlaceCategory
+from .models import Categories
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User, Place ,RecommendPlace , RecommendUser
@@ -44,7 +44,7 @@ conn = pymysql.connect(host='localhost',
 follow_table = "SELECT * FROM follow"
 user_table = "SELECT * FROM user"
 place_table = "SELECT * FROM place"
-category_table = "SELECT * FROM place_category"
+category_table = "SELECT * FROM categories"
 place_keywords_table = "SELECT * FROM place_keywords"
 review_table = "SELECT * FROM review"
 all_keywords_table = "SELECT * FROM keywords"
@@ -58,10 +58,10 @@ review_data = pd.read_sql_query(review_table, conn)
 all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
 user_review_data = pd.merge(user_data, review_data, on='user_id')
-place_category_data = pd.merge(place_data, category_data, on='category')
+place_category_data = pd.merge(place_data, category_data, on='category_id')
 place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
 place_review_data = pd.merge(place_data, review_data, on='place_id')
-place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
+# place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
 user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
 Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
@@ -85,29 +85,6 @@ conn = pymysql.connect(host='localhost',
 
 
 
-follow_table = "SELECT * FROM follow"
-user_table = "SELECT * FROM user"
-place_table = "SELECT * FROM place"
-category_table = "SELECT * FROM place_category"
-place_keywords_table = "SELECT * FROM place_keywords"
-review_table = "SELECT * FROM review"
-all_keywords_table = "SELECT * FROM keywords"
-
-follow_data = pd.read_sql_query(follow_table, conn)
-user_data = pd.read_sql_query(user_table, conn)
-place_data = pd.read_sql_query(place_table, conn)
-category_data = pd.read_sql_query(category_table, conn)
-keywords_data = pd.read_sql_query(place_keywords_table, conn)
-review_data = pd.read_sql_query(review_table, conn)
-all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
-
-user_review_data = pd.merge(user_data, review_data, on='user_id')
-place_category_data = pd.merge(place_data, category_data, on='category')
-place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
-place_review_data = pd.merge(place_data, review_data, on='place_id')
-place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
-user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
-Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
 
 
