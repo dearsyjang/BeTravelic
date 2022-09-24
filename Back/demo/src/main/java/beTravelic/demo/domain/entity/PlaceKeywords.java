@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name="place_keywords")
 public class PlaceKeywords {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

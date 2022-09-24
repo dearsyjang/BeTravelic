@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

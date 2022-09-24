@@ -9,6 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="picture")
 public class MypagePicture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

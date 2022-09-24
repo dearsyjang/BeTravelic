@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name="user_categories")
 public class UserCategories {
 
     @Id @GeneratedValue

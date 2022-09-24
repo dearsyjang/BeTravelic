@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="user_place")
 public class UserPlace {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "visited_id")
