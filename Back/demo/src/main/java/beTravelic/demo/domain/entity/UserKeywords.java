@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name="user_keywords")
 public class UserKeywords {
 
     @Id @GeneratedValue

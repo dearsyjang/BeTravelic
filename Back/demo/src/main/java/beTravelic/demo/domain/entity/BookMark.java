@@ -13,6 +13,7 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="bookmark")
 public class BookMark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

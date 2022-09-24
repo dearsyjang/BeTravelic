@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="regions")
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +23,11 @@ public class Region {
     private Long region_id;
 
 //    지역코드
-    @Column
+    @Column(name = "area_code")
     private Long area_code;
 
 //    도/광역시
-    @Column
+    @Column(name = "do_gwangyuksi")
     private String do_gwangyuksi;
 
     @OneToMany(mappedBy = "region")
