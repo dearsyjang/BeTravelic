@@ -4,7 +4,7 @@ DATABASES = {
         'NAME' : 'D205_2',
         'USER' : 'root',
         'PASSWORD' : 'd205',
-        'HOST' : 'mysql-container',
+        'HOST' : '172.17.0.1',
         'PORT' : '3306',
     }
 }
