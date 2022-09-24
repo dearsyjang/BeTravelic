@@ -1,0 +1,18 @@
+#FeedPlace{
+  width: 50%;
+  margin-top: 30px;
+  margin-left: 65px;
+}
+
+#FeedPlaceBar{
+width: 100%;
+margin: 5px;
+}
+
+#PlaceSearch{
+  width: 150%;
+}
+
+#FeedPlaceBarBody{
+  width: 270%;
+}

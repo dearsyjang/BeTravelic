@@ -37,7 +37,7 @@ function App() {
         />
         <Route path="/kakao" element={<Redirect />} />
         <Route path="/place/:id" element={<PlaceDetailMain />} />
-        <Route path="/feed" element={<SNS />} />
+        <Route path="/sns" element={<SNS />} />
       </Routes>
       <Footer />
       {/* {isAuthenticated && <Footer />} */}

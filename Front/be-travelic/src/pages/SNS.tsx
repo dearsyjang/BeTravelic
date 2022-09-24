@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Feed, UserRecommend } from "../components/index";
+import { FeedCreate, Feed, UserRecommend } from "../components/index";
 import "./css/SNS.css";
 
 const FeedData = [
@@ -25,53 +25,17 @@ const FeedData = [
   }
 ]
 
-const contentTypes = [
-  {
-    typeNum: 12,
-    name: "관광지",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/palace.png`,
-  },
-  {
-    typeNum: 14,
-    name: "박물관",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/museum.png`,
-  },
-  {
-    typeNum: 15,
-    name: "축제",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/festival.png`,
-  },
-  {
-    typeNum: 28,
-    name: "레저스포츠",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/leisure.png`,
-  },
-  {
-    typeNum: 32,
-    name: "숙박",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/travel-bag.png`,
-  },
-  {
-    typeNum: 38,
-    name: "쇼핑",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/shopping.png`,
-  },
-  {
-    typeNum: 39,
-    name: "음식점",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/restaurant.png`,
-  },
-];
-
 function SNS() {
-  const [contentType, setContentType] = useState(0);
-
   return (
-      // 카테고리 필터 넣기
-
       <div id="SNS" className="flex flex-row">
-        <div className="FeedContainer">
-          <div id="Feed" className="flex flex-col mt-20 mr-10">
+        <div className="SNSContainer">
+          {/* 피드작성 */}
+          <div id="FeedCreate" className="flex flex-col mt-20 mr-10">
+            <FeedCreate />
+          </div>
+
+          {/* 피드조회 */}
+          <div id="Feed" className="flex flex-col mt-10 mr-10">
             {FeedData.map((feed) => (
               <div
                 id="FeedContainer"
@@ -92,7 +56,8 @@ function SNS() {
             ))}
           </div>
         </div>
-
+        
+        {/* 팔로우 추천 */}
         <div id="UserRecommend">
           <UserRecommend />
         </div>

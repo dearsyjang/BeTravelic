@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 interface props {
   open: boolean;
   close: boolean;
+  id: number;
+  imgUrl: string;
+  comment: string;
 }
 
 const CommentsModal = (props: any) => {
@@ -15,7 +18,7 @@ const CommentsModal = (props: any) => {
   // 댓글
   const [comment, setReview] = useState('댓글내용');
   const [Comments, setReviewArray] = useState([
-    { id: `닉네임`, imgUrl: '', comment: comment },
+    { id: '', imgUrl: '', comment: comment },
   ]);
 
   const handleReviewInput = (event: any) => {
@@ -47,24 +50,26 @@ const CommentsModal = (props: any) => {
  
           {/* 댓글 부분 */}
           <div id="CommentBody" className="flex items-center m-5">
-            <div className="flex items-center m-5">
-              {Comments.map(data => (
-                <div key={data.id}>
-                  <div className="inline-flex items-center">
-                    <img
-                      alt=""
-                      className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
-                      src="https://dummyimage.com/103x103"
-                    />
-                    <div className='flex-grow'>
-                      <Link to={`/mypage`}>
-                        <h2 className="title-font font-medium ml-3">{data.id} |</h2>
-                      </Link>
+            <div id="Comments" className="flex items-center m-5">
+              <div className="m-3">
+                {Comments.map(data => (
+                  <div key={data.id}>
+                    <div className="inline-flex items-center">
+                      <img
+                        alt=""
+                        className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
+                        src="https://dummyimage.com/103x103"
+                      />
+                      <div className='flex-grow'>
+                        <Link to={`/mypage`}>
+                          <h2 className="title-font font-medium ml-3">{data.id} |</h2>
+                        </Link>
+                      </div>
+                      <span id="CommentContent" className="title-font font-medium ml-3">{data.comment}</span>
                     </div>
-                    <span id="CommentContent" className="title-font font-medium ml-3">{data.comment}</span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
           <hr/>

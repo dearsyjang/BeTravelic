@@ -29,7 +29,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             style={({ isActive }) => (isActive ? { color: "#FFD24C" } : {})}
-            to="/feed"
+            to="/sns"
           >
             <div className="mr-5 hover:text-gray-900">Feed</div>
           </NavLink>
