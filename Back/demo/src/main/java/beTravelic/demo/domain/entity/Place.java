@@ -17,7 +17,7 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
-    private Long place_id;
+    private Long placeId;
 
 //    카테고리
     @OneToOne

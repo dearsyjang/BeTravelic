@@ -1,11 +1,14 @@
 package beTravelic.demo.domain.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
 public class Categories {
     @Id
     @GeneratedValue
@@ -17,4 +20,12 @@ public class Categories {
 
     @Column(name = "category_type_id")
     private Integer category_type_id;
+
+//    @Setter
+//    @OneToOne(mappedBy = "categories")
+//    private List<Place> place = new ArrayList<>();
+//
+//    @Setter
+//    @OneToOne(mappedBy = "categories")
+//    private List<UserCategories> userCategories = new ArrayList<>();
 }
