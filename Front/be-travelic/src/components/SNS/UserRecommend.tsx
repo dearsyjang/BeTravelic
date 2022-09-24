@@ -36,7 +36,7 @@ function UserRecommend() {
             <div id="UserRecommendCardHeader" className="justify-content-center align-content-center item-center">
                   <h2 className="text-center text-gray-900 m-3">다른 사용자 추천 🚀</h2>
               </div>
-              <div>
+              <div id="UserRecommendCardBody">
                 {UserRecommendData.map((user) => (
                 <div key='{user.userid}'>
                     <UserRecommendItem
