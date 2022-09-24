@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //  지역 선택
 @Entity
@@ -16,8 +18,8 @@ import javax.persistence.*;
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "regionSeq")
-    private Long regionSeq;
+    @Column(name = "region_id")
+    private Long region_id;
 
 //    지역코드
     @Column
@@ -26,5 +28,8 @@ public class Region {
 //    도/광역시
     @Column
     private String do_gwangyuksi;
+
+    @OneToMany(mappedBy = "region")
+    private List<Place> places = new ArrayList<>();
 
 }
