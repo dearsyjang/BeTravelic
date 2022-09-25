@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.PageRequest;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -74,6 +73,11 @@ public class User {
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
+    }
+
+    @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
+    public User(Long user_id) {
+        this.user_id = user_id;
     }
 
 }
