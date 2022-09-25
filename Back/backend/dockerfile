@@ -30,8 +30,8 @@ ADD requirements.txt ${HOME}
 # mecab start
 # RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
 # RUN update-alternatives --config python3
-
-RUN curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh | bash -s
+FROM python:3.9.10
+# RUN curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh | bash -s
 # mecab end
 
 RUN export LC_ALL=C.UTF-8
@@ -39,7 +39,7 @@ ENV LANG=C.UTF-8
 ENV LANGUAGE=C.UTF-8
 
 COPY . ${HOME}
-FROM python:3.9.10
+
 RUN pip3 install -r requirements.txt
 COPY . .
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
