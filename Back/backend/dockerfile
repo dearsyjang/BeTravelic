@@ -17,22 +17,12 @@ RUN apt-get update && \
 
 ENV HOME .
 
-# mecab start
 RUN apt-get update && \
     apt-get install -y --no-install-recommends tzdata g++ git curl
-# RUN apt-get install python3-setuptools
-# RUN apt-get install -y default-jdk default-jre
-# mecab end
 
 ADD requirements.txt ${HOME}
 
 
-# mecab start
-# RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
-# RUN update-alternatives --config python3
-RUN cd ${HOME} && \
-    curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh | bash -s
-# mecab end
 
 RUN export LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
