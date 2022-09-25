@@ -43,7 +43,7 @@ dependencies {
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'mysql:mysql-connector-java' // MySql
-
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 
 tasks.named('test') {

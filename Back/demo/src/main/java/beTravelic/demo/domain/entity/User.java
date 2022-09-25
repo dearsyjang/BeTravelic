@@ -17,7 +17,7 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long user_id;
+    private Long userId;
     @Column(name = "id", nullable = false, unique = true)
     private String id;
     @Column(name = "pw", nullable = false)
@@ -55,6 +55,11 @@ public class User {
     @Setter
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
+
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
 
     @Setter
     @OneToMany(mappedBy = "user")
