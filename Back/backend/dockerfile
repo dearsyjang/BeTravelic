@@ -4,31 +4,6 @@ COPY requirements.txt ./
 
 RUN pip3 install --upgrade pip
 RUN pip3 install django
-RUN pip3 install konlpy
-RUN pip3 install JPype1
-FROM ubuntu:16.04
-
-# Python
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-utils && \
-    apt-get -y install software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update --fix-missing
-
-ENV HOME .
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends tzdata g++ git curl
-
-ADD requirements.txt ${HOME}
-
-
-
-RUN export LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-ENV LANGUAGE=C.UTF-8
-
-COPY . ${HOME}
 
 RUN pip3 install -r requirements.txt
 COPY . .
