@@ -13,13 +13,9 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
     apt-get -y install software-properties-common && \
     add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update --fix-missing && \
-    # apt-get -y install --fix-missing python3.9 && \
-    # apt-get -y install --fix-missing python3.9-dev && \
-    # apt-get -y install --fix-missing python3-pip && \
-    # python3 -m pip3 install pip --upgrade
+    apt-get update --fix-missing
 
-    ENV HOME .
+ENV HOME .
 
 # mecab start
 RUN apt-get update && \
