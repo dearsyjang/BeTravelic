@@ -6,24 +6,6 @@ RUN pip3 install --upgrade pip
 RUN pip3 install django
 RUN pip3 install konlpy
 RUN pip3 install JPype1
-RUN wget https://bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.2.tar.gz
-RUN tar xvfz mecab-0.996-ko-0.9.2.tar.gz
-RUN cd mecab-0.996-ko-0.9.2
-RUN ./configure
-RUN make
-RUN make check
-RUN make install
-RUN sudo ldconfig
-RUN mecab --version
-RUN wget https://bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.1.1-20180720.tar.gz
-RUN tar xvfz mecab-ko-dic-2.1.1-20180720.tar.gz
-RUN cd mecab-ko-dic-2.1.1-20180720
-RUN ./configure
-RUN make
-RUN make install
-RUN apt install curl
-RUN apt install git
-RUN bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
 RUN pip3 install mecab-python
 RUN pip3 install -r requirements.txt
 COPY . .
