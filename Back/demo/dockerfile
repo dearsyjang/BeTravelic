@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11
+FROM adoptopenjdk/openjdk16
 ARG JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} demo.jar
 ENTRYPOINT ["java","-jar","/demo.jar"]
