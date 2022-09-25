@@ -6,8 +6,45 @@ RUN pip3 install --upgrade pip
 RUN pip3 install django
 RUN pip3 install konlpy
 RUN pip3 install JPype1
-RUN pip3 install mecab-python
-# RUN bash < curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh 
+FROM ubuntu:16.04
+
+# Python
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends apt-utils && \
+    apt-get -y install software-properties-common && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt-get update --fix-missing && \
+    apt-get -y install --fix-missing python3.6 && \
+    apt-get -y install --fix-missing python3.6-dev && \
+    apt-get -y install --fix-missing python3-pip && \
+    python3.6 -m pip install pip --upgrade
+
+ENV HOME .
+
+# mecab start
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends tzdata g++ git curl
+RUN apt-get install python3-setuptools
+RUN apt-get install -y default-jdk default-jre
+# mecab end
+
+ADD requirements.txt ${HOME}
+
+RUN pip3.6 install -r requirements.txt
+
+# mecab start
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
+RUN update-alternatives --config python3
+RUN cd ${HOME} && \
+    curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh | bash -s
+# mecab end
+
+RUN export LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+ENV LANGUAGE=C.UTF-8
+
+COPY . ${HOME}
+
 RUN pip3 install -r requirements.txt
 COPY . .
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
