@@ -45,7 +45,7 @@ follow_table = "SELECT * FROM follow"
 user_table = "SELECT * FROM user"
 place_table = "SELECT * FROM place"
 category_table = "SELECT * FROM categories"
-place_keywords_table = "SELECT * FROM place_keywords"
+place_keywords_table = "SELECT * FROM keywords"
 review_table = "SELECT * FROM review"
 all_keywords_table = "SELECT * FROM keywords"
 
@@ -59,7 +59,7 @@ all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
 user_review_data = pd.merge(user_data, review_data, on='user_id')
 place_category_data = pd.merge(place_data, category_data, on='category_id')
-place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
+# place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
 place_review_data = pd.merge(place_data, review_data, on='place_id')
 # place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
 user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')

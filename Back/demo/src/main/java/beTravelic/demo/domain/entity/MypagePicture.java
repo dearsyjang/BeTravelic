@@ -29,7 +29,7 @@ public class MypagePicture {
     //  이미지는 서버에 저장
     //  여기에는 서버의 이미지 주소 저장
     //  대표 이미지
-    @Column
+    @Column(name="image")
     private String image;
 
     @Builder
