@@ -4,7 +4,7 @@ services:
   frontend:
     image: frontend-react
     build:
-      context: front/be-travelic/
+      context: Front/be-travelic/
       dockerfile: Dockerfile
     ports:
       - "80:80"
