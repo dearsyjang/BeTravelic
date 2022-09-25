@@ -2,9 +2,9 @@ version: '3.7'
 
 services: 
   frontend:
-    image: frontend-vue
+    image: frontend-react
     build:
-      context: frontend/
+      context: front/be-travelic/
       dockerfile: Dockerfile
     ports:
       - "80:80"
