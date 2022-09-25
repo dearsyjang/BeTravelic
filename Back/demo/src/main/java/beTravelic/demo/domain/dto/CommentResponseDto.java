@@ -1,4 +1,4 @@
-//package beTravelic.demo.domain.dto;
-//
-//public class CommentResponseDto {
-//}
+package beTravelic.demo.domain.dto;
+
+public class CommentResponseDto {
+}

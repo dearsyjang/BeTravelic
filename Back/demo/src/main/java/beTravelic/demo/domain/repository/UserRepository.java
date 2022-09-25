@@ -3,6 +3,7 @@ package beTravelic.demo.domain.repository;
 import beTravelic.demo.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -12,5 +13,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserById(String id);
     // 닉네임 중복 확인
     boolean existsUserByNickname(String nickname);
+
+//    User findByUserId(Long userId);
+
+//    User findUserByUserId(Long userId);
+
+
 
 }

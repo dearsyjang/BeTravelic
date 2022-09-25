@@ -1,9 +1,6 @@
 package beTravelic.demo.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,5 +29,13 @@ public class Region {
 
     @OneToMany(mappedBy = "region")
     private List<Place> places = new ArrayList<>();
+
+    @OneToMany(mappedBy = "region")
+    private List<Review> reviews = new ArrayList<>();
+
+    @Builder(builderClassName = "ReviewRegionId", builderMethodName = "ReviewRegionId")
+    public Region(Long region_id) {
+        this.region_id = region_id;
+    }
 
 }
