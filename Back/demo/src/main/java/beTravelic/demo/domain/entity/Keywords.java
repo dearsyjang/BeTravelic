@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name="keywords")
 public class Keywords {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "keyword_id")
     private Long keyword_id;
 

@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SurveySaveResponseDto {
-    private String id;
+public class CommentUpdateResponseDto {
+    Long id;
+
 }
