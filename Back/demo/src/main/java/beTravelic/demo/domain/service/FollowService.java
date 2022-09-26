@@ -30,6 +30,8 @@ public class FollowService {
                 new RuntimeException("일치하는 사용자 없음"));
         follow.setFollower(follower);
         follow.setFollowing(following);
+
+
         followRepository.save(follow);
         return new FollowSaveResponseDto(follow.getFollow_id());
 

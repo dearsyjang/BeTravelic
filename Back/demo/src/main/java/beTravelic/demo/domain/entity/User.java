@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,34 +22,17 @@ public class User {
     private String id;
     @Column(name = "pw", nullable = false)
     private String pw;
-
     @Column(name = "nickname", unique = true)
     private String nickname;
-
     @Column(name = "email")
     private String email;
+    @Column(name = "refresh_token")
     private String refreshToken;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserCategories> userCategories = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Setter
-    private List<Survey> surveys = new ArrayList<>();
-    @Setter
-    @OneToMany
-    private List<Follow> following = new ArrayList<>();
-
-    @Setter
-    @OneToMany
-    private List<Follow> follower = new ArrayList<>();
-
-
 
     @Setter
     @OneToMany(mappedBy = "user")
     private List<UserPlace> userPlaces = new ArrayList<>();
-//
+
     @Setter
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
@@ -63,13 +45,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
-
-
-
-    @Setter
-    @OneToMany(mappedBy = "user")
-    private List<UserKeywords> userKeywords = new ArrayList<>();
-
     @Setter
     @OneToMany(mappedBy = "user")
     private List<MypagePicture> mypagePictures = new ArrayList<>();
@@ -78,20 +53,14 @@ public class User {
         this.refreshToken = refreshToken;
     }
     @Builder
-    public User(String pw, String id, String nickname, String email){
+    public User(String pw, String id, String nickname, String email
+    ){
         this.id = id;
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
     }
 
-//    @Builder
-//    public MypageUser(String id, String nickname, List<Follow> follower, List<Follow> following){
-//        this.nickname = nickname;
-//        this.id = id;
-//        this.follower = follower;
-//        this.following = following;
-//    }
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {

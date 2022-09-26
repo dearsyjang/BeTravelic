@@ -1,16 +1,9 @@
 package beTravelic.demo.domain.entity;
 
-
-//    @Builder
-//    public Follow(User userSeq, String follower, String following){
-//        this.follower = follower;
-//        this.following = following;
-//        this.userSeq = userSeq;
-//    }
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 
@@ -25,19 +18,23 @@ public class Follow {
     private Long follow_id;
 
     @ManyToOne
+    @JoinColumn(referencedColumnName = "user_id", name = "following_user_id")
     private User following;
 
     @ManyToOne
+    @JoinColumn(referencedColumnName = "user_id", name = "follower_user_id")
     private User follower;
 
-    public void setFollowing(User following){
-        following.getFollowing().add(this);
-        this.following = following;
-    }
-    public void  setFollower(User follower){
-        follower.getFollower().add(this);
-        this.follower = follower;
-    }
+
+
+//    public void setFollowing(User following){
+//        following.getFollowing().add(this);
+//        this.following = following;
+//    }
+//    public void  setFollower(User follower){
+//        follower.getFollower().add(this);
+//        this.follower = follower;
+//    }
 
 
 
