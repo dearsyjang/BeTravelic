@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SurveySaveResponseDto {
-    private String id;
+    private Long id;
 }

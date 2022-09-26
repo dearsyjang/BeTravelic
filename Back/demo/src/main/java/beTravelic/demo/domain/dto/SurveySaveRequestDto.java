@@ -11,19 +11,14 @@ import org.springframework.data.domain.PageRequest;
 @Getter
 public class SurveySaveRequestDto {
 
-    private String   keywords;
-    private Integer categories;
+    private String   keyword;
+    private Integer category;
 
 
-    public UserCategories toUserCategoriesEntity(){
-        return UserCategories.builder()
-                .category_num(this.categories)
-                .build();
-    }
-
-    public UserKeywords toUserKeywordEntity(){
-        return UserKeywords.builder()
-                .keyword_name(this.keywords)
+    public Survey toSurveyEntity(){
+        return Survey.builder()
+                .survey_keyword(this.keyword)
+                .survey_category(this.category)
                 .build();
     }
 }
