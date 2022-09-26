@@ -38,7 +38,7 @@ public class BookmarkService {
         bookmarkRepository.save(bookmark);
         bookmark.setUser(user);
         bookmark.setPlace(place);
-        return new BookmarkSaveRequestDto(bookmark);
+        return new BookmarkSaveRequestDto(bookmark.getBookmarkId());
 
 
 

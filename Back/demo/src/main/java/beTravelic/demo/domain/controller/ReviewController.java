@@ -8,6 +8,7 @@ import beTravelic.demo.domain.dto.ReviewReqDto;
 import beTravelic.demo.domain.dto.ReviewResDto;
 import beTravelic.demo.domain.entity.Region;
 import beTravelic.demo.domain.entity.Review;
+import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.service.ReviewService;
 import beTravelic.demo.global.common.CommonResponse;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +50,13 @@ public class ReviewController {
         }
     }
 
-//    @ApiOperation(value = "유저의 지역별 여행기록 조회", notes = "게시글 리스트 또는 null 반환")
+    @ApiOperation(value = "유저의 지역별 여행기록 조회", notes = "게시글 리스트 또는 null 반환")
+    @GetMapping("/travel-history/region/{regionId}/user/{userId}")
+//    public ResponseEntity<?> getReviewByRegionAndUser(@RequestBody GetUserRegionReqDto getUserTypeBoardReqDto) {
+    public ResponseEntity<?> getReviewByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("userId") Long userId) {
+        List<ReviewResDto> reviews = reviewService.findAllByRegionAndUser(regionId, userId);
+        return new ResponseEntity<>(reviews, HttpStatus.valueOf(200));
+    }
 //    @GetMapping("/travel-history/region/{regionId}/user/{userId}")
 //    public ResponseEntity<?> getReviewByRegionAndUser(HttpServletRequest request, @PathVariable("regionId") Long regionId, @PathVariable("userId") Long userId){
 ////        List<Review> reviews = reviewService.findAllByRegionAndUser(regionId, userId);
@@ -74,13 +81,13 @@ public class ReviewController {
         }
     }
 
-//    @DeleteMapping("/travel-history/{reviewId}")
-//    public ResponseEntity<?> deleteReview(@PathVariable(name="reviewId") Long reviewId){
-//        try {
-//            reviewService.deleteById(reviewId);
-//            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(false, HttpStatus.valueOf(400));
-//        }
-//    }
+    @DeleteMapping("/travel-history/{reviewId}")
+    public ResponseEntity<?> deleteReview(@PathVariable(name="reviewId") Long reviewId){
+        try {
+            reviewService.deleteById(reviewId);
+            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.valueOf(400));
+        }
+    }
 }
