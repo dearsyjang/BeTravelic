@@ -160,8 +160,8 @@ class Survey(models.Model):
 
 class Follow(models.Model):
     follow_id = models.IntegerField(primary_key=True)
-    follower_user = models.ForeignKey('User', models.DO_NOTHING, related_name="follower_user")
-    following_user = models.ForeignKey('User', models.DO_NOTHING, related_name="following_user")
+    follower_user_id = models.ForeignKey('User', models.DO_NOTHING, related_name="follower_user" )
+    following_user_id = models.ForeignKey('User', models.DO_NOTHING, related_name="following_user")
 
     class Meta:
         managed = False
