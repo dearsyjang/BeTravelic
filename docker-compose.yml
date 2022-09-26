@@ -19,10 +19,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-  volumes:
+    volumes:
       - /home/ubuntu/docker-volume/ssl:/root
-  container_name: "backendDjango"
-  
+    container_name: "backendDjango"
+
   frontend:
     image: frontend-react
     build:
