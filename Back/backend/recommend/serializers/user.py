@@ -1,4 +1,4 @@
-from ..models import User,UserCategories,UserKeywords 
+from ..models import User
 from rest_framework import serializers
 
 
