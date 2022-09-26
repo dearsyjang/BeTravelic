@@ -50,3 +50,8 @@ dependencies {
 // 	useJUnitPlatform()
 // }
 // targetCompatibility = JavaVersion.VERSION_16
+tasks {
+    processResources {
+        duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+    }
+}
