@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BookmarkSaveRequestDto {
     private Long bookmarkId;
-    private Long userId;
-    private Long placeId;
+//    private Long userId;
+//    private Long placeId;
 
 
 
-    public BookmarkSaveRequestDto(Bookmark bookmark){
-        this.bookmarkId = bookmark.getBookmarkId();
-        this.userId = bookmark.getUser().getUserId();
-        this.placeId = bookmark.getPlace().getPlaceId();
-    }
+//    public BookmarkSaveRequestDto(Bookmark bookmark){
+//        this.bookmarkId = bookmark.getBookmarkId();
+//        this.userId = bookmark.getUser().getUserId();
+//        this.placeId = bookmark.getPlace().getPlaceId();
+//    }
 //    public BookmarkSaveRequestDto of(Bookmark bookmark){
 //        return BookmarkSaveRequestDto.builder()
 //                .bookmarkId(bookmark.getBookmarkId())

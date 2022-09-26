@@ -82,7 +82,7 @@ public class User {
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
 }

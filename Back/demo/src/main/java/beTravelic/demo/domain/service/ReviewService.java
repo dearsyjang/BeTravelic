@@ -64,6 +64,12 @@ public class ReviewService {
         return reviews.stream().map(ReviewResDto::new).collect(Collectors.toList());
     }
     // 유저의 지역 게시물들 조회
+//    public List<ReviewResDto> findAllByRegionAndUser(GetUserRegionReqDto getUserRegionReqDto) {
+    public List<ReviewResDto> findAllByRegionAndUser(Long regionId, Long userId) {
+//        User user = userRepository.findByUserId(getUserRegionReqDto.getUserId());
+        log.info("게시글 타입으로 게시글 조회하였습니다.");
+        return reviewRepository.findAllByUserAndRegion(userId, regionId);
+    }
 //    public List<ReviewResDto> findAllByRegionAndUser(Long regionId, Long userId) {
 //        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
 //        Region region = regionRepository.findById(regionId).orElseThrow(() -> new IllegalArgumentException("해당하는 지역 리뷰가 없습니다."));
@@ -97,14 +103,14 @@ public class ReviewService {
         }
     }
 
-//    public void deleteById(Long reviewId) throws Exception {
-//        Review reviewEntity = reviewRepository.findById(reviewId).orElse(null);
-//
-//        if (reviewEntity == null) {
-//            throw new Exception("해당하는 reviewID의 게시글이 없습니다.");
-//        }
-//
-//        reviewRepository.deleteById(reviewId);
-//        log.info(reviewEntity.getReviewId() + "번 여행기록이 삭제");
-//    }
+    public void deleteById(Long reviewId) throws Exception {
+        Review reviewEntity = reviewRepository.findById(reviewId).orElse(null);
+
+        if (reviewEntity == null) {
+            throw new Exception("해당하는 reviewID의 게시글이 없습니다.");
+        }
+
+        reviewRepository.deleteById(reviewId);
+        log.info(reviewEntity.getReviewId() + "번 여행기록이 삭제");
+    }
 }

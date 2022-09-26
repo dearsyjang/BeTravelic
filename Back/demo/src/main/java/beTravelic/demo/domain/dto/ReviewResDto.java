@@ -42,7 +42,7 @@ public class ReviewResDto {
         return ReviewResDto.builder()
                 .reviewId(review.getReviewId())
                 .place(review.getPlace().getPlaceId())
-                .user(review.getUser().getUser_id())
+                .user(review.getUser().getUserId())
                 .region(review.getRegion().getRegion_id())
                 .contents(review.getContents())
                 .image(review.getImage())
@@ -51,11 +51,25 @@ public class ReviewResDto {
                 .visited_at(review.getVisited_at())
                 .build();
     }
+//    public static ReviewResDto of(Review review) {
+//        return ReviewResDto.builder()
+//                .reviewId(review.getReviewId())
+//                .place(review.getPlace().getPlaceId())
+//                .user(review.getUser().getUserId())
+//                .region(review.getRegion().getRegion_id())
+//                .contents(review.getContents())
+//                .image(review.getImage())
+//                .score(review.getScore())
+//                .created_at(review.getCreated_at())
+//                .visited_at(review.getVisited_at())
+//                .build();
+//    }
+
 
     public ReviewResDto (Review review) {
         this.reviewId = review.getReviewId();
         this.place = review.getPlace().getPlaceId();
-        this.user = review.getUser().getUser_id();
+        this.user = review.getUser().getUserId();
         this.region = review.getRegion().getRegion_id();
         this.contents = review.getContents();
         this.image = review.getImage();
