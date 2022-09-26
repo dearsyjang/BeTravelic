@@ -1,14 +1,18 @@
 package beTravelic.demo.domain.controller;
 
 
+import beTravelic.demo.domain.dto.BookmarkResDto;
 import beTravelic.demo.global.common.CommonResponse;
 import beTravelic.demo.domain.dto.BookmarkSaveRequestDto;
 import beTravelic.demo.domain.service.BookmarkService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,15 +33,21 @@ public class BookmarkController {
 //
 //    }
 
-    @PostMapping("/{placeId}/{userId}")
-    public ResponseEntity<?> saveBookmark(@RequestBody BookmarkSaveRequestDto bookmarkSaveRequestDto,@PathVariable("placeId") Long placeId, @PathVariable("userId") Long userId) {
-        try {
-            BookmarkSaveRequestDto result = bookmarkService.saveBookmark(bookmarkSaveRequestDto, placeId, userId);
-            return ResponseEntity.ok(result);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        return ResponseEntity.ok(BookmarkService.saveBookmark(placeId, userId));
-        }
-    }
+//    @GetMapping("/{placeId}/{userId}")
+//    public ResponseEntity<?> saveBookmark(@RequestBody BookmarkSaveRequestDto bookmarkSaveRequestDto,@PathVariable("placeId") Long placeId, @PathVariable("userId") Long userId) {
+//        try {
+//            BookmarkSaveRequestDto result = bookmarkService.saveBookmark(bookmarkSaveRequestDto, placeId, userId);
+//            return ResponseEntity.ok(result);
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+////        return ResponseEntity.ok(BookmarkService.saveBookmark(placeId, userId));
+//        }
+//    }
 
+    @GetMapping("/region/{regionId}/user/{userId}")
+
+    public ResponseEntity<?> getBookmarkByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("userId") Long userId) {
+    List<BookmarkResDto> reviews = bookmarkService.findAllByRegionAndUser(regionId, userId);
+    return new ResponseEntity<>(reviews, HttpStatus.valueOf(200));
+}
 }
