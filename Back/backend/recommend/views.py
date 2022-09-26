@@ -115,11 +115,13 @@ def get_recommend_places(request):
 
 
 @api_view(['GET'])
-def place_recommend(request):
-    #current_user_id= request.get('current_user_id')
-    #selected_category = request.get('selected_category')
-    current_user_id= 1
-    selected_category = '음식점'
+def place_recommend(request,user_id,category):
+    current_user_id = user_id
+    selected_category = category
+    # current_user_id= request.query_params.get('current_user_id')
+    # selected_category = request.query_params.get('selected_category')
+    #current_user_id= 1
+    #selected_category = '음식점'
     def place_recommendations(current_user_id, selected_category):
 
         user_keywords=[]
@@ -238,7 +240,7 @@ def place_recommend(request):
 
 
     
-    place_recommendations(current_user_id, selected_category)
+    #place_recommendations(current_user_id, selected_category)
 
     if request.method=='GET':
         places = get_list_or_404(RecommendPlace)
@@ -248,9 +250,10 @@ def place_recommend(request):
 
 
 @api_view(['GET'])
-def another_recommend(request):
-    #selected_place_name= request.get('selected_place_name')
-    selected_place_name='양산문화원'
+def another_recommend(request,place_name):
+    selected_place_name = place_name
+    #selected_place_name= request.query_params.get('selected_place_name')
+    # selected_place_name='양산문화원'
     #overview로 뽑아낸 cosine 유사도 추천(컨텐츠 기반 필터링)
 
 
@@ -270,7 +273,7 @@ def another_recommend(request):
 
 
     def another_recommendations(selected_place_name, cosine_sim=cosine_sim):
-        # 선택한 여행지의 타이틀로부터 해당 영화의 인덱스를 받아온다.
+        # 선택한 여행지의 타이틀로부터 해당 여행지의 인덱스를 받아온다.
         idx = title_to_index[selected_place_name]
 
         # 해당 여행지와 모든 여행지와의 유사도를 가져온다.
@@ -316,7 +319,7 @@ def another_recommend(request):
 
 
 
-    another_recommendations(selected_place_name)
+    #another_recommendations(selected_place_name)
 
 
     if request.method=='GET':
@@ -327,9 +330,11 @@ def another_recommend(request):
 
 
 @api_view(['GET'])
-def sns_recommend(request):
-    #current_user_id= request.get('current_user_id')
-    current_user_id= 3 
+def sns_recommend(request, user_id):
+    current_user_id = user_id
+    # current_user_id= request.query_params.get('current_user_id')
+    #request.data('current_user_id')
+    # current_user_id= 3 
     def sns_recommendations(current_user_id):
 
         
@@ -399,8 +404,8 @@ def sns_recommend(request):
             conn.commit()
             conn.close()
         mysql_save(user_review_list)
-
-    sns_recommendations(current_user_id)
+    print(request.data)
+    #sns_recommendations(current_user_id)
 
 
     if request.method=='GET':
