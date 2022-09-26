@@ -47,7 +47,7 @@ public class BookmarkController {
     @GetMapping("/region/{regionId}/user/{userId}")
 
     public ResponseEntity<?> getBookmarkByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("userId") Long userId) {
-    List<BookmarkResDto> reviews = bookmarkService.findAllByRegionAndUser(regionId, userId);
-    return new ResponseEntity<>(reviews, HttpStatus.valueOf(200));
+    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(regionId, userId);
+    return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
 }
 }

@@ -24,9 +24,13 @@ public class Bookmark {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;
+
+    @ManyToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
 
 
 //    public Bookmark(User user, Place place){
@@ -39,6 +43,10 @@ public class Bookmark {
     }
     public void setPlace(Place place){
         this.place=place;
+//        place.getBookmarks().add(this);
+    }
+    public void setRegion(Region region){
+        this.region=region;
 //        place.getBookmarks().add(this);
     }
 

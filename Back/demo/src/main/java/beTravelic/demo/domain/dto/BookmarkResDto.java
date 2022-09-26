@@ -16,6 +16,8 @@ import java.util.List;
 public class BookmarkResDto {
     private Long bookmarkId;
     private Long place;
+
+    private Long region;
     private Long user;
 
     public static BookmarkResDto of(Bookmark bookmark) {
@@ -23,10 +25,13 @@ public class BookmarkResDto {
                 .bookmarkId(bookmark.getBookmarkId())
                 .place(bookmark.getPlace().getPlaceId())
                 .user(bookmark.getUser().getUserId())
+                .region(bookmark.getRegion().getRegion_id())
                 .build();
     }
     public BookmarkResDto (Bookmark bookmark) {
         this.bookmarkId = bookmark.getBookmarkId();
         this.place = bookmark.getPlace().getPlaceId();
-        this.user = bookmark.getUser().getUserId();}
+        this.user = bookmark.getUser().getUserId();
+        this.region = bookmark.getRegion().getRegion_id();
+    }
 }
