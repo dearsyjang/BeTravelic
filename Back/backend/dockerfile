@@ -3,7 +3,7 @@ WORKDIR /var/jenkins_home/workspace/BeTravelic/backend
 COPY requirements.txt ./
 
 RUN pip3 install --upgrade pip
-RUN pip3 --upgrade setuptools
+RUN pip3 install --upgrade setuptools
 RUN pip3 install django
 
 # RUN pip3 install libmecab-dev
