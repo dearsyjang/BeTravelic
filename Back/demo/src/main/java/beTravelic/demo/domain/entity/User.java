@@ -85,6 +85,14 @@ public class User {
         this.email = email;
     }
 
+//    @Builder
+//    public MypageUser(String id, String nickname, List<Follow> follower, List<Follow> following){
+//        this.nickname = nickname;
+//        this.id = id;
+//        this.follower = follower;
+//        this.following = following;
+//    }
+
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
         this.userId = user_id;

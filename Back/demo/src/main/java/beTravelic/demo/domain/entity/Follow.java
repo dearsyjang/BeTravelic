@@ -1,7 +1,16 @@
 package beTravelic.demo.domain.entity;
 
 
-import lombok.*;
+//    @Builder
+//    public Follow(User userSeq, String follower, String following){
+//        this.follower = follower;
+//        this.following = following;
+//        this.userSeq = userSeq;
+//    }
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -22,11 +31,11 @@ public class Follow {
     private User follower;
 
     public void setFollowing(User following){
-        following.getFollowings().add(this);
+        following.getFollowing().add(this);
         this.following = following;
     }
     public void  setFollower(User follower){
-        follower.getFollowers().add(this);
+        follower.getFollower().add(this);
         this.follower = follower;
     }
 
