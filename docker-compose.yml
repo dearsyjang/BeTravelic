@@ -8,12 +8,21 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8443:8443"  
-
-
     volumes:
       - /home/ubuntu/docker-volume/ssl:/root
     container_name: "backend"
-    
+
+  backendDjango:
+    image: backend-django
+    build:
+      context: Back/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  volumes:
+      - /home/ubuntu/docker-volume/ssl:/root
+  container_name: "backendDjango"
+  
   frontend:
     image: frontend-react
     build:
