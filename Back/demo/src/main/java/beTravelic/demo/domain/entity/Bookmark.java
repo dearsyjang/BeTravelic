@@ -37,10 +37,10 @@ public class Bookmark {
 //        this.userId = user;
 //        this.placeId = place;
 //    }
-    public void setUser(User user){
-        this.user=user;
-        user.getBookmarks().add(this);
-    }
+//    public void setUser(User user){
+//        this.user=user;
+//        user.getBookmarks().add(this);
+//    }
     public void setPlace(Place place){
         this.place=place;
 //        place.getBookmarks().add(this);
