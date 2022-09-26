@@ -56,9 +56,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
-    @Setter
-    @OneToMany(mappedBy = "user")
-    private List<Bookmark> bookmarks = new ArrayList<>();
+
 
 
     @Setter

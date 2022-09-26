@@ -6,6 +6,7 @@ import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.repository.UserRepository;
 import beTravelic.demo.global.util.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +14,10 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
     private final JwtProvider jwtProvider;
+
     private final UserRepository userRepository;
     // 회원가입
     @Transactional
@@ -24,9 +27,9 @@ public class UserService {
         String refreshToken = jwtProvider.getRefreshToken();
         user.updateRefreshToken(refreshToken);
         userRepository.save(user);
-
         return SignupResponseDto.of(accessToken, refreshToken);
     }
+
     // 로그인
     public LoginResponseDto login(LoginRequestDto dto) throws Exception {
         User user = userRepository.findUserByIdAndPw(dto.getId(), dto.getPw()).orElseThrow(() ->
@@ -35,9 +38,16 @@ public class UserService {
     }
 
     // 닉네임 중복 확인
-    public void checkNickname(String nickname) {
-        if(userRepository.existsUserByNickname(nickname)) throw new DuplicatedNickNameException(nickname);
+    public isExistResponseDto checkNickname(String nickname) throws Exception {
+        isExistResponseDto isExist = new isExistResponseDto();
+        if(userRepository.existsUserByNickname(nickname)){
+            isExist.setExist(true);
+        }else{
+            isExist.setExist(false);
+        }
+        return isExist;
     }
+
     // 사용자 정보 조회
     public UserInfoResponseDto getUserInfo(String id) {
         User user = userRepository.findUserById(id).orElseThrow(() ->

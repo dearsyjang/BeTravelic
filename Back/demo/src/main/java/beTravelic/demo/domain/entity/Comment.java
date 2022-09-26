@@ -1,17 +1,16 @@
 package beTravelic.demo.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import sun.util.calendar.LocalGregorianCalendar;
+import lombok.*;
+
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 //  라뷰 댓글
 @Entity
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -41,4 +40,14 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp")
     private Date created_at;
+
+    @Builder
+    public Comment (Date created_at, String contents){
+        this.created_at = created_at;
+        this.contents = contents;
+    }
+    public void update(Date date, String contents){
+        this.created_at=date;
+        this.contents=contents;
+    }
 }
