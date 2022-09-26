@@ -60,7 +60,7 @@ const MyPage = () => {
           {showModal && (
             <PhotoInputModal
               setShowModal={setShowModal}
-              setShowArticleModal={setShowArticleModal}
+              // setShowArticleModal={setShowArticleModal}
             />
           )}
           {/* 프로필 */}

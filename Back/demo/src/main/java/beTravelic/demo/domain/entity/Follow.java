@@ -1,32 +1,35 @@
 package beTravelic.demo.domain.entity;
 
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@NoArgsConstructor
 public class Follow {
 
     @Id @GeneratedValue
-    @Column(name = "followSeq")
-    private Long followSeq;
-    @ManyToOne
-    @JoinColumn(name = "userSeq")
-    private User userSeq;
-    private String following_user_id;
-    private String follower_user_id;
+    @Column(name = "follow_id")
+    private Long follow_id;
 
-    @Builder
-    public Follow(User userSeq, String follower_user_id, String following_user_id){
-        this.follower_user_id = follower_user_id;
-        this.following_user_id = following_user_id;
-        this.userSeq = userSeq;
+    @ManyToOne
+    private User following;
+
+    @ManyToOne
+    private User follower;
+
+    public void setFollowing(User following){
+        following.getFollowings().add(this);
+        this.following = following;
     }
+    public void  setFollower(User follower){
+        follower.getFollowers().add(this);
+        this.follower = follower;
+    }
+
+
 
 }

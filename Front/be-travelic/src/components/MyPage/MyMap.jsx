@@ -28,38 +28,38 @@ const MyMap = (props) => {
     }
   };
 
+  const areaFn = (d) => {
+    console.log(d);
+    const code = d.properties.id;
+    console.log(code);
+    //console.log(code);
+    return code;
+  };
+
+  const fileFn = (d) => {
+    const code = d.properties.id;
+    // const imgfile = "data:image/png;base64," + d[code].file;
+    // console.log("imgfile 받음?", d[code].file);
+
+    const imgfile = "";
+
+    return logo;
+  };
+
+  const fillFn = (d) => {
+    // const pcolor = "#aaa";
+    const id = d.properties.id;
+    const fill = "url(#" + id + ")";
+    return fill;
+  };
+
+  const showModalHandler = (e) => {
+    console.log(e.target.__data__.properties);
+    console.log(e);
+    props.setShowModal(true);
+  };
+
   useEffect(() => {
-    function areaFn(d) {
-      console.log(d);
-      const code = d.properties.id;
-      console.log(code);
-      //console.log(code);
-      return code;
-    }
-
-    function fileFn(d) {
-      const code = d.properties.id;
-      // const imgfile = "data:image/png;base64," + d[code].file;
-      // console.log("imgfile 받음?", d[code].file);
-
-      const imgfile = "";
-
-      return logo;
-    }
-
-    function fillFn(d) {
-      // const pcolor = "#aaa";
-      const id = d.properties.id;
-      const fill = "url(#" + id + ")";
-      return fill;
-    }
-
-    const showModalHandler = (e) => {
-      console.log(e.target.__data__.properties);
-      console.log(e);
-      props.setShowModal(true);
-    };
-
     const projection = d3
       .geoMercator()
       .scale(initialScale)

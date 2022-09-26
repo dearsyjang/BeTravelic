@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../css/Feed.css"
-import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
 import { Link } from "react-router-dom";
+import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
 import CommentsModal from "./CommentsModal"
+import "../css/Feed.css"
 
 
 interface Feed {
@@ -21,7 +21,7 @@ function Feed( props: Feed) {
   const { feedid, nickname, date, place, imgUrl, likes, comments, contents } = props
 
   // 모달창
-   // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
+  // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
    const [modalOpen, setModalOpen] = useState(false);
    const openModal = () => {
      setModalOpen(true);
@@ -32,6 +32,7 @@ function Feed( props: Feed) {
  
   return (
     <div id="FeedCard" className="mb-10">
+      {/* 게시글 피드 */}
       <div id="FeedCardHeader">
         <div className="flex items-center m-5">
           <img
@@ -42,7 +43,6 @@ function Feed( props: Feed) {
           <div className="flex-grow">
             <Link to={`/mypage`}>
               <h2 className="title-font font-medium ml-3">{nickname}</h2>
-              {/* 위치 여기다 넣을지 고민중 */}
               {/* <p className="text-gray-500">{place}</p> */}
             </Link>
           </div>
@@ -66,7 +66,7 @@ function Feed( props: Feed) {
         </div>
 
         {/* 좋아요 버튼 => 수정 예정 */}
-        <div className="flex">
+        <div id="FeedButton" className="flex">
           <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
             <svg
               fill="red"
@@ -81,7 +81,8 @@ function Feed( props: Feed) {
           </button>
           <p className="mt-2">{likes}</p>
 
-          {/* 댓글 & 모달 */}
+
+          {/* 댓글 버튼 */}
           <div>
             <button
               onClick={openModal}
@@ -107,7 +108,7 @@ function Feed( props: Feed) {
           </div>
         </div>
 
-        <div className="w-full m-3 mb-5">
+        <div id="FeedContent" className="w-full m-3 mb-5">
           <p className="leading-relaxed">{contents}</p>
         </div>
       </div>

@@ -13,17 +13,19 @@ import lombok.NoArgsConstructor;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Builder
 public class UserInfoResponseDto {
-    private Long userSeq;
+    private Long userId;
     private String id;
     private String pw;
     private String nickname;
+    private String email;
 
     public static UserInfoResponseDto ofUser(User user){
         return UserInfoResponseDto.builder()
-                .userSeq(user.getUserSeq())
+                .userId(user.getUserId())
                 .id(user.getId())
                 .pw(user.getPw())
-                .nickname(user.getNickName())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
                 .build();
     }
 }

@@ -9,29 +9,32 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="picture")
 public class MypagePicture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pictureSeq")
-    private Long pictureSeq;
+    @Column(name = "picture_id")
+    private Long picture_id;
 
     //  유저
     @ManyToOne
-    @JoinColumn(name = "userSeq")
-    private User userSeq;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //  지역
-    private String region;
+    @OneToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
 
     //  이미지는 서버에 저장
     //  여기에는 서버의 이미지 주소 저장
     //  대표 이미지
-    @Column
+    @Column(name="image")
     private String image;
 
     @Builder
-    public MypagePicture(User userSeq, String region, String image){
-        this.userSeq = userSeq;
+    public MypagePicture(User user, Region region, String image){
+        this.user = user;
         this.region  = region;
         this.image = image;
     }
