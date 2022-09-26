@@ -1,4 +1,4 @@
-FROM openjdk-8-jdk
+FROM adoptopenjdk/openjdk8
 ARG JAR_FILE=build/libs/beTravelic-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} beTravelic.jar
 ENTRYPOINT ["java","-jar","/beTravelic.jar"]
