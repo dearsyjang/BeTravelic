@@ -70,6 +70,9 @@ public class Place {
     @OneToMany(mappedBy = "place")
     private List<PlaceKeywords> placeKeywords = new ArrayList<>();
 
+    @OneToMany(mappedBy = "place")
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
     @Builder(builderClassName = "ReviewPlaceId", builderMethodName = "ReviewPlaceId")
     public Place(Long place_id) {
         this.placeId = place_id;

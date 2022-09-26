@@ -33,6 +33,9 @@ public class Region {
     @OneToMany(mappedBy = "region")
     private List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "region")
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
     @Builder(builderClassName = "ReviewRegionId", builderMethodName = "ReviewRegionId")
     public Region(Long region_id) {
         this.region_id = region_id;
