@@ -7,13 +7,14 @@ import lombok.Data;
 @Builder
 @Data
 public class FollowerListResponseDto {
-    private Long id;
+
     private String follower_id;
+    private String nickname;
 
     public static FollowerListResponseDto of(Follow follow){
         return FollowerListResponseDto.builder()
-                .id(follow.getFollow_id())
                 .follower_id(follow.getFollower().getId())
+                .nickname(follow.getFollower().getNickname())
                 .build();
     }
 }
