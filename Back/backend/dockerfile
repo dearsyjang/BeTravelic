@@ -6,9 +6,9 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN pip3 install django
 
-# RUN pip3 install libmecab-dev
+RUN pip3 install libmecab-dev
 # RUN pip3 install mecab-config
-# RUN pip3 install python-mecab-ko
+RUN pip3 install python-mecab-ko
 
 # RUN python-mecab-ko --version
 RUN pip3 install eunjeon
