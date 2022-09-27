@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
@@ -15,13 +15,20 @@ function App() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // survey 시 navbar 제거 위함
+
+  // useEffect(() => {}, [isAuthenticated]);
+
   // const isSurveyed = useSelector((state: RootState) => state.auth.isSurveyed);
 
   return (
     <>
-      {/* {isAuthenticated && <Navbar />} */}
+      {isAuthenticated && <Navbar isAuthenticated={isAuthenticated} />}
       {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
-      <Navbar />
+      {/* <Navbar isAuthenticated={isAuthenticated} /> */}
       <Routes>
         <Route path="/" element={<OnBoard />} />
         <Route path="/survey" element={<Survey />} />
@@ -35,12 +42,12 @@ function App() {
             />
           }
         />
-        <Route path="/kakao" element={<Redirect />} />
+        {/* <Route path="/kakao" element={<Redirect />} /> */}
         <Route path="/place/:id" element={<PlaceDetailMain />} />
         <Route path="/sns" element={<SNS />} />
       </Routes>
-      <Footer />
-      {/* {isAuthenticated && <Footer />} */}
+      {/* <Footer /> */}
+      {isAuthenticated && <Footer />}
     </>
   );
 }

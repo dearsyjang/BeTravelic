@@ -3,7 +3,7 @@ import SurveyPhotos from "../components/Survey/SurveyPhotos";
 import "./css/Survey.css";
 import logo from "../assets/image/logo(black).png";
 
-const Survey = () => {
+const Survey: React.FC<{}> = () => {
   return (
     <div className="surveyBody">
       <div className="wrapper">

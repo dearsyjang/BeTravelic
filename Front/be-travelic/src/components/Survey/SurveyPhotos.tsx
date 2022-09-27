@@ -17,7 +17,7 @@ interface Photo {
 // 1. display에 포토 저장함
 // 2. winners에 keyword 저장, selected_category저장
 
-const SurveyPhotos: React.FC = () => {
+const SurveyPhotos: React.FC<{}> = ({}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -43,7 +43,7 @@ const SurveyPhotos: React.FC = () => {
       // spinner
 
       // routes
-      dispatch(authActions.authenticate({ token: "" }));
+      dispatch(authActions.authenticate);
       navigate("/mypage");
     }
 
