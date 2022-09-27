@@ -3,16 +3,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface AuthState {
   user: {};
   isAuthenticated: boolean;
-  token: string;
-  isSurveyed: boolean;
+  accessToken: string;
+  refreshToken: string;
+}
+
+interface Token {
+  accessToken: string;
   refreshToken: string;
 }
 
 const initialState: AuthState = {
   user: {},
-  token: "",
+  accessToken: "",
   isAuthenticated: false,
-  isSurveyed: false,
   refreshToken: "",
 };
 
@@ -20,12 +23,13 @@ export const authSlice = createSlice({
   name: "authentication",
   initialState,
   reducers: {
-    authenticate(state, action: PayloadAction<boolean>) {
-      //   state.token = action.payload.token;
-      //   state.refreshToken = action.payload.refreshToken;
+    authenticate(state, action: PayloadAction<Token>) {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       console.log("진입");
       state.isAuthenticated = true;
-      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("accessToken", state.accessToken);
+      localStorage.setItem("refershToken", state.refreshToken);
     },
     logout(state) {
       // state.token = null;
