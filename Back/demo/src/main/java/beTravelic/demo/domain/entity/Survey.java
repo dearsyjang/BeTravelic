@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.print.attribute.standard.MediaSize;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -17,7 +20,7 @@ public class Survey {
 
     @OneToOne
     private User user;
-    private String survey_keyword;
+    private String survey_keyword ;
     private Integer survey_category;
 
     @Builder
