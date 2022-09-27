@@ -1,6 +1,7 @@
 import React, { FormEvent, SetStateAction, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getMemberId, login, register } from "../../apis/auth";
 import { authActions } from "../../store/auth";
 
 interface error {
@@ -87,23 +88,31 @@ const SignUpForm: React.FC<{
     // axios
     // 설문조사로
     e.preventDefault();
+    const { email, password } = inputValues;
 
-    switch (identifier) {
-      case "login":
-        // login
-        dispatch(authActions.authenticate(true));
-        navigate("/mypage", { replace: true });
-        break;
-      case "signup":
-        dispatch(authActions.authenticate(true));
-        navigate("/survey", { replace: true });
-        // signup
-        break;
-      default:
-        // back
-        setStatus(identifier);
-        break;
+    let res;
+    if (identifier === "login") {
+      res = await login({ email, password });
+    } else if (identifier === "signup") {
+      res = await register({ email, password });
     }
+
+    const { accessToken, refreshToken } = res.data;
+
+    // token 저장
+    dispatch(
+      authActions.authenticate({
+        accessToken,
+        refreshToken,
+      })
+    );
+    let userId: string | null = null;
+    if (identifier === "login") {
+      userId = await getMemberId();
+    }
+
+    const url = userId === null ? "/survey" : `/mypage/${userId}`;
+    navigate(url, { replace: true });
   };
 
   return (
