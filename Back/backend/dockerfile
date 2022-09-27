@@ -6,7 +6,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN pip3 install django
 
-RUN bash < curl -s https://raw.githubusercontent.com/koshort/peunjeon/master/scripts/mecab.sh
+RUN curl -s https://raw.githubusercontent.com/koshort/peunjeon/master/scripts/mecab.sh
 
 # Install eunjeon / eunjeon을 설치합니다.
 RUN pip3 install eunjeon
