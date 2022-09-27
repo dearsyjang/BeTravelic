@@ -34,6 +34,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-radius: 16px;
 }
 
 .surveyLogo {
@@ -54,4 +55,9 @@
   display: flex;
   position: absolute;
   bottom: 40px;
+}
+
+.progressBar {
+  position: absolute;
+  top: 16px;
 }
