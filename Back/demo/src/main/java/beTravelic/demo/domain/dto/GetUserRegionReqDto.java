@@ -10,6 +10,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class GetUserRegionReqDto {
-    private Long userId;
+    private Long user_id;
     private Long regionId;
 }

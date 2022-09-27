@@ -15,6 +15,6 @@ public class Categories {
     @Column(name = "category_name")
     private String category_name;
 
-    @Column(name = "category_type_id")
-    private Integer category_type_id;
+    @Column(name = "content_type_id")
+    private Integer content_type_id;
 }

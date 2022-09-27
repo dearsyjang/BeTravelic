@@ -45,9 +45,9 @@ public class BookmarkService {
 //        return new BookmarkSaveRequestDto(bookmark.getBookmarkId());
 
 
-    public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, Long userId) {
+    public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, Long user_id) {
 //        log.info("게시글 타입으로 게시글 조회하였습니다.");
-        return bookmarkRepository.findAllByUserAndRegion(userId, regionId);
+        return bookmarkRepository.findAllByUserAndRegion(user_id, regionId);
     }
 
 //        User user = userRepository.findById(userId);
