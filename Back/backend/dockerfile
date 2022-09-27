@@ -8,7 +8,7 @@ RUN pip3 install django
 
 # RUN pip3 install libmecab-dev
 # RUN pip3 install mecab-config
-RUN pip3 install pybind
+# RUN pip3 install pybind
 RUN pip3 install python-mecab-ko
 RUN pip3 install mecab
 
