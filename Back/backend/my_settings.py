@@ -4,7 +4,7 @@ DATABASES = {
         'NAME' : 'D205_2',
         'USER' : 'root',
         'PASSWORD' : 'd205',
-        'HOST' : '172.17.0.1',
+        'HOST' : 'j7d205.p.ssafy.io',
         'PORT' : '3306',
     }
 }

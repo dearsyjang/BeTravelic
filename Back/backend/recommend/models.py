@@ -8,14 +8,17 @@ class User(models.Model):
     nickname = models.CharField(max_length=16)
     email = models.CharField(max_length=32)
     image = models.CharField(max_length=500)
-
+    id= models.CharField(max_length=45)
+    pw = models.CharField(max_length=45)
+    refresh_token = models.CharField(max_length=500)
     class Meta:
         managed = False
         db_table = 'user'
 
 
 class RecommendPlace(models.Model):
-    place_id = models.IntegerField(primary_key=True)
+    recommend_id = models.IntegerField(primary_key=True)
+    place_id = models.ForeignKey('Place', models.DO_NOTHING, db_column='place_id', blank=True, null=True)
     addr = models.CharField(max_length=45)
     title = models.CharField(max_length=45)
     image = models.CharField(max_length=500)
@@ -47,8 +50,8 @@ class Place(models.Model):
 
 class UserPlace(models.Model):
     visited_id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(User, models.DO_NOTHING)
-    place = models.ForeignKey(Place, models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    place_id = models.ForeignKey('Place', models.DO_NOTHING, db_column='place_id', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -57,20 +60,12 @@ class UserPlace(models.Model):
 
 
 
-class Keywords(models.Model):
-    keywords_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=45)
-
-    class Meta:
-        managed = False
-        db_table = 'keywords'
-
 
 class Picture(models.Model):
     picture_id = models.IntegerField(primary_key=True)
     image = models.CharField(max_length=500)
-    region = models.ForeignKey('Regions', models.DO_NOTHING)
-    user = models.ForeignKey('User', models.DO_NOTHING)
+    region_id = models.ForeignKey('Regions', models.DO_NOTHING, db_column='region_id', blank=True, null=True)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -87,22 +82,12 @@ class Categories(models.Model):
         db_table = 'categories'
 
 
-class PlaceKeywords(models.Model):
-    place_keywords_id = models.IntegerField(primary_key=True)
-    keywords = models.ForeignKey(Keywords, models.DO_NOTHING)
-    place = models.ForeignKey(Place, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'place_keywords'
 
 
 class Regions(models.Model):
     region_id = models.IntegerField(primary_key=True)
     area_code = models.IntegerField()
     do_gwangyuksi = models.CharField(max_length=45)
-    places = models.ForeignKey(Place, models.DO_NOTHING)
-
     class Meta:
         managed = False
         db_table = 'regions'
@@ -115,8 +100,9 @@ class Review(models.Model):
     score = models.IntegerField()
     created_at = models.DateTimeField()
     visited_at = models.CharField(max_length=45)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    place = models.ForeignKey(Place, models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    place_id = models.ForeignKey('Place', models.DO_NOTHING, db_column='place_id', blank=True, null=True)
+    region_id = models.ForeignKey('Regions', models.DO_NOTHING, db_column='region_id', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -125,8 +111,8 @@ class Review(models.Model):
 
 class Reviewlike(models.Model):
     like_id = models.IntegerField(primary_key=True)
-    review = models.ForeignKey(Review, models.DO_NOTHING)
-    user = models.ForeignKey('User', models.DO_NOTHING)
+    review_id = models.ForeignKey('Review', models.DO_NOTHING, db_column='review_id', blank=True, null=True)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -135,34 +121,13 @@ class Reviewlike(models.Model):
 
 
 
-class UserCategories(models.Model):
-    user_categories_id = models.IntegerField(primary_key=True)
-    category = models.ForeignKey(Categories, models.DO_NOTHING)
-    user = models.ForeignKey(User, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'user_categories'
-
-
-class UserKeywords(models.Model):
-    user_keywords_id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(User, models.DO_NOTHING)
-    keywords = models.ForeignKey(Keywords, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'user_keywords'
-
-
-
-
 
 
 class Bookmark(models.Model):
     bookmark_id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    place = models.ForeignKey('Place', models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    place_id = models.ForeignKey('Place', models.DO_NOTHING, db_column='place_id', blank=True, null=True)
+    region_id= models.ForeignKey('Regions', models.DO_NOTHING, db_column='region_id', blank=True, null=True)
 
     class Meta:
         managed = False      
@@ -173,8 +138,8 @@ class Comment(models.Model):
     comment_id = models.IntegerField(primary_key=True)
     contents = models.CharField(max_length=100)       
     created_at = models.DateTimeField()
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    review = models.ForeignKey('Review', models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    review_id = models.ForeignKey('Review', models.DO_NOTHING, db_column='review_id', blank=True, null=True)
 
     class Meta:
         managed = False     
@@ -182,14 +147,21 @@ class Comment(models.Model):
 
 
 
+class Survey(models.Model):
+    Survey_id = models.IntegerField(primary_key=True)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    surveycategory = models.CharField(max_length=45)
+    surveykeyword =  models.CharField(max_length=45)    
 
-
+    class Meta:
+        managed = False
+        db_table = 'Survey'  
 
 
 class Follow(models.Model):
     follow_id = models.IntegerField(primary_key=True)
-    follower_user = models.ForeignKey('User', models.DO_NOTHING, related_name="follower_user")
-    following_user = models.ForeignKey('User', models.DO_NOTHING, related_name="following_user")
+    follower_user_id = models.ForeignKey('User', models.DO_NOTHING, related_name="follower_user" )
+    following_user_id = models.ForeignKey('User', models.DO_NOTHING, related_name="following_user")
 
     class Meta:
         managed = False
@@ -202,14 +174,14 @@ class RecommendUser(models.Model):
     image_x = models.CharField(max_length=500, blank=True, null=True)
     image_y = models.CharField(max_length=500, blank=True, null=True)
     nickname = models.CharField(max_length=45, blank=True, null=True)
-    review = models.ForeignKey('Review', models.DO_NOTHING)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    place = models.ForeignKey(Place, models.DO_NOTHING)
+    review_id = models.ForeignKey('Review', models.DO_NOTHING, db_column='review_id', blank=True, null=True)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    place_id = models.ForeignKey('Place', models.DO_NOTHING, db_column='place_id', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'recommenduser'
-
+########################################################################################################################
 
 # class User(models.Model):
 #     user_id = models.IntegerField(primary_key=True)

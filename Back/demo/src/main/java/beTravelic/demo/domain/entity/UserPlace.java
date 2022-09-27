@@ -19,12 +19,12 @@ public class UserPlace {
     @Column(name = "visited_id")
     private Long visited_id;
 
-    //    유저
+    // 유저
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    //    여행지
+    // 여행지
     @OneToOne
     @JoinColumn(name = "place_id")
     private Place place;

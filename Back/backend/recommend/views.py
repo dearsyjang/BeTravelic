@@ -33,55 +33,33 @@ import pymysql
 from eunjeon import Mecab
 
 
-conn = pymysql.connect(host='localhost',
+conn = pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
-                        password='ssafyd205',
+                        password='d205',
                         db='D205_2',
                         charset='utf8')
-
 
 
 follow_table = "SELECT * FROM follow"
 user_table = "SELECT * FROM user"
 place_table = "SELECT * FROM place"
 category_table = "SELECT * FROM categories"
-place_keywords_table = "SELECT * FROM keywords"
 review_table = "SELECT * FROM review"
-all_keywords_table = "SELECT * FROM keywords"
+
 
 follow_data = pd.read_sql_query(follow_table, conn)
 user_data = pd.read_sql_query(user_table, conn)
 place_data = pd.read_sql_query(place_table, conn)
 category_data = pd.read_sql_query(category_table, conn)
-keywords_data = pd.read_sql_query(place_keywords_table, conn)
 review_data = pd.read_sql_query(review_table, conn)
-all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
 user_review_data = pd.merge(user_data, review_data, on='user_id')
 place_category_data = pd.merge(place_data, category_data, on='category_id')
-# place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
 place_review_data = pd.merge(place_data, review_data, on='place_id')
-# place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
 user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
 Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
-from numpy import dot
-from numpy.linalg import norm
-import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.decomposition import TruncatedSVD
-import pandas as pd
-import numpy as np
-import pymysql
-from eunjeon import Mecab
 
-
-conn = pymysql.connect(host='localhost',
-                        user='root',
-                        password='ssafyd205',
-                        db='D205_2',
-                        charset='utf8')
 
 
 
@@ -220,11 +198,11 @@ def place_recommend(request,user_id,category):
 
 
         def mysql_save(info_list):
-            conn=pymysql.connect(host='localhost',
-                                user='root',
-                                password='ssafyd205',
-                                db='D205_2',
-                                charset='utf8')
+            conn=pymysql.connect(host='j7d205.p.ssafy.io',
+                        user='root',
+                        password='d205',
+                        db='D205_2',
+                        charset='utf8')
 
             cursor=conn.cursor()
             sql = "truncate recommendplace"
@@ -300,11 +278,11 @@ def another_recommend(request,place_name):
         df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
 
         def mysql_save(info_list):
-            conn=pymysql.connect(host='localhost',
-                                user='root',
-                                password='ssafyd205',
-                                db='D205_2',
-                                charset='utf8')
+            conn=pymysql.connect(host='j7d205.p.ssafy.io',
+                        user='root',
+                        password='d205',
+                        db='D205_2',
+                        charset='utf8')
             cursor=conn.cursor()
             sql = "truncate recommendplace"
             cursor.execute(sql)
@@ -386,13 +364,13 @@ def sns_recommend(request, user_id):
         set_rec_feed2 = list(set_rec_feed)
         user_review_list = set_follow_feed2 + set_rec_feed2
         df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_x','image_y','nickname'])
-
+        
         def mysql_save(user_review_list):
-            conn=pymysql.connect(host='localhost',
-                                user='root',
-                                password='ssafyd205',
-                                db='D205_2',
-                                charset='utf8')
+            conn=pymysql.connect(host='j7d205.p.ssafy.io',
+                        user='root',
+                        password='d205',
+                        db='D205_2',
+                        charset='utf8')
             cursor=conn.cursor()
             sql = "truncate recommenduser"
             cursor.execute(sql)
@@ -404,7 +382,7 @@ def sns_recommend(request, user_id):
             conn.commit()
             conn.close()
         mysql_save(user_review_list)
-    print(request.data)
+    
     #sns_recommendations(current_user_id)
 
 

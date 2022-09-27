@@ -23,3 +23,16 @@ hr {
   border: 3px;
   color: black;
 }
+
+.flexbox > *{
+  flex-grow: 0;
+}
+
+#DetailRecommendItem {
+  width: 300px;
+}
+
+#DetailRecommendContainer{
+  justify-content: center;
+  align-items: center;
+}

@@ -15,21 +15,15 @@ public class Survey {
     @Column(name = "suervey_id")
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private User user;
-
-    @OneToOne
-    @JoinColumn(name = "keyword_id")
-    private Keywords keywords;
-
-    @OneToOne
-    @JoinColumn(name = "category_id")
-    private Categories categories;
+    private String survey_keyword;
+    private Integer survey_category;
 
     @Builder
-    public Survey(User user, Categories categories, Keywords keywords){
-        this.categories = categories;
-        this.keywords = keywords;
+    public Survey(User user, String survey_keyword, Integer survey_category){
+        this.survey_keyword = survey_keyword;
+        this.survey_category = survey_category;
         this.user = user;
     }
 }
