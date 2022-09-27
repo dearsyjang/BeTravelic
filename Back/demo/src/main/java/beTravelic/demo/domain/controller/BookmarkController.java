@@ -44,10 +44,10 @@ public class BookmarkController {
 //        }
 //    }
 
-    @GetMapping("/region/{regionId}/user/{userId}")
+    @GetMapping("/region/{regionId}/user/{user_id}")
 
-    public ResponseEntity<?> getBookmarkByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("userId") Long userId) {
-    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(regionId, userId);
+    public ResponseEntity<?> getBookmarkByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("user_id") Long user_id) {
+    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(regionId, user_id);
     return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
 }
 }

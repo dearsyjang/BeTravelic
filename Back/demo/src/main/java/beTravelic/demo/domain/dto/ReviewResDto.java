@@ -42,7 +42,7 @@ public class ReviewResDto {
         return ReviewResDto.builder()
                 .reviewId(review.getReviewId())
                 .place(review.getPlace().getPlaceId())
-                .user(review.getUser().getUserId())
+                .user(review.getUser().getUser_id())
                 .region(review.getRegion().getRegion_id())
                 .contents(review.getContents())
                 .image(review.getImage())
@@ -69,7 +69,7 @@ public class ReviewResDto {
     public ReviewResDto (Review review) {
         this.reviewId = review.getReviewId();
         this.place = review.getPlace().getPlaceId();
-        this.user = review.getUser().getUserId();
+        this.user = review.getUser().getUser_id();
         this.region = review.getRegion().getRegion_id();
         this.contents = review.getContents();
         this.image = review.getImage();

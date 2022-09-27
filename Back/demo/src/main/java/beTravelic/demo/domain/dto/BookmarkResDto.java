@@ -24,14 +24,14 @@ public class BookmarkResDto {
         return BookmarkResDto.builder()
                 .bookmarkId(bookmark.getBookmarkId())
                 .place(bookmark.getPlace().getPlaceId())
-                .user(bookmark.getUser().getUserId())
+                .user(bookmark.getUser().getUser_id())
                 .region(bookmark.getRegion().getRegion_id())
                 .build();
     }
     public BookmarkResDto (Bookmark bookmark) {
         this.bookmarkId = bookmark.getBookmarkId();
         this.place = bookmark.getPlace().getPlaceId();
-        this.user = bookmark.getUser().getUserId();
+        this.user = bookmark.getUser().getUser_id();
         this.region = bookmark.getRegion().getRegion_id();
     }
 }
