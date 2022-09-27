@@ -1,4 +1,4 @@
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE=build/libs/demo.jar
 COPY ${JAR_FILE} demo.jar
 ENTRYPOINT ["java","-jar","/demo.jar"]
