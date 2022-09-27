@@ -49,9 +49,9 @@ const OnBoard = () => {
   };
 
   return (
-    <div className="onBoardBody">
-      <div className="wrapper">
-        <div className="mainDiv transition-all">
+    <div className='onBoardBody'>
+      <div className='wrapper'>
+        <div className='mainDiv transition-all'>
           {/* <CSSTransition
             nodeRef={onboard}
             in={inProp}

@@ -46,7 +46,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+// tasks.named('test') {
+// 	useJUnitPlatform()
+// }
+// targetCompatibility = JavaVersion.VERSION_16
+tasks {
+    processResources {
+        duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+    }
 }
-targetCompatibility = JavaVersion.VERSION_16
