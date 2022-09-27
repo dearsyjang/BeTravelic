@@ -46,7 +46,6 @@ function App() {
         <Route path="/place/:id" element={<PlaceDetailMain />} />
         <Route path="/sns" element={<SNS />} />
       </Routes>
-      {/* <Footer /> */}
       {isAuthenticated && <Footer />}
     </>
   );

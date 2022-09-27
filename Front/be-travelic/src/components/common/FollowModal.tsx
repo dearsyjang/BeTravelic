@@ -1,18 +1,34 @@
 import React, { useState } from "react";
+import { Follow } from "../../apis/mypage";
 import CloseButton from "../MyPage/CloseButton";
 
 const FollowModal: React.FC<{
   setShowFollowModal: React.Dispatch<React.SetStateAction<boolean>>;
   tabNumber: number;
-}> = ({ setShowFollowModal, tabNumber }) => {
+  follows: Follow[];
+  setFollows: React.Dispatch<React.SetStateAction<Follow[]>>;
+  userId:string
+}> = ({ setShowFollowModal, tabNumber, follows, setFollows, userId }) => {
   const closeFollowModalHandler = () => {
     setShowFollowModal(false);
   };
 
   const [openTab, setOpenTab] = useState(tabNumber);
 
+  const fetchFollows = async (
+    identifier: string,
+    e: React.MouseEvent<HTMLElement>
+  ) => {
+    e.preventDefault();
+    const tabNum = identifier === "followerList" ? 1 : 2;
+    // const res = await fetchFollows(userId!, identifier);
+    // setFollows(res.data);
+
+    setOpenTab(tabNum);
+  };
+
   return (
-    <div className="backdrop" onClick={closeFollowModalHandler}>
+    <div className="backdrop">
       <div className="modalContainer">
         <div className="flex flex-wrap">
           <div className="w-full">
@@ -28,10 +44,7 @@ const FollowModal: React.FC<{
                       ? "text-white bg-" + "blue" + "-400"
                       : "bg-white")
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(1);
-                  }}
+                  onClick={fetchFollows.bind(this, "followerList")}
                   data-toggle="tab"
                   href="#link1"
                   role="tablist"
@@ -48,10 +61,7 @@ const FollowModal: React.FC<{
                       ? "text-white bg-" + "blue" + "-400"
                       : "bg-white")
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(2);
-                  }}
+                  onClick={fetchFollows.bind(this, "followingList")}
                   data-toggle="tab"
                   href="#link2"
                   role="tablist"
