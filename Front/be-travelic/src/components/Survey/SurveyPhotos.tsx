@@ -1,30 +1,34 @@
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
-import React, { useEffect, useState } from "react";
+import { set } from "date-fns";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchSurvey, getMemberId } from "../../apis/auth";
 import { authActions } from "../../store/auth";
 import "../css/SurveyPhotos.css";
 import { dummyPhotos } from "./SurveyData";
+import { Winners } from "../../apis/auth";
 
 interface Photo {
   id: number;
   src: any;
   keyword_name: string[];
-  category_id?: number;
-  selected_category?: number[];
+  category_id: number;
 }
 
 // 1. display에 포토 저장함
 // 2. winners에 keyword 저장, selected_category저장
 
-const SurveyPhotos: React.FC<{}> = ({}) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [index, setIndex] = useState(0);
+const SurveyPhotos: React.FC<{
+  setProgress: React.Dispatch<SetStateAction<number>>;
+}> = ({ setProgress }) => {
+  const [index, setIndex] = useState<number>(0);
   const [photos, setPhotos] = useState<Photo[]>();
   const [displays, setDisplays] = useState<Photo[]>();
-  const [winners, setWinners] = useState<Photo[]>([]);
+  const [winners, setWinners] = useState<Winners>({
+    keyword_name: [],
+    category_ids: [],
+  });
   useEffect(() => {
     dummyPhotos.sort(() => Math.random() - 0.5);
     setPhotos(dummyPhotos);
@@ -32,28 +36,40 @@ const SurveyPhotos: React.FC<{}> = ({}) => {
     setIndex(index + 2);
   }, []);
 
-  const clickHandler = (photo: Photo) => {
+  const clickHandler = async (photo: Photo) => {
     if (index < dummyPhotos.length) {
       setDisplays([dummyPhotos[index], dummyPhotos[index + 1]]);
+      setProgress((prev) => prev + 14);
       setIndex(index + 2);
     } else {
-      // axios 요청 + loading spinner + 다른 곳으로 route
-      console.log(winners, "winners");
+      // 중복 제거
+      const finals: Winners = {
+        keyword_name: [...new Set(winners.keyword_name)],
+        category_ids: [...new Set(winners.category_ids)],
+      };
 
-      // spinner
+      // axios 요청 + 다른 곳으로 route
+      console.log(finals, "winners");
+      // const userId = await getMemberId();
+      // const res = await fetchSurvey(finals, userId);
 
-      // routes
-      dispatch(authActions.authenticate);
-      navigate("/mypage");
+      // if (res.status === 200) {
+      //   navigate(`/mypage/${userId}`);
+      // }
     }
 
-    // setWinners에 category id랑 keyword name만 저장
-    // const newPhoto = {
-    //   keyword_name: [...photo.keyword_name],
-    //   category_id: photo.category_id,
-    // };
-
-    setWinners((prev) => [...prev, photo]);
+    if (winners.keyword_name) {
+      const newPhoto: Winners = {
+        keyword_name: [...winners.keyword_name, ...photo.keyword_name],
+        category_ids: [...winners.category_ids, photo.category_id],
+      };
+      setWinners(newPhoto);
+    } else {
+      setWinners({
+        keyword_name: [...photo.keyword_name],
+        category_ids: [photo.category_id],
+      });
+    }
   };
 
   return (

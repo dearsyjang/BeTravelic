@@ -10,6 +10,11 @@ interface Register {
   password: string;
 }
 
+export interface Winners {
+  keyword_name: string[];
+  category_ids: number[];
+}
+
 export const login = async (data: Register) => {
   try {
     const res = await axios({
@@ -44,4 +49,19 @@ export const getMemberId = async () => {
   const decodedJwt: any = jwt_decode(jwt);
   const memberId = decodedJwt?.memberId;
   return memberId;
+};
+
+export const fetchSurvey = async (data: Winners, userId: any) => {
+  try {
+    const res = await axios({
+      method: "post",
+      url: `/survey/${userId}`,
+      data,
+    });
+
+    return res.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err.response?.data);
+  }
 };

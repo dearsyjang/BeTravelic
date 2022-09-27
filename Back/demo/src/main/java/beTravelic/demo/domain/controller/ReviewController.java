@@ -51,10 +51,10 @@ public class ReviewController {
     }
 
     @ApiOperation(value = "유저의 지역별 여행기록 조회", notes = "게시글 리스트 또는 null 반환")
-    @GetMapping("/travel-history/region/{regionId}/user/{userId}")
+    @GetMapping("/travel-history/region/{regionId}/user/{user_id}")
 //    public ResponseEntity<?> getReviewByRegionAndUser(@RequestBody GetUserRegionReqDto getUserTypeBoardReqDto) {
-    public ResponseEntity<?> getReviewByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("userId") Long userId) {
-        List<ReviewResDto> reviews = reviewService.findAllByRegionAndUser(regionId, userId);
+    public ResponseEntity<?> getReviewByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("user_id") Long user_id) {
+        List<ReviewResDto> reviews = reviewService.findAllByRegionAndUser(regionId, user_id);
         return new ResponseEntity<>(reviews, HttpStatus.valueOf(200));
     }
 //    @GetMapping("/travel-history/region/{regionId}/user/{userId}")

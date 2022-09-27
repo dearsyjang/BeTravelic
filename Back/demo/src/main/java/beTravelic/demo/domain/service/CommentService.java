@@ -75,7 +75,7 @@ public class CommentService {
         User user = userRepository.findUserById(id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자가 없음"));
 
-        if(user.getUserId().equals(comment.getUser().getUserId())){
+        if(user.getUser_id().equals(comment.getUser().getUser_id())){
             commentRepository.delete(comment);
         }else{
             new RuntimeException("실패");

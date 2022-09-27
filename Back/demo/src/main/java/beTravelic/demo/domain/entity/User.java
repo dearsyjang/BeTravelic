@@ -17,7 +17,7 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long userId;
+    private Long user_id;
     @Column(name = "id", nullable = false, unique = true)
     private String id;
     @Column(name = "pw", nullable = false)
@@ -64,7 +64,7 @@ public class User {
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
-        this.userId = user_id;
+        this.user_id = user_id;
     }
 
 }
