@@ -6,10 +6,10 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN pip3 install django
 
-# RUN pip3 install libmecab-dev
-# RUN pip3 install mecab-config
-RUN pip3 install python-mecab-ko
-RUN pip3 install mecab
+RUN bash <(curl -s https://raw.githubusercontent.com/koshort/peunjeon/master/scripts/mecab.sh)
+
+# Install eunjeon / eunjeon을 설치합니다.
+RUN pip3 install eunjeon
 
 # RUN python-mecab-ko --version
 RUN pip3 install eunjeon
