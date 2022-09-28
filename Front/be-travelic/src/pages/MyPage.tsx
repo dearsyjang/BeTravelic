@@ -6,6 +6,7 @@ import MyMap from "../components/MyPage/MyMap";
 import MyPageCard from "../components/MyPage/MyPageCard";
 import PhotoInputModal from "../components/MyPage/PhotoInputModal";
 import PlaceContainer from "../components/MyPage/PlaceContainer";
+import "../pages/css/OnBoard.css";
 
 const MyPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -53,7 +54,7 @@ const MyPage = () => {
           </div>
         </div>
       ) : (
-        <>
+        <div className="fadeIn">
           {showArticleModal && (
             <ArticleModal setShowArticleModal={setShowArticleModal} />
           )}
@@ -77,7 +78,7 @@ const MyPage = () => {
               <PlaceContainer />
             </section>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

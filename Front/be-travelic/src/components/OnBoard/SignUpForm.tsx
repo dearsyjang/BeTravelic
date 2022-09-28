@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMemberId, login, register } from "../../apis/auth";
 import { authActions } from "../../store/auth";
+import '../../pages/css/OnBoard.css'
 
 interface error {
   email: boolean;
@@ -119,7 +120,7 @@ const SignUpForm: React.FC<{
   };
 
   return (
-    <div className="w-full  md:mt-0 sm:max-w-md xl:p-0">
+    <div className="w-full  md:mt-0 sm:max-w-md xl:p-0 fadeIn">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center">
           회원 정보 입력
