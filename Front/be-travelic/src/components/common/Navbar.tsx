@@ -18,7 +18,7 @@ const Navbar: React.FC<{ isAuthenticated: boolean }> = ({
   return (
     <header className="text-primary body-font bg-blue-300">
       <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
-        <NavLink to="/home">
+        <NavLink to="">
           <div className="flex title-font font-medium items-center text-gray-900 md:mb-0">
             <img src={logo} className="h-16" />
             {/* <span className="ml-3 text-xl text-white">여행이 체질</span> */}

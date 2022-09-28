@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
@@ -10,11 +10,15 @@ import Redirect from "./components/oauth/Redirect";
 import SNS from "./pages/SNS";
 import { Provider, useSelector } from "react-redux";
 import store, { RootState } from "./store";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import './App.css'
 
 function App() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+
+  const location = useLocation();
 
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -26,27 +30,36 @@ function App() {
 
   return (
     <>
-      {isAuthenticated && <Navbar isAuthenticated={isAuthenticated} />}
+      {/* {isAuthenticated && <Navbar isAuthenticated={isAuthenticated} />} */}
       {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
-      {/* <Navbar isAuthenticated={isAuthenticated} /> */}
-      <Routes>
-        <Route path="/" element={<OnBoard />} />
-        <Route path="/survey" element={<Survey />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route
-          path="/recommendMain"
-          element={
-            <RecommendPlaceMain
-              latitude={36.271610662143146}
-              longitude={129.29439396586432}
+      <Navbar isAuthenticated={isAuthenticated} />
+      <TransitionGroup className="transition-group">
+        <CSSTransition
+          key={location.pathname}
+          classNames="pageSlider"
+          timeout={500}
+        >
+          <Routes location={location}>
+            <Route path="/" element={<OnBoard />} />
+            <Route path="/survey" element={<Survey />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route
+              path="/recommendMain"
+              element={
+                <RecommendPlaceMain
+                  latitude={36.271610662143146}
+                  longitude={129.29439396586432}
+                />
+              }
             />
-          }
-        />
-        {/* <Route path="/kakao" element={<Redirect />} /> */}
-        <Route path="/place/:id" element={<PlaceDetailMain />} />
-        <Route path="/sns" element={<SNS />} />
-      </Routes>
-      {isAuthenticated && <Footer />}
+            {/* <Route path="/kakao" element={<Redirect />} /> */}
+            <Route path="/place/:id" element={<PlaceDetailMain />} />
+            <Route path="/sns" element={<SNS />} />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
+      <Footer />
+      {/* {isAuthenticated && <Footer />} */}
     </>
   );
 }

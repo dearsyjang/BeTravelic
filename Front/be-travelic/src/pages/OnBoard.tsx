@@ -5,6 +5,11 @@ import kakao from "../assets/image/kakao-button.png";
 import { login } from "../apis/auth";
 import SignUpForm from "../components/OnBoard/SignUpForm";
 import OnBoardMain from "../components/OnBoard/OnBoardMain";
+import {
+  CSSTransition,
+  SwitchTransition,
+  TransitionGroup,
+} from "react-transition-group";
 // import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 // 카카오 로그인 시 필요
@@ -49,43 +54,41 @@ const OnBoard = () => {
   };
 
   return (
-    <div className='onBoardBody'>
-      <div className='wrapper'>
-        <div className='mainDiv transition-all'>
+    <div className="onBoardBody">
+      <div className="wrapper ">
+        <div className="mainDiv fadeIn">
           {/* <CSSTransition
             nodeRef={onboard}
             in={inProp}
             timeout={200}
             classNames="my-node"
           > */}
-          {status === "onboard" ? (
+          {/* {status === "onboard" ? (
             <OnBoardMain
               changeStatusHandler={changeStatusHandler}
               setInProp={setInProp}
             />
           ) : (
             <SignUpForm status={status} setStatus={setStatus} />
-          )}
+          )} */}
           {/* </CSSTransition> */}
 
-          {/* <SwitchTransition mode="in-out">
-            <CSSTransition
-              key={status}
-              nodeRef={nodeRef}
-              in={inProp}
-              timeout={1000}
-              classNames="my-node"
-            >
-              {status === "onboard" ? (
-                <OnBoardMain
-                  changeStatusHandler={changeStatusHandler}
-                  setInProp={setInProp}
-                />
-              ) : (
-                <SignUpForm status={status} setStatus={setStatus} />
-              )}
-            </CSSTransition>
-          </SwitchTransition> */}
+          {/* <SwitchTransition mode="in-out"> */}
+          {status === "onboard" && (
+            <OnBoardMain
+              changeStatusHandler={changeStatusHandler}
+              setInProp={setInProp}
+            />
+          )}
+          {status === "login" && (
+            <SignUpForm status={status} setStatus={setStatus} />
+          )}
+          {status === "signup" && (
+            <SignUpForm status={status} setStatus={setStatus} />
+          )}
+          {/* <CSSTransition key={"login"} timeout={500} classNames="my-node">
+          </CSSTransition> */}
+          {/* </SwitchTransition> */}
         </div>
       </div>
     </div>

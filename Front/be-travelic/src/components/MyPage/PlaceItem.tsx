@@ -1,9 +1,9 @@
 import React from "react";
-import { placeData } from "./PlaceContainer";
+import { PlaceData } from "./PlaceContainer";
 import "../css/MyPageCard.css";
 import { Link } from "react-router-dom";
 
-const PlaceItem = ({ item }: { item: placeData }) => {
+const PlaceItem = ({ item }: { item: PlaceData }) => {
   const year = item.visitedDate?.getFullYear().toString().slice(2, 4);
   const month = item.visitedDate?.getMonth();
 

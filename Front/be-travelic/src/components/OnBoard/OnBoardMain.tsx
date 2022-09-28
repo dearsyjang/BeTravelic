@@ -1,12 +1,13 @@
 import React from "react";
 import logo from "../../assets/image/logo(black).png";
+import '../../pages/css/OnBoard.css'
 
 const OnBoardMain: React.FC<{
   setInProp: (prev: boolean) => void;
   changeStatusHandler: (identifier: string) => void;
 }> = ({ setInProp, changeStatusHandler }) => {
   return (
-    <div className="flex flex-col items-center transition-transform ease-in-out delay-150">
+    <div className="flex flex-col items-center fadeIn">
       <img src={logo} />
       <button
         onClick={changeStatusHandler.bind(this, "login")}
