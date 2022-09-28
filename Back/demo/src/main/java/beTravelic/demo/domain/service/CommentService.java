@@ -1,10 +1,7 @@
 package beTravelic.demo.domain.service;
 
 
-import beTravelic.demo.domain.dto.CommentSaveRequestDto;
-import beTravelic.demo.domain.dto.CommentSaveResponseDto;
-import beTravelic.demo.domain.dto.CommentUpdateRequestDto;
-import beTravelic.demo.domain.dto.CommentUpdateResponseDto;
+import beTravelic.demo.domain.dto.*;
 import beTravelic.demo.domain.entity.Comment;
 import beTravelic.demo.domain.entity.Review;
 import beTravelic.demo.domain.entity.User;
@@ -18,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -41,6 +40,15 @@ public class CommentService {
         commentRepository.save(comment);
         return new CommentSaveResponseDto(comment.getComment_id());
     }
+
+
+    public List<CommentResDto> findAllByReview(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new IllegalArgumentException("해당하는 리뷰의 댓글이 없습니다."));
+        List<Comment> comments = review.getComments();
+        return comments.stream().map(CommentResDto::new).collect(Collectors.toList());
+    }
+
+
 
 //    @Transactional
 //    public void commentUpdate(String id, Long commentId, CommentUpdateRequestDto dto) throws Exception {
@@ -82,4 +90,6 @@ public class CommentService {
             throw new Exception("댓글 작성자가 아닙니다.");
         }
     }
+
+
 }

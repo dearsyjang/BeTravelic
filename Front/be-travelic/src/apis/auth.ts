@@ -6,6 +6,7 @@ const REST_API_KEY = process.env.REACT_APP_KAKAO_API;
 const REDIRECT_URI = "http://localhost:3000/kakao";
 
 interface Register {
+  nickname?: string;
   email: string;
   password: string;
 }

@@ -1,22 +1,22 @@
 import React from "react";
-import { placeData } from "./PlaceContainer";
+import { PlaceData } from "./PlaceContainer";
 import PlaceItem from "./PlaceItem";
 
 // interface PropsType {
 //   //   children: JSX.Element;
-//   data: placeData;
+//   data: PlaceData;
 // }
 
 const PlaceItemList = ({
   items,
 }: {
-  items: placeData[];
+  items: PlaceData[];
 }): React.ReactElement => {
 
     console.log(items);
     
 
-  const cardList = items.map((item: placeData) => {
+  const cardList = items.map((item: PlaceData) => {
     return (<PlaceItem item={item} />);
   });
 

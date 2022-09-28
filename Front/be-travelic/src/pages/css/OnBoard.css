@@ -82,17 +82,24 @@
 
 .my-node-enter {
   opacity: 0;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
 }
 .my-node-enter-active {
   opacity: 1;
-  transition: opacity 200ms;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
 }
 .my-node-exit {
   opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+
 }
 .my-node-exit-active {
   opacity: 0;
-  transition: opacity 200ms;
+  transform: scale(0.9);
+  transition: opacity 500ms, transform 500ms;
 }
 
 .fade-enter {
@@ -110,4 +117,46 @@
 .fade-enter-active,
 .fade-exit-active {
   transition: opacity 500ms;
+}
+
+.transition-group {
+  position: relative;
+}
+
+
+.transitionDiv {
+  background: red;
+  height: 100px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+@keyframes inAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes outAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.fadeIn {
+  animation: fadeInAnimation 1s;
+}
+
+@keyframes fadeInAnimation {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
