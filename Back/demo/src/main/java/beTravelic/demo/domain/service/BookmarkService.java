@@ -2,11 +2,10 @@ package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.BookmarkResDto;
 import beTravelic.demo.domain.dto.ReviewResDto;
-import beTravelic.demo.domain.entity.Bookmark;
+import beTravelic.demo.domain.entity.*;
 import beTravelic.demo.domain.dto.BookmarkSaveRequestDto;
-import beTravelic.demo.domain.entity.Place;
-import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.repository.BookmarkRepository;
+import beTravelic.demo.domain.repository.RegionRepository;
 import beTravelic.demo.domain.repository.UserRepository;
 import beTravelic.demo.domain.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,28 +27,46 @@ public class BookmarkService {
     private final UserRepository userRepository;
     private final PlaceRepository placeRepository;
 
+    private final RegionRepository regionRepository;
 
-//    public BookmarkSaveRequestDto saveBookmark(BookmarkSaveRequestDto dto, long placeId, long userId) {
-//        User user = userRepository.findUserByUserId(userId).orElseThrow(() ->
-////            throw new NoExistUserException();
-//            new IllegalArgumentException("유저없음")
-//        );
-//        Place place = placeRepository.findPlaceByPlaceId(placeId).orElseThrow(() ->
-////            throw new NoExistPlaceException();
-//            new IllegalArgumentException("장소음슴")
-//        );
-//        Bookmark bookmark = new Bookmark();
-//        bookmarkRepository.save(bookmark);
-//        bookmark.setUser(user);
-//        bookmark.setPlace(place);
-//        return new BookmarkSaveRequestDto(bookmark.getBookmarkId());
 
+    public BookmarkSaveRequestDto saveBookmark( String id, long placeId, long regionId) {
+        Bookmark bookmark = new Bookmark();
+        User user = userRepository.findUserById(id).orElseThrow(() ->
+                new IllegalArgumentException("유저없음"));
+        Place place = placeRepository.findPlaceByPlaceId(placeId).orElseThrow(() ->
+                new IllegalArgumentException("장소음슴"));
+        Region region = regionRepository.findRegionByRegionId(regionId).orElseThrow(() ->
+                new IllegalArgumentException("장소음슴"));
+        bookmark.setUser(user);
+        bookmark.setPlace(place);
+        bookmark.setRegion(region);
+        bookmarkRepository.save(bookmark);
+        return new BookmarkSaveRequestDto(bookmark.getBookmarkId());
+    }
+
+    //지역별 북마크 조회
 
     public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, Long user_id) {
-//        log.info("게시글 타입으로 게시글 조회하였습니다.");
         return bookmarkRepository.findAllByUserAndRegion(user_id, regionId);
     }
 
+
+    //모든 북마크 조회
+    public List<BookmarkResDto> findAllByUser(Long user_id) {
+        return bookmarkRepository.findAllByUser(user_id);
+    }
+
+
+    public void deleteById(Long bookmarkId) throws Exception {
+        Bookmark bookmark = bookmarkRepository.findById(bookmarkId).orElse(null);
+
+        if (bookmark == null) {
+            throw new Exception("해당하는 bookmark 장소가 없습니다.");
+        }
+
+        bookmarkRepository.deleteById(bookmarkId);
+    }
 //        User user = userRepository.findById(userId);
 //        Place place = placeRepository.findById(placeId);
 //        bookmarkRepository.findByUserIdAndPlaceId(placeId, userId).orElseThrow(() ->

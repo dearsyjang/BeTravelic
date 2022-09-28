@@ -23,15 +23,16 @@ public class BookmarkController {
     private final BookmarkService bookmarkService;
 
     // 북마크 저장
-//    @PostMapping
-//    public ResponseEntity<CommonResponse> bookmarkSave(HttpServletRequest request, @RequestBody @Validated BookmarkSaveRequestDto dto){
+    @PostMapping
+    public ResponseEntity<CommonResponse> bookmarkSave(@RequestParam("id")String id, @RequestParam("placeId") int placeId, @RequestParam("region_id") int regionId){
 //        long placeId = (long) request.getAttribute("place_id");
 //        long userId = (long) request.getAttribute("user_id");
-//        bookmarkService.saveBookmark(placeId,userId, dto);
+        bookmarkService.saveBookmark(id, placeId, regionId);
+        return null;
 //        return new ResponseEntity<>(CommonResponse.getSuccessResponse(bookmarkService.saveBookmark(placeId,userId,dto)), HttpStatus.OK);
-//
-//
-//    }
+
+
+    }
 
 //    @GetMapping("/{placeId}/{userId}")
 //    public ResponseEntity<?> saveBookmark(@RequestBody BookmarkSaveRequestDto bookmarkSaveRequestDto,@PathVariable("placeId") Long placeId, @PathVariable("userId") Long userId) {
@@ -43,11 +44,26 @@ public class BookmarkController {
 ////        return ResponseEntity.ok(BookmarkService.saveBookmark(placeId, userId));
 //        }
 //    }
+    @GetMapping("/user/{user_id}")
 
+    public ResponseEntity<?> getBookmarkByUser(@PathVariable("user_id") Long user_id) {
+        List<BookmarkResDto> bookmarks = bookmarkService.findAllByUser(user_id);
+        return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
+    }
     @GetMapping("/region/{regionId}/user/{user_id}")
 
     public ResponseEntity<?> getBookmarkByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("user_id") Long user_id) {
     List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(regionId, user_id);
     return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
 }
+
+    @DeleteMapping("/{bookmarkId}")
+    public ResponseEntity<?> deleteReview(@PathVariable(name="bookmarkId") Long bookmarkId){
+        try {
+            bookmarkService.deleteById(bookmarkId);
+            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.valueOf(400));
+        }
+    }
 }

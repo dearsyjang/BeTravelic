@@ -17,7 +17,7 @@ public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id")
-    private Long region_id;
+    private Long regionId;
 
 //    지역코드
     @Column(name = "area_code")
@@ -37,8 +37,8 @@ public class Region {
     private List<Bookmark> bookmarks = new ArrayList<>();
 
     @Builder(builderClassName = "ReviewRegionId", builderMethodName = "ReviewRegionId")
-    public Region(Long region_id) {
-        this.region_id = region_id;
+    public Region(Long regionId) {
+        this.regionId = regionId;
     }
 
 }
