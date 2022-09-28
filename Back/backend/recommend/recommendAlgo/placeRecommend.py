@@ -8,38 +8,36 @@
 # import pandas as pd
 # import numpy as np
 # import pymysql
-# from eunjeon import Mecab
+# # from eunjeon import Mecab
+# from konlpy.tag import Okt
 
-
-# conn = pymysql.connect(host='localhost',
+# conn = pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
-#                         password='ssafyd205',
+#                         password='d205',
 #                         db='D205_2',
 #                         charset='utf8')
 
 
 
-
-
+# follow_table = "SELECT * FROM follow"
+# user_table = "SELECT * FROM user"
 # place_table = "SELECT * FROM place"
-# category_table = "SELECT * FROM place_category"
-# place_keywords_table = "SELECT * FROM place_keywords"
+# category_table = "SELECT * FROM categories"
 # review_table = "SELECT * FROM review"
-# all_keywords_table = "SELECT * FROM keywords"
 
+
+# follow_data = pd.read_sql_query(follow_table, conn)
+# user_data = pd.read_sql_query(user_table, conn)
 # place_data = pd.read_sql_query(place_table, conn)
 # category_data = pd.read_sql_query(category_table, conn)
-# keywords_data = pd.read_sql_query(place_keywords_table, conn)
 # review_data = pd.read_sql_query(review_table, conn)
-# all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
-
-
-# place_category_data = pd.merge(place_data, category_data, on='category')
-# place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
+# user_review_data = pd.merge(user_data, review_data, on='user_id')
+# place_category_data = pd.merge(place_data, category_data, on='category_id')
 # place_review_data = pd.merge(place_data, review_data, on='place_id')
-# place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
+# user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
 # Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
+
 
 # #print(Place_review_category_data)
 
@@ -57,26 +55,30 @@
 
 # #review로 뽑아낸 cosine 유사도 추천
 
-
+# okt = Okt()
 
 
 
 # def place_recommendations(current_user_id, selected_category):
-
+    
 #     user_keywords=[]
 #     for i in range(len(Place_review_category_data['contents'])):
 #         if Place_review_category_data['user_id'][i]== current_user_id and Place_review_category_data['category_name'][i]== selected_category:
 
-#             m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
-#             m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
+#             # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             m_filtered= okt.nouns(Place_review_category_data['contents'][i])
+
 #             for j in m_filtered:
 #                 user_keywords.append(j)
 
 #     all_keywords= []
 #     for i in range(len(Place_review_category_data['contents'])):
 #         if Place_review_category_data['category_name'][i]== selected_category:
-#             m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
-#             m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+
+#             # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
+#             # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             m_filtered= okt.nouns(Place_review_category_data['contents'][i])
 #             for j in m_filtered:
 #                 all_keywords.append(j)
 
@@ -85,22 +87,24 @@
 #     for i in range(1,len(place_review_data['contents'])):
 #         if place_review_data['place_id'][i-1]== place_review_data['place_id'][i]:
 
-#             m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
-#             m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             # m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
+#             # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             m_filtered= okt.nouns(Place_review_category_data['contents'][i])
 #             for j in m_filtered:
 #                 lst[k].add(j)
 
 #         else:
 #             k+=1
-#             m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
-#             m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             # m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
+#             # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+#             m_filtered= okt.nouns(Place_review_category_data['contents'][i])
 #             for j in m_filtered:
 #                 lst[k].add(j)
 
-
+    
 #     set_user_keywords = set(user_keywords)
 #     set_all_keywords= set(all_keywords)
-#     #print(set_all_keywords)
+#     print(set_all_keywords)
 
 
 
@@ -159,11 +163,11 @@
 
 
 #     def mysql_save(info_list):
-#         conn=pymysql.connect(host='localhost',
-#                             user='root',
-#                             password='ssafyd205',
-#                             db='D205_2',
-#                             charset='utf8')
+#         conn=pymysql.connect(host='j7d205.p.ssafy.io',
+#                         user='root',
+#                         password='d205',
+#                         db='D205_2',
+#                         charset='utf8')
 #         cursor=conn.cursor()
 #         sql = "truncate recommendplace"
 #         cursor.execute(sql)
@@ -179,8 +183,8 @@
 
 
 # current_user_id = 1         
-# selected_category= "음식점"   
-# place_recommendations(current_user_id, selected_category)
+# selected_category= "관광지"   
+# print(place_recommendations(current_user_id, selected_category))
 
 
 # ##############################################################################################

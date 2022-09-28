@@ -30,7 +30,8 @@ from sklearn.decomposition import TruncatedSVD
 import pandas as pd
 import numpy as np
 import pymysql
-from eunjeon import Mecab
+# from eunjeon import Mecab
+from konlpy.tag import Okt
 
 
 conn = pymysql.connect(host='j7d205.p.ssafy.io',
@@ -61,7 +62,7 @@ Place_review_category_data = pd.merge(place_review_data, place_category_data, on
 
 
 
-
+okt = Okt()
 
 
 
@@ -106,16 +107,18 @@ def place_recommend(request,user_id,category):
         for i in range(len(Place_review_category_data['contents'])):
             if Place_review_category_data['user_id'][i]== current_user_id and Place_review_category_data['category_name'][i]== selected_category:
 
-                m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     user_keywords.append(j)
 
         all_keywords= []
         for i in range(len(Place_review_category_data['contents'])):
             if Place_review_category_data['category_name'][i]== selected_category:
-                m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     all_keywords.append(j)
 
@@ -124,15 +127,17 @@ def place_recommend(request,user_id,category):
         for i in range(1,len(place_review_data['contents'])):
             if place_review_data['place_id'][i-1]== place_review_data['place_id'][i]:
 
-                m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     lst[k].add(j)
 
             else:
                 k+=1
-                m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     lst[k].add(j)
 
