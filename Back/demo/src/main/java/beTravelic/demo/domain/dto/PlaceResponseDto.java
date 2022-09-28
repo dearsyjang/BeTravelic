@@ -30,7 +30,7 @@ public class PlaceResponseDto {
         return PlaceResponseDto.builder()
                 .placeId((place.getPlaceId()))
                 .categories(place.getCategories().getCategory_id())
-                .region(place.getRegion().getRegion_id())
+                .region(place.getRegion().getRegionId())
                 .addr(place.getAddr())
                 .title(place.getTitle())
                 .image(place.getImage())

@@ -43,7 +43,7 @@ public class ReviewResDto {
                 .reviewId(review.getReviewId())
                 .place(review.getPlace().getPlaceId())
                 .user(review.getUser().getUser_id())
-                .region(review.getRegion().getRegion_id())
+                .region(review.getRegion().getRegionId())
                 .contents(review.getContents())
                 .image(review.getImage())
                 .score(review.getScore())
@@ -70,7 +70,7 @@ public class ReviewResDto {
         this.reviewId = review.getReviewId();
         this.place = review.getPlace().getPlaceId();
         this.user = review.getUser().getUser_id();
-        this.region = review.getRegion().getRegion_id();
+        this.region = review.getRegion().getRegionId();
         this.contents = review.getContents();
         this.image = review.getImage();
         this.score = review.getScore();

@@ -30,7 +30,8 @@ from sklearn.decomposition import TruncatedSVD
 import pandas as pd
 import numpy as np
 import pymysql
-from eunjeon import Mecab
+# from eunjeon import Mecab
+from konlpy.tag import Okt
 
 
 conn = pymysql.connect(host='j7d205.p.ssafy.io',
@@ -61,34 +62,34 @@ Place_review_category_data = pd.merge(place_review_data, place_category_data, on
 
 
 
+okt = Okt()
 
 
 
 
-
-@api_view(['GET'])
-def get_users(request):
-    if request.method=='GET':
-        users = get_list_or_404(User)
-        serializer = UserSerializer(users,many=True)
-        return Response(serializer.data)
-
+# @api_view(['GET'])
+# def get_users(request):
+#     if request.method=='GET':
+#         users = get_list_or_404(User)
+#         serializer = UserSerializer(users,many=True)
+#         return Response(serializer.data)
 
 
-@api_view(['GET'])
-def get_places(request):
-    if request.method=='GET':
-        places = get_list_or_404(Place)
-        serializer = PlaceListSerializer(places,many=True)
-        return Response(serializer.data)
+
+# @api_view(['GET'])
+# def get_places(request):
+#     if request.method=='GET':
+#         places = get_list_or_404(Place)
+#         serializer = PlaceListSerializer(places,many=True)
+#         return Response(serializer.data)
 
 
-@api_view(['GET'])
-def get_recommend_places(request):
-    if request.method=='GET':
-        places = get_list_or_404(RecommendPlace)
-        serializer = RecommendPlaceSerializer(places,many=True)
-        return Response(serializer.data)
+# @api_view(['GET'])
+# def get_recommend_places(request):
+#     if request.method=='GET':
+#         places = get_list_or_404(RecommendPlace)
+#         serializer = RecommendPlaceSerializer(places,many=True)
+#         return Response(serializer.data)
 
 
 
@@ -106,16 +107,18 @@ def place_recommend(request,user_id,category):
         for i in range(len(Place_review_category_data['contents'])):
             if Place_review_category_data['user_id'][i]== current_user_id and Place_review_category_data['category_name'][i]== selected_category:
 
-                m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     user_keywords.append(j)
 
         all_keywords= []
         for i in range(len(Place_review_category_data['contents'])):
             if Place_review_category_data['category_name'][i]== selected_category:
-                m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     all_keywords.append(j)
 
@@ -124,15 +127,17 @@ def place_recommend(request,user_id,category):
         for i in range(1,len(place_review_data['contents'])):
             if place_review_data['place_id'][i-1]== place_review_data['place_id'][i]:
 
-                m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     lst[k].add(j)
 
             else:
                 k+=1
-                m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
-                m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                # m = Mecab().pos(place_review_data['contents'][i], flatten=True) 
+                # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
+                m_filtered= okt.nouns(Place_review_category_data['contents'][i])
                 for j in m_filtered:
                     lst[k].add(j)
 
@@ -267,11 +272,11 @@ def another_recommend(request,place_name):
         place_indices = [idx[0] for idx in sim_scores]
 
         info_list=[]
-        for i in place_indices:
+        for i in range(len(place_indices)):
             for j in range(len(place_data)):
-                if i == place_data.index[j]:
-                    info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
-        
+                if place_indices[i] == place_data.index[j]:
+                    info_list.append(tuple([i+1,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
+    
         # 가장 유사한 10개의 여행지의 이름을 리턴한다.
         #return list(place_data['title'].iloc[place_indices])
         #print(info_list)

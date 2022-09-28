@@ -10,39 +10,33 @@
 
 
 
-# conn = pymysql.connect(host='localhost',
+# conn = pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
-#                         password='ssafyd205',
+#                         password='d205',
 #                         db='D205_2',
 #                         charset='utf8')
 
 
-
-
+# follow_table = "SELECT * FROM follow"
 # user_table = "SELECT * FROM user"
 # place_table = "SELECT * FROM place"
-# category_table = "SELECT * FROM place_category"
-# place_keywords_table = "SELECT * FROM place_keywords"
+# category_table = "SELECT * FROM categories"
 # review_table = "SELECT * FROM review"
-# all_keywords_table = "SELECT * FROM keywords"
 
 
+# follow_data = pd.read_sql_query(follow_table, conn)
 # user_data = pd.read_sql_query(user_table, conn)
 # place_data = pd.read_sql_query(place_table, conn)
 # category_data = pd.read_sql_query(category_table, conn)
-# keywords_data = pd.read_sql_query(place_keywords_table, conn)
 # review_data = pd.read_sql_query(review_table, conn)
-# all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
 # user_review_data = pd.merge(user_data, review_data, on='user_id')
-# place_category_data = pd.merge(place_data, category_data, on='category')
-# place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
+# place_category_data = pd.merge(place_data, category_data, on='category_id')
 # place_review_data = pd.merge(place_data, review_data, on='place_id')
-# place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
 # user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
+# Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
-
-# current_user_id= 3 
+# current_user_id= 1
 # def sns_recommendations(current_user_id):
 
     
@@ -63,83 +57,121 @@
 #     users_list = list(users)
 #     coffey_hands = users_list.index(current_user_id)
 #     corr_coffey_hands = corr[coffey_hands]
-#     lst= list(users[(corr_coffey_hands>=0.9)] )
+#     lst= list(users[(corr_coffey_hands>=0.1)] )
 
-#     ans=[]
+
+#     print(follow_data)
+#     user_review_list=[]
+#     following_list=[]
+#     for i in range(len(follow_data)):
+#         if follow_data['follower_user_id'][i]==current_user_id:
+#             following_list.append(follow_data['following_user_id'][i])
+#     print(following_list)
+#     follow_feed=[]
+#     for i in following_list:
+#         for j in range(len(user_review_place_data)):
+#             if i== user_review_place_data['user_id'][j]:
+#                 follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
+#     set_follow_feed = set(follow_feed)
+#     set_follow_feed2 = list(set_follow_feed)
+
+#     rec_feed=[]
 #     for i in lst:
-#         if i != current_user_id:
-#             ans.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
-#     print(ans)
+#         if i != current_user_id and i not in following_list:
+#             rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
+#     set_rec_feed = set(rec_feed)
+#     set_rec_feed2 = list(set_rec_feed)
+#     user_review_list = set_follow_feed2 + set_rec_feed2
+#     print(user_review_list)
+#     df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_x','image_y','nickname'])
+    
+#     def mysql_save(user_review_list):
+#         conn=pymysql.connect(host='j7d205.p.ssafy.io',
+#                     user='root',
+#                     password='d205',
+#                     db='D205_2',
+#                     charset='utf8')
+#         cursor=conn.cursor()
+#         sql = "truncate recommenduser"
+#         cursor.execute(sql)
+
+
+#         #cursor=conn.cursor()
+#         sql="insert into recommenduser(recommend_user_id,place_id,user_id,review_id,contents,image_x,image_y,nickname) values(%s,%s,%s,%s,%s,%s,%s,%s)"
+#         cursor.executemany(sql,user_review_list)
+#         conn.commit()
+#         conn.close()
+#     mysql_save(user_review_list)
 
 # print(sns_recommendations(current_user_id))
+# # print(follow_data)
 
+# # ################################################################################################
 
-# ################################################################################################
+# # # from konlpy.tag import Okt
+# # # from numpy import dot
+# # # from numpy.linalg import norm
+# # # import numpy as np
 
-# # from konlpy.tag import Okt
-# # from numpy import dot
-# # from numpy.linalg import norm
-# # import numpy as np
-
-# # from sklearn.decomposition import TruncatedSVD
-# # import pandas as pd
-# # import numpy as np
-# # import pymysql
-
-
-
-# # conn = pymysql.connect(host='localhost',
-# #                         user='root',
-# #                         password='ssafyd205',
-# #                         db='D205_2',
-# #                         charset='utf8')
+# # # from sklearn.decomposition import TruncatedSVD
+# # # import pandas as pd
+# # # import numpy as np
+# # # import pymysql
 
 
 
+# # # conn = pymysql.connect(host='localhost',
+# # #                         user='root',
+# # #                         password='ssafyd205',
+# # #                         db='D205_2',
+# # #                         charset='utf8')
 
 
-# # place_table = "SELECT * FROM place"
-# # category_table = "SELECT * FROM place_category"
-# # place_keywords_table = "SELECT * FROM place_keywords"
-# # review_table = "SELECT * FROM review"
-# # all_keywords_table = "SELECT * FROM keywords"
-
-# # place_data = pd.read_sql_query(place_table, conn)
-# # category_data = pd.read_sql_query(category_table, conn)
-# # keywords_data = pd.read_sql_query(place_keywords_table, conn)
-# # review_data = pd.read_sql_query(review_table, conn)
-# # all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
 
-# # place_category_data = pd.merge(place_data, category_data, on='category')
-# # place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
-# # place_review_data = pd.merge(place_data, review_data, on='place_id')
-# # place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
+
+# # # place_table = "SELECT * FROM place"
+# # # category_table = "SELECT * FROM place_category"
+# # # place_keywords_table = "SELECT * FROM place_keywords"
+# # # review_table = "SELECT * FROM review"
+# # # all_keywords_table = "SELECT * FROM keywords"
+
+# # # place_data = pd.read_sql_query(place_table, conn)
+# # # category_data = pd.read_sql_query(category_table, conn)
+# # # keywords_data = pd.read_sql_query(place_keywords_table, conn)
+# # # review_data = pd.read_sql_query(review_table, conn)
+# # # all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
 
-# # def place_recommendations(selected_place_name):
+# # # place_category_data = pd.merge(place_data, category_data, on='category')
+# # # place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
+# # # place_review_data = pd.merge(place_data, review_data, on='place_id')
+# # # place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
 
-# #     user_place_score = place_review_data.pivot_table('score_y', index = 'user_id', columns='title').fillna(0)
-# #     place_user_score = user_place_score.values.T
-# #     #print(place_user_score)
 
-# #     SVD = TruncatedSVD(n_components=3)
-# #     matrix=SVD.fit_transform(place_user_score)
-# #     #print(matrix[0])
+# # # def place_recommendations(selected_place_name):
 
-# #     corr = np.corrcoef(matrix)
-# #     #print(corr.shape)
+# # #     user_place_score = place_review_data.pivot_table('score_y', index = 'user_id', columns='title').fillna(0)
+# # #     place_user_score = user_place_score.values.T
+# # #     #print(place_user_score)
+
+# # #     SVD = TruncatedSVD(n_components=3)
+# # #     matrix=SVD.fit_transform(place_user_score)
+# # #     #print(matrix[0])
+
+# # #     corr = np.corrcoef(matrix)
+# # #     #print(corr.shape)
 
    
-# #     place_title = user_place_score.columns
-# #     place_title_list = list(place_title)
-# #     coffey_hands = place_title_list.index(selected_place_name)
-# #     corr_coffey_hands = corr[coffey_hands]
-# #     return list(place_title[(corr_coffey_hands>=0.9)])
+# # #     place_title = user_place_score.columns
+# # #     place_title_list = list(place_title)
+# # #     coffey_hands = place_title_list.index(selected_place_name)
+# # #     corr_coffey_hands = corr[coffey_hands]
+# # #     return list(place_title[(corr_coffey_hands>=0.9)])
 
 
-# # selected_place_name='양산문화원'
-# # print(sns_recommendations(selected_place_name))
+# # # selected_place_name='양산문화원'
+# # # print(sns_recommendations(selected_place_name))
 
 
 
