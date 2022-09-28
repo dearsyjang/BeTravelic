@@ -12,16 +12,16 @@ services:
       - /home/ubuntu/docker-volume/ssl:/root
     container_name: "backend"
 
-  backendDjango:
-    image: backend-django
-    build:
-      context: Back/backend
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8081"
-    volumes:
-      - /home/ubuntu/docker-volume/ssl:/root
-    container_name: "backendDjango"
+  # backendDjango:
+  #   image: backend-django
+  #   build:
+  #     context: Back/backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8081:8081"
+  #   volumes:
+  #     - /home/ubuntu/docker-volume/ssl:/root
+  #   container_name: "backendDjango"
 
   frontend:
     image: frontend-react
