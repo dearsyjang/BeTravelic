@@ -10,9 +10,11 @@ data=json.loads(res)
 places=data['response']['body']['items']['item']
 info_list=[]
 for place in places:
+    print(place)
     place_id = places.index(place)+1
     # category_id=place.place_category.filter(place["contenttypeid"]=categories['content_type_id'])
     category_id = 0
+    region_id=0
     contenttypeid = place["contenttypeid"]
     if place["contenttypeid"] == '12':
         category_id = 1
@@ -31,41 +33,74 @@ for place in places:
     elif place["contenttypeid"] == '32':
         category_id = 8
 
-    if place["addr1"][0:5]=="서울특별시":
+    # if place["addr1"][0:5]=="서울특별시":
+    #     region_id= 1
+    # elif place["addr1"][0:5]=="인천광역시":
+    #     region_id= 2
+    # elif place["addr1"][0:5]=="대전광역시":
+    #     region_id= 3
+    # elif place["addr1"][0:5]=="대구광역시":
+    #     region_id= 4
+    # elif place["addr1"][0:5]=="광주광역시":
+    #     region_id= 5
+    # elif place["addr1"][0:5]=="부산광역시":
+    #     region_id= 6
+    # elif place["addr1"][0:5]=="울산광역시":
+    #     region_id= 7
+    # elif place["addr1"][0:5]=="세종특별시":
+    #     region_id= 8
+    # elif place["addr1"][0:3]=="경기도":
+    #     region_id= 9
+    # elif place["addr1"][0:3]=="강원도":
+    #     region_id= 10 
+    # elif place["addr1"][0:4]=="충청북도":
+    #     region_id= 11 
+    # elif place["addr1"][0:4]=="충청남도":
+    #     region_id= 12 
+    # elif place["addr1"][0:4]=="경상북도":
+    #     region_id= 13 
+    # elif place["addr1"][0:4]=="경상남도":
+    #     region_id= 14 
+    # elif place["addr1"][0:4]=="전라북도":
+    #     region_id= 15 
+    # elif place["addr1"][0:4]=="전라남도":
+    #     region_id= 16 
+    # elif place["addr1"][0:3]=="제주도":
+    #     region_id= 17 
+    if place["areacode"]=="1":
         region_id= 1
-    elif place["addr1"][0:5]=="인천광역시":
-        region_id= 2
-    elif place["addr1"][0:5]=="대전광역시":
-        region_id= 3
-    elif place["addr1"][0:5]=="대구광역시":
+    elif place["areacode"]=="2":
         region_id= 4
-    elif place["addr1"][0:5]=="광주광역시":
-        region_id= 5
-    elif place["addr1"][0:5]=="부산광역시":
+    elif place["areacode"]=="3":
         region_id= 6
-    elif place["addr1"][0:5]=="울산광역시":
+    elif place["areacode"]=="4":
+        region_id= 3
+    elif place["areacode"]=="5":
+        region_id= 5
+    elif place["areacode"]=="6":
+        region_id= 2
+    elif place["areacode"]=="7":
         region_id= 7
-    elif place["addr1"][0:5]=="세종특별시":
+    elif place["areacode"]=="8":
         region_id= 8
-    elif place["addr1"][0:3]=="경기도":
+    elif place["areacode"]=="31":
         region_id= 9
-    elif place["addr1"][0:3]=="강원도":
+    elif place["areacode"]=="32":
         region_id= 10 
-    elif place["addr1"][0:4]=="충청북도":
+    elif place["areacode"]=="33":
         region_id= 11 
-    elif place["addr1"][0:4]=="충청남도":
+    elif place["areacode"]=="34":
         region_id= 12 
-    elif place["addr1"][0:4]=="경상북도":
-        region_id= 13 
-    elif place["addr1"][0:4]=="경상남도":
-        region_id= 14 
-    elif place["addr1"][0:4]=="전라북도":
+    elif place["areacode"]=="35":
         region_id= 15 
-    elif place["addr1"][0:4]=="전라남도":
-        region_id= 16 
-    elif place["addr1"][0:3]=="제주도":
+    elif place["areacode"]=="36":
+        region_id= 16
+    elif place["areacode"]=="37":
+        region_id= 13
+    elif place["areacode"]=="38":
+        region_id= 14 
+    elif place["areacode"]=="39":
         region_id= 17 
-   
 
     addr=place["addr1"]
     title=place["title"]

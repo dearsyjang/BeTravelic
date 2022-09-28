@@ -20,7 +20,7 @@ public class ReviewReqDto {
 
     private Long user_id;
 
-    private Long region_id;
+    private Long regionId;
 
     private String contents;
 
@@ -39,7 +39,7 @@ public class ReviewReqDto {
                 .reviewId(this.reviewId)
                 .place(Place.ReviewPlaceId().place_id(Long.valueOf(this.place_id)).build())
                 .user(User.ReviewUserId().user_id((Long.valueOf(this.user_id))).build())
-                .region(Region.ReviewRegionId().region_id((Long.valueOf(region_id))).build())
+                .region(Region.ReviewRegionId().regionId((Long.valueOf(regionId))).build())
                 .contents(this.contents)
                 .image(this.image)
                 .score(this.score)

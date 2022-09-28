@@ -25,13 +25,13 @@ public class BookmarkResDto {
                 .bookmarkId(bookmark.getBookmarkId())
                 .place(bookmark.getPlace().getPlaceId())
                 .user(bookmark.getUser().getUser_id())
-                .region(bookmark.getRegion().getRegion_id())
+                .region(bookmark.getRegion().getRegionId())
                 .build();
     }
     public BookmarkResDto (Bookmark bookmark) {
         this.bookmarkId = bookmark.getBookmarkId();
         this.place = bookmark.getPlace().getPlaceId();
         this.user = bookmark.getUser().getUser_id();
-        this.region = bookmark.getRegion().getRegion_id();
+        this.region = bookmark.getRegion().getRegionId();
     }
 }
