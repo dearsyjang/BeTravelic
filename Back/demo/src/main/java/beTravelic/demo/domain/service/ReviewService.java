@@ -93,6 +93,7 @@ public class ReviewService {
         }
     }
 
+    @Transactional
     public void deleteById(Long reviewId) throws Exception {
         Review reviewEntity = reviewRepository.findById(reviewId).orElse(null);
 
