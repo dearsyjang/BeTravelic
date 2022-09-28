@@ -67,29 +67,29 @@ okt = Okt()
 
 
 
-@api_view(['GET'])
-def get_users(request):
-    if request.method=='GET':
-        users = get_list_or_404(User)
-        serializer = UserSerializer(users,many=True)
-        return Response(serializer.data)
+# @api_view(['GET'])
+# def get_users(request):
+#     if request.method=='GET':
+#         users = get_list_or_404(User)
+#         serializer = UserSerializer(users,many=True)
+#         return Response(serializer.data)
 
 
 
-@api_view(['GET'])
-def get_places(request):
-    if request.method=='GET':
-        places = get_list_or_404(Place)
-        serializer = PlaceListSerializer(places,many=True)
-        return Response(serializer.data)
+# @api_view(['GET'])
+# def get_places(request):
+#     if request.method=='GET':
+#         places = get_list_or_404(Place)
+#         serializer = PlaceListSerializer(places,many=True)
+#         return Response(serializer.data)
 
 
-@api_view(['GET'])
-def get_recommend_places(request):
-    if request.method=='GET':
-        places = get_list_or_404(RecommendPlace)
-        serializer = RecommendPlaceSerializer(places,many=True)
-        return Response(serializer.data)
+# @api_view(['GET'])
+# def get_recommend_places(request):
+#     if request.method=='GET':
+#         places = get_list_or_404(RecommendPlace)
+#         serializer = RecommendPlaceSerializer(places,many=True)
+#         return Response(serializer.data)
 
 
 
@@ -272,11 +272,11 @@ def another_recommend(request,place_name):
         place_indices = [idx[0] for idx in sim_scores]
 
         info_list=[]
-        for i in place_indices:
+        for i in range(len(place_indices)):
             for j in range(len(place_data)):
-                if i == place_data.index[j]:
-                    info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
-        
+                if place_indices[i] == place_data.index[j]:
+                    info_list.append(tuple([i+1,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
+    
         # 가장 유사한 10개의 여행지의 이름을 리턴한다.
         #return list(place_data['title'].iloc[place_indices])
         #print(info_list)
