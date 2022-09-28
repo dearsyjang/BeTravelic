@@ -13,32 +13,32 @@
 # from sklearn.metrics.pairwise import cosine_similarity
 
 
-# conn = pymysql.connect(host='localhost',
+# conn = pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
-#                         password='ssafyd205',
+#                         password='d205',
 #                         db='D205_2',
 #                         charset='utf8')
 
 
 
+# follow_table = "SELECT * FROM follow"
+# user_table = "SELECT * FROM user"
 # place_table = "SELECT * FROM place"
-# category_table = "SELECT * FROM place_category"
-# place_keywords_table = "SELECT * FROM place_keywords"
+# category_table = "SELECT * FROM categories"
 # review_table = "SELECT * FROM review"
-# all_keywords_table = "SELECT * FROM keywords"
 
+
+# follow_data = pd.read_sql_query(follow_table, conn)
+# user_data = pd.read_sql_query(user_table, conn)
 # place_data = pd.read_sql_query(place_table, conn)
 # category_data = pd.read_sql_query(category_table, conn)
-# keywords_data = pd.read_sql_query(place_keywords_table, conn)
 # review_data = pd.read_sql_query(review_table, conn)
-# all_keywords_data = pd.read_sql_query(all_keywords_table, conn)
 
-
-# place_category_data = pd.merge(place_data, category_data, on='category')
-# place_keywords_data = pd.merge(place_data, keywords_data, on='place_id')
+# user_review_data = pd.merge(user_data, review_data, on='user_id')
+# place_category_data = pd.merge(place_data, category_data, on='category_id')
 # place_review_data = pd.merge(place_data, review_data, on='place_id')
-# place_keywords_match_data = pd.merge(place_keywords_data, all_keywords_data, on='keywords_id')
-
+# user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
+# Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
 
 
@@ -78,16 +78,17 @@
 #     place_indices = [idx[0] for idx in sim_scores]
 
 #     info_list=[]
-#     for i in place_indices:
+#     print(place_indices)
+#     for i in range(len(place_indices)):
 #         for j in range(len(place_data)):
-#             if i == place_data.index[j]:
-#                 info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
+#             if place_indices[i] == place_data.index[j]:
+#                 info_list.append(tuple([i+1,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
     
 #     # 가장 유사한 10개의 여행지의 이름을 리턴한다.
 #     #return list(place_data['title'].iloc[place_indices])
 
 #     df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
-
+#     print(df)
 #     def mysql_save(info_list):
 #         conn=pymysql.connect(host='localhost',
 #                             user='root',
@@ -107,7 +108,7 @@
 #     mysql_save(info_list)
 
 
-# selected_place_name='양산문화원'
+# selected_place_name='남계서원'
 # another_recommendations(selected_place_name)
 
 
