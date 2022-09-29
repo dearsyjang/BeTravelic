@@ -30,8 +30,6 @@ public class BookmarkController {
         bookmarkService.saveBookmark(id, placeId, regionId);
         return null;
 //        return new ResponseEntity<>(CommonResponse.getSuccessResponse(bookmarkService.saveBookmark(placeId,userId,dto)), HttpStatus.OK);
-
-
     }
 
 //    @GetMapping("/{placeId}/{userId}")
