@@ -34,19 +34,6 @@ public class FollowService {
 
         followRepository.save(follow);
         return new FollowSaveResponseDto(follow.getFollow_id());
-
-//        Follow follow = new Follow();
-//        User following = userRepository.findUserById(id).orElseThrow(() ->
-//                new RuntimeException("일치하는 사용자 없음"));
-//        User follower = userRepository.findUserById(dto.getId()).orElseThrow(() ->
-//                new RuntimeException("일치하는 사용자 없음"));
-//
-//        follow.setFollower(follower);
-//        follow.setFollowing(following);
-//
-//        followRepository.save(follow);
-//
-//        return new FollowSaveResponseDto(follow.getFollow_id());
     }
 
     public void followDelete(String id, String followId){
@@ -62,7 +49,6 @@ public class FollowService {
         }else{
             new RuntimeException("일치하는 사용자 없음");
         }
-
     }
 
     public List<FollowingListResponseDto> followingList(String id){
