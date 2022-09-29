@@ -89,7 +89,7 @@ export const fetchAllVisitedPlaces = async (userId: string) => {
   const url = `/mypage/travel-history/user/${userId}`;
 
   try {
-    const res = await axios({
+    const res = await springAxios({
       method: "get",
       url,
     });
@@ -117,7 +117,7 @@ export const fetchRegionalVisitedPlaces = async (
 export const fetchAllBookMarks = async (userId: string) => {
   const url = `/bookmark/user/${userId}`;
   try {
-    const res = await axios({
+    const res = await springAxios({
       method: "get",
       url,
     });
@@ -130,7 +130,7 @@ export const fetchRegionalBookMarks = async ({ regionId, userId }: Region) => {
   const url = `/bookmark/region/${regionId}/user/${userId}`;
 
   try {
-    const res = await axios({
+    const res = await springAxios({
       method: "get",
       url,
     });
@@ -141,3 +141,4 @@ export const fetchRegionalBookMarks = async ({ regionId, userId }: Region) => {
     console.log(err.response?.data);
   }
 };
+
