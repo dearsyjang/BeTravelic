@@ -21,8 +21,8 @@ public class SurveyService {
         User user = userRepository.findUserById(id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자가 없음"));
         survey.setUser(user);
-        survey.setSurvey_category(dto.getCategory());
-        survey.setSurvey_keyword(dto.getKeyword());
+        survey.setSurveycategory(dto.getCategory());
+        survey.setSurveykeyword(dto.getKeyword());
         surveyRepository.save(survey);
 
         return new SurveySaveResponseDto(survey.getId());

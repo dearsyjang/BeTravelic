@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMemberId, login, register } from "../../apis/auth";
 import { authActions } from "../../store/auth";
-import '../../pages/css/OnBoard.css'
+import "../../pages/css/OnBoard.css";
 
 interface error {
   email: boolean;
@@ -20,6 +20,7 @@ const SignUpForm: React.FC<{
     email: "",
     password: "",
     confirmedPassword: "",
+    image: "image",
   });
 
   const navigate = useNavigate();
@@ -90,33 +91,33 @@ const SignUpForm: React.FC<{
     // axios
     // 설문조사로
     e.preventDefault();
-    const { nickname, email, password } = inputValues;
+    const { nickname, email, password, image } = inputValues;
 
     let res;
     if (identifier === "login") {
       res = await login({ email, password });
     } else if (identifier === "signup") {
-      res = await register({ nickname, email, password });
+      res = await register({ nickname, email, password, image });
     } else {
-      setStatus(identifier)
+      setStatus(identifier);
     }
 
-    const { accessToken, refreshToken } = res.data;
+    // const { accessToken, refreshToken } = res;
 
     // token 저장
-    dispatch(
-      authActions.authenticate({
-        accessToken,
-        refreshToken,
-      })
-    );
-    let userId: string | null = null;
-    if (identifier === "login") {
-      userId = await getMemberId();
-    }
+    // dispatch(
+    //   authActions.authenticate({
+    //     accessToken,
+    //     refreshToken,
+    //   })
+    // );
+    // let userId: string | null = null;
+    // if (identifier === "login") {
+    //   userId = await getMemberId();
+    // }
 
-    const url = userId === null ? "/survey" : `/mypage/${userId}`;
-    navigate(url, { replace: true });
+    // const url = userId === null ? "/survey" : `/mypage/${userId}`;
+    // navigate(url, { replace: true });
   };
 
   return (
