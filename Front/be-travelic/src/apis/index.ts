@@ -1,20 +1,21 @@
 // 임시 base url
 import axios, { AxiosInstance } from "axios";
 
-const AUTH_TOKEN = ''
+const AUTH_TOKEN = "";
 
-// export const instance: AxiosInstance = axios.create({
-//   // base url 설정
-//   baseURL: "http://j7d205.p.ssafy.io:8080",
-//   // cors
-//   withCredentials: true,
-// });
+export const springAxios: AxiosInstance = axios.create({
+  // base url 설정
+  baseURL: "http://j7d205.p.ssafy.io:8443",
+  // cors
+  withCredentials: true,
+});
+
+export const djangoAxios: AxiosInstance = axios.create({
+  baseURL: "http://j7d205.pssafy.io:8081",
+  withCredentials: true,
+});
 
 // AUTH_TOKEN 설정
 
-axios.defaults.baseURL = 'http://j7d205.p.ssafy.io:8080'
-axios.defaults.withCredentials = true
-axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-
-
-export default axios;
+djangoAxios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+springAxios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
