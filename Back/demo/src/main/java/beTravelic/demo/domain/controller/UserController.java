@@ -36,8 +36,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<CommonResponse> getUserInfo(@RequestParam("id") String id){
-//        String id = (String) request.getParameter("id");
+    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request){
+        String id = (String) request.getAttribute("id");
 //        System.out.println("id : " + id);
 //        System.out.println("request : " + request.getSession().getId());
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
