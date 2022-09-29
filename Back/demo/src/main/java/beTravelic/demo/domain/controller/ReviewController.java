@@ -85,7 +85,7 @@ public class ReviewController {
 
 
     @ApiOperation(value = "여행기록 삭제", notes = "수정 시 true, 실패 시 false 반환")
-    @DeleteMapping("/travel-history/{reviewId}")
+    @DeleteMapping("/mypage/travel-history/{reviewId}")
     public ResponseEntity<?> deleteReview(@PathVariable(name="reviewId") Long reviewId){
         try {
             reviewService.deleteById(reviewId);
@@ -94,4 +94,9 @@ public class ReviewController {
             return new ResponseEntity<>(false, HttpStatus.valueOf(400));
         }
     }
+
+//    @ApiOperation(value = "여행기록 좋아요", notes = "")
+//    PostMapping("/feed/travel-history/like/{reviewId}")
+//    public ResponseEntity<?>
+
 }

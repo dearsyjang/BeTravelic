@@ -15,10 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Survey {
     @Id @GeneratedValue
-    @Column(name = "suervey_id")
+    @Column(name = "survey_id")
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
     private String survey_keyword ;
     private Integer survey_category;
