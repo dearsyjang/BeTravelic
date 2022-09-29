@@ -1,31 +1,26 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
+
 import { FeedCreate, Feed, UserRecommend } from "../components/index";
 import "./css/SNS.css";
 
-const FeedData = [
-  {
-  feedid: 1,
-  nickname: '초코',
-  place: '포항 영일대',
-  date: '2022-01-25',
-  likes: 52,
-  comments: 8,
-  imgUrl: '',
-  contents: '바다 보러 왔어요!',
-  },
-  {
-    feedid: 2,
-    nickname: '울산주모',
-    place: '울산 횟집',
-    date: '2022-08-03',
-    likes: 124,
-    comments: 15,
-    imgUrl: '',
-    contents: '회 너무 맛있어요!',
-  }
-]
 
 function SNS() {
+  const user_id = 1
+  const [ feeds, setFeeds ] = useState<Feed[]>([]);
+
+  // Feed GET
+  useEffect(() => {
+    axios
+      .get(`http://j7d205.p.ssafy.io:8081/api/v1/feed_recommend/${user_id}`)
+      .then(( { data } ) => {
+        console.log(data)
+        setFeeds(data)
+      })
+      .catch((err) => console.log(err))
+   }, [])
+
+
   return (
       <div id="SNS" className="flex flex-row">
         <div className="SNSContainer">
@@ -36,21 +31,22 @@ function SNS() {
 
           {/* 피드조회 */}
           <div id="Feed" className="flex flex-col mt-10 mr-10">
-            {FeedData.map((feed) => (
+            {feeds.map((feed, index) => (
               <div
                 id="FeedContainer"
                 key="{feed.feedid}"
                 className="item-center justify-content"
               >
                 <Feed
-                  feedid={feed.feedid}
+                  key={index}
                   nickname={feed.nickname}
-                  date={feed.date}
-                  place={feed.place}
-                  imgUrl={feed.imgUrl}
-                  likes={feed.likes}
-                  comments={feed.comments}
                   contents={feed.contents}
+                  created_at={feed.created_at}
+                  image_x={feed.image_x}
+                  image_y={feed.image_y}
+                  place_id={feed.place_id}
+                  user_id={feed.user_id}
+                  visited_at={feed.visited_at}
                 />
               </div>
             ))}
