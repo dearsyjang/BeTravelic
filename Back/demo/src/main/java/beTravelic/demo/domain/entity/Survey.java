@@ -21,13 +21,13 @@ public class Survey {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String survey_keyword ;
-    private Integer survey_category;
+    private String surveykeyword ;
+    private Integer surveycategory;
 
     @Builder
     public Survey(User user, String survey_keyword, Integer survey_category){
-        this.survey_keyword = survey_keyword;
-        this.survey_category = survey_category;
+        this.surveykeyword = survey_keyword;
+        this.surveycategory = survey_category;
         this.user = user;
     }
 }
