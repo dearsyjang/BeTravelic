@@ -11,6 +11,7 @@ import {
   TransitionGroup,
 } from "react-transition-group";
 // import { CSSTransition, SwitchTransition } from "react-transition-group";
+import background from "../assets/video/background.mp4";
 
 // 카카오 로그인 시 필요
 // const REST_API_KEY = process.env.REACT_APP_KAKAO_API;
@@ -56,6 +57,9 @@ const OnBoard = () => {
   return (
     <div className="onBoardBody">
       <div className="wrapper ">
+        <video className="videoTag" autoPlay muted>
+          <source src={background} type="video/mp4" />
+        </video>
         <div className="mainDiv fadeIn">
           {/* <CSSTransition
             nodeRef={onboard}
