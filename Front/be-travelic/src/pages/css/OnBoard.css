@@ -10,7 +10,7 @@
 }
 
 .mainDiv {
-  background-color: #f7fbfc;
+  /* background-color: #f7fbfc; */
   width: 780px;
   height: 630px;
   position: absolute;
@@ -38,7 +38,7 @@
 /* bg만 opacity 적용 */
 .onBoardBody::before {
   content: "";
-  background-image: url("../../assets/image/onboard.png");
+  /* background-image: url("../../assets/image/onboard.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.4;
