@@ -141,4 +141,3 @@ export const fetchRegionalBookMarks = async ({ regionId, userId }: Region) => {
     console.log(err.response?.data);
   }
 };
-

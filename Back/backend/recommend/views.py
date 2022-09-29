@@ -372,7 +372,7 @@ def feed_recommend(request, user_id):
         print(set_rec_feed2)
         user_review_list = set_follow_feed2 + set_rec_feed2
         print(user_review_list)
-        df=pd.DataFrame(user_review_list,columns=['recommend_feed_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
+        df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
         
         
         # rec_user=[]
@@ -397,7 +397,7 @@ def feed_recommend(request, user_id):
 
 
             #cursor=conn.cursor()
-            sql="insert into recommendfeed(recommend_feed_id,place_id,user_id,review_id,contents,image_y,image_x,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,image_y,image_x,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.executemany(sql,user_review_list)
             # conn.commit()
             # conn.close()
