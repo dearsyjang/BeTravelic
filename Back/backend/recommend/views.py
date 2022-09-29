@@ -339,10 +339,10 @@ def feed_recommend(request, user_id):
         coffey_hands = users_list.index(current_user_id)
         corr_coffey_hands = corr[coffey_hands]
         lst= list(users[(corr_coffey_hands>=0.1)] )
-        print(corr_coffey_hands)
+    
 
 
-        print(lst)
+     
         user_review_list=[]
         following_list=[]
         for i in range(len(follow_data)):
@@ -356,22 +356,20 @@ def feed_recommend(request, user_id):
                     follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
         set_follow_feed = set(follow_feed)
         set_follow_feed2 = list(set_follow_feed)
-        print(set_follow_feed2)
-        print(user_review_place_data.columns)
-        print(lst)
+      
         lst2 = lst[:-5]
-        print(lst2)
+      
         lst3 = lst[-5:]
-        print(lst3)
+    
         rec_feed=[]
         for i in lst2:
             if i != current_user_id and i not in following_list:
                 rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
         set_rec_feed = set(rec_feed)
         set_rec_feed2 = list(set_rec_feed)
-        print(set_rec_feed2)
+ 
         user_review_list = set_follow_feed2 + set_rec_feed2
-        print(user_review_list)
+    
         df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
         
         
@@ -382,7 +380,6 @@ def feed_recommend(request, user_id):
         # set_rec_user = set(rec_user)
         # set_rec_user2 = list(set_rec_user)
     
-        df=pd.DataFrame(set_rec_user2,columns=['recommend_user_id','image','nickname','user_id'])
 
 
         def mysql_save(user_review_list):
@@ -451,14 +448,17 @@ def user_recommend(request, user_id):
         coffey_hands = users_list.index(current_user_id)
         corr_coffey_hands = corr[coffey_hands]
         lst= list(users[(corr_coffey_hands>=0.1)] )
-        print(corr_coffey_hands)
+    
+        user_review_list=[]
+        following_list=[]
+        for i in range(len(follow_data)):
+            if follow_data['follower_user_id'][i]==current_user_id:
+                following_list.append(follow_data['following_user_id'][i])
 
-
-        print(lst)
+ 
         lst2 = lst[:-5]
-        print(lst2)
         lst3 = lst[-5:]
-        print(lst3)
+
         # rec_feed=[]
         # for i in lst2:
         #     if i != current_user_id and i not in following_list:
