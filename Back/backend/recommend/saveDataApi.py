@@ -3,13 +3,14 @@ from bs4 import BeautifulSoup as bs
 import json
 import pandas as pd
 import pymysql
-url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&_type=json&listYN=Y&arrange=C&mapX=128.6922646449&mapY=35.9910080699&radius=100000"
+url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&_type=json&listYN=Y&arrange=C&mapX=128.6922646449&mapY=35.9910080699&radius=100000"
 response= requests.get(url,verify=False)
 res=response.text
 data=json.loads(res)
 places=data['response']['body']['items']['item']
 info_list=[]
 for place in places:
+    print(place)
     place_id = places.index(place)+1
     # category_id=place.place_category.filter(place["contenttypeid"]=categories['content_type_id'])
     category_id = 0
