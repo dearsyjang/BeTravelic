@@ -79,3 +79,7 @@ export const fetchSurvey = async (data: Winners, userId: any) => {
     console.log(err.response?.data);
   }
 };
+
+export const refresh = async (refreshToken:string) => {
+  // 추후 작성
+}
