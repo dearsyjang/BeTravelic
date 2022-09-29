@@ -54,6 +54,15 @@ public class UserService {
         }
         return isExist;
     }
+    public isExistResponseDto checkEmail(String email) throws Exception {
+        isExistResponseDto isExist = new isExistResponseDto();
+        if(userRepository.existsUserByEmail(email)){
+            isExist.setExist(true);
+        }else{
+            isExist.setExist(false);
+        }
+        return isExist;
+    }
 
     // 사용자 정보 조회
     public UserInfoResponseDto getUserInfo(String id) {
@@ -76,4 +85,6 @@ public class UserService {
             new NoExistUserException());
         return new GetAccessTokenResponseDto(jwtProvider.getAccessToken(user.getId()));
     }
+
+
 }
