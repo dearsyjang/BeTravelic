@@ -18,11 +18,11 @@ public class Follow {
     private Long follow_id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "following_user_id")
+    @JoinColumn(referencedColumnName = "user_id", name = "following_user_id")
     private User following;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "follower_user_id")
+    @JoinColumn(referencedColumnName = "user_id", name = "follower_user_id")
     private User follower;
 
 
