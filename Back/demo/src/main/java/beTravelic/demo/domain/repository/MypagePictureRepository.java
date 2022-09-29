@@ -7,6 +7,6 @@
 //
 //public interface MypagePictureRepository extends JpaRepository<MypagePicture, Long> {
 //
-//    Optional<MypagePicture> findBoardById(Long id);
+//
 //
 //}
