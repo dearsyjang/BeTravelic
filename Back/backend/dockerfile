@@ -5,16 +5,11 @@ COPY requirements.txt ./
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN pip3 install django
+ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk/jre
+RUN apt-get update && apt-get install -y g++ default-jdk
+RUN pip3 install konlpy
 
-# RUN pip3 install libmecab-dev
-# RUN pip3 install mecab-config
-# RUN pip3 install pybind
-RUN pip3 install python-mecab-ko
-RUN pip3 install mecab
-
-# RUN python-mecab-ko --version
-RUN pip3 install eunjeon
 RUN pip3 install -r requirements.txt
 COPY . .
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
-EXPOSE 8080
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8081"]
+EXPOSE 8081
