@@ -16,12 +16,12 @@ public class WebConfig implements WebMvcConfigurer {
     private final AccessTokenInterceptor accessTokenInterceptor;
     private final RefreshTokenInterceptor refreshTokenInterceptor;
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET","POST","PUT","DELETE", "OPTIONS");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedMethods("GET","POST","PUT","DELETE", "OPTIONS");
+//    }
 
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
