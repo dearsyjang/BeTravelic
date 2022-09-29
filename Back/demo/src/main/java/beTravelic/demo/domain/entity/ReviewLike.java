@@ -30,5 +30,4 @@ public class ReviewLike {
     @JoinColumn(name = "user_id")
     private User user;
 
-
 }
