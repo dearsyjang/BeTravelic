@@ -1,27 +1,27 @@
 version: '3.7'
 
 services: 
-  backend:
-    image: backend-spring
-    build:
-      context: Back/demo
-      dockerfile: Dockerfile
-    ports:
-      - "8443:8443"  
-    volumes:
-      - /home/ubuntu/docker-volume/ssl:/root
-    container_name: "backend"
-
-  # backendDjango:
-  #   image: backend-django
+  # backend:
+  #   image: backend-spring
   #   build:
-  #     context: Back/backend
+  #     context: Back/demo
   #     dockerfile: Dockerfile
   #   ports:
-  #     - "8081:8081"
+  #     - "8443:8443"  
   #   volumes:
   #     - /home/ubuntu/docker-volume/ssl:/root
-  #   container_name: "backendDjango"
+  #   container_name: "backend"
+
+  backendDjango:
+    image: backend-django
+    build:
+      context: Back/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - /home/ubuntu/docker-volume/ssl:/root
+    container_name: "backendDjango"
 
   frontend:
     image: frontend-react
