@@ -52,7 +52,6 @@ public class User  {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
-
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
@@ -66,7 +65,6 @@ public class User  {
         this.email = email;
         this.image = image;
     }
-
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
     public User(Long user_id) {
