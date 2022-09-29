@@ -35,11 +35,15 @@ public class UserController {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.login(dto)), HttpStatus.OK);
     }
 
+    @GetMapping("/access-token")
+    public ResponseEntity<CommonResponse> getAccessToken(HttpServletRequest request){
+        String refreshToken = (String) request.getAttribute("refreshToken");
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getAccessToken(refreshToken)), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request){
         String id = (String) request.getAttribute("id");
-//        System.out.println("id : " + id);
-//        System.out.println("request : " + request.getSession().getId());
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
     }
 
