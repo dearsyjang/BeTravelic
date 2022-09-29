@@ -12,11 +12,11 @@ from django.shortcuts import render
 from .models import Categories
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import User, Place ,RecommendPlace , RecommendUser
+from .models import User, Place ,RecommendPlace , RecommendUser, RecommendFeed
 from .serializers.user import UserSerializer
 from .serializers.place import PlaceSerializer, PlaceListSerializer
 from .serializers.recommendplace import RecommendPlaceSerializer
-from .serializers.recommenduser import RecommendUserSerializer
+from .serializers.recommenduser import RecommendUserSerializer, RecommendFeedSerializer
 
 # Create your views here.
 
@@ -313,14 +313,14 @@ def another_recommend(request,place_name):
 
 
 @api_view(['GET'])
-def sns_recommend(request, user_id):
+def feed_recommend(request, user_id):
     current_user_id = user_id
     # current_user_id= request.query_params.get('current_user_id')
     #request.data('current_user_id')
     # current_user_id= 3 
-    def sns_recommendations(current_user_id):
+    def feed_recommendations(current_user_id):
 
-        
+    
 
         place_user_score = place_review_data.pivot_table('score_y', index ='title', columns='user_id').fillna(0)
         user_place_score = place_user_score.values.T
@@ -332,44 +332,59 @@ def sns_recommend(request, user_id):
 
         corr = np.corrcoef(matrix)
         #print(corr.shape)
-        
 
     
         users = place_user_score.columns
         users_list = list(users)
         coffey_hands = users_list.index(current_user_id)
         corr_coffey_hands = corr[coffey_hands]
-        lst= list(users[(corr_coffey_hands>=0.9)] )
+        lst= list(users[(corr_coffey_hands>=0.1)] )
+        print(corr_coffey_hands)
 
 
-
-
-
-
-
+        print(lst)
         user_review_list=[]
         following_list=[]
         for i in range(len(follow_data)):
             if follow_data['follower_user_id'][i]==current_user_id:
                 following_list.append(follow_data['following_user_id'][i])
-
+    
         follow_feed=[]
         for i in following_list:
             for j in range(len(user_review_place_data)):
                 if i== user_review_place_data['user_id'][j]:
-                    follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
+                    follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
         set_follow_feed = set(follow_feed)
         set_follow_feed2 = list(set_follow_feed)
-
+        print(set_follow_feed2)
+        print(user_review_place_data.columns)
+        print(lst)
+        lst2 = lst[:-5]
+        print(lst2)
+        lst3 = lst[-5:]
+        print(lst3)
         rec_feed=[]
-        for i in lst:
+        for i in lst2:
             if i != current_user_id and i not in following_list:
-                rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_x'][i],user_review_place_data['image_y'][i],user_review_place_data['nickname'][i]]))
+                rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
         set_rec_feed = set(rec_feed)
         set_rec_feed2 = list(set_rec_feed)
+        print(set_rec_feed2)
         user_review_list = set_follow_feed2 + set_rec_feed2
-        df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_x','image_y','nickname'])
+        print(user_review_list)
+        df=pd.DataFrame(user_review_list,columns=['recommend_feed_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
         
+        
+        # rec_user=[]
+        # for i in lst3:
+        #     if i != current_user_id and i not in following_list:
+        #         rec_user.append(tuple([user_data['user_id'][i],user_data['image'][i],user_data['nickname'][i],user_data['user_id'][i]]))
+        # set_rec_user = set(rec_user)
+        # set_rec_user2 = list(set_rec_user)
+    
+        df=pd.DataFrame(set_rec_user2,columns=['recommend_user_id','image','nickname','user_id'])
+
+
         def mysql_save(user_review_list):
             conn=pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
@@ -377,16 +392,124 @@ def sns_recommend(request, user_id):
                         db='D205_2',
                         charset='utf8')
             cursor=conn.cursor()
-            sql = "truncate recommenduser"
+            sql = "truncate recommendfeed"
             cursor.execute(sql)
-   
+
 
             #cursor=conn.cursor()
-            sql="insert into recommenduser(recommend_user_id,place_id,user_id,review_id,contents,image_x,image_y,nickname) values(%s,%s,%s,%s,%s,%s,%s,%s)"
+            sql="insert into recommendfeed(recommend_feed_id,place_id,user_id,review_id,contents,image_y,image_x,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.executemany(sql,user_review_list)
+            # conn.commit()
+            # conn.close()
+
+            # #cursor=conn.cursor()
+            # sql = "truncate recommenduser"
+            # cursor.execute(sql)
+
+            # #cursor=conn.cursor()
+            # sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
+            # cursor.executemany(sql,set_rec_user2)
             conn.commit()
             conn.close()
+
+        #mysql_save(user_review_list)
         mysql_save(user_review_list)
+    
+    #sns_recommendations(current_user_id)
+
+
+    if request.method=='GET':
+        feeds = get_list_or_404(RecommendFeed)
+        serializer = RecommendFeedSerializer(feeds,many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def user_recommend(request, user_id):
+    current_user_id = user_id
+    # current_user_id= request.query_params.get('current_user_id')
+    #request.data('current_user_id')
+    # current_user_id= 3 
+    def user_recommendations(current_user_id):
+
+    
+
+        place_user_score = place_review_data.pivot_table('score_y', index ='title', columns='user_id').fillna(0)
+        user_place_score = place_user_score.values.T
+        #print(place_user_score)
+
+        SVD = TruncatedSVD(n_components=3)
+        matrix=SVD.fit_transform(user_place_score)
+        #print(matrix[0])
+
+        corr = np.corrcoef(matrix)
+        #print(corr.shape)
+
+    
+        users = place_user_score.columns
+        users_list = list(users)
+        coffey_hands = users_list.index(current_user_id)
+        corr_coffey_hands = corr[coffey_hands]
+        lst= list(users[(corr_coffey_hands>=0.1)] )
+        print(corr_coffey_hands)
+
+
+        print(lst)
+        lst2 = lst[:-5]
+        print(lst2)
+        lst3 = lst[-5:]
+        print(lst3)
+        # rec_feed=[]
+        # for i in lst2:
+        #     if i != current_user_id and i not in following_list:
+        #         rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
+        # set_rec_feed = set(rec_feed)
+        # set_rec_feed2 = list(set_rec_feed)
+        # print(set_rec_feed2)
+        # user_review_list = set_follow_feed2 + set_rec_feed2
+        # print(user_review_list)
+        # df=pd.DataFrame(user_review_list,columns=['recommend_feed_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
+        
+        
+        rec_user=[]
+        for i in lst3:
+            if i != current_user_id and i not in following_list:
+                rec_user.append(tuple([user_data['user_id'][i],user_data['image'][i],user_data['nickname'][i],user_data['user_id'][i]]))
+        set_rec_user = set(rec_user)
+        set_rec_user2 = list(set_rec_user)
+    
+        df=pd.DataFrame(set_rec_user2,columns=['recommend_user_id','image','nickname','user_id'])
+
+
+        def mysql_save(set_rec_user2):
+            conn=pymysql.connect(host='j7d205.p.ssafy.io',
+                        user='root',
+                        password='d205',
+                        db='D205_2',
+                        charset='utf8')
+            cursor=conn.cursor()
+            # sql = "truncate recommendfeed"
+            # cursor.execute(sql)
+
+
+            # #cursor=conn.cursor()
+            # sql="insert into recommendfeed(recommend_feed_id,place_id,user_id,review_id,contents,image_y,image_x,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            # cursor.executemany(sql,user_review_list)
+            # conn.commit()
+            # conn.close()
+
+            #cursor=conn.cursor()
+            sql = "truncate recommenduser"
+            cursor.execute(sql)
+
+            #cursor=conn.cursor()
+            sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
+            cursor.executemany(sql,set_rec_user2)
+            conn.commit()
+            conn.close()
+
+        #mysql_save(user_review_list)
+        mysql_save(set_rec_user2)
     
     #sns_recommendations(current_user_id)
 
