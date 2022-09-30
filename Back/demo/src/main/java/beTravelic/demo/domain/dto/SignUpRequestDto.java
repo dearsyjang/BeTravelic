@@ -20,8 +20,6 @@ public class SignUpRequestDto {
     @NotBlank(message = "email 비워둘 수 없습니다.")
     private String email;
 
-    @NotBlank(message = "image 비워둘 수 없습니다.")
-    private String image;
 
     public User toUserEntity(){
         return User.builder()
@@ -29,7 +27,6 @@ public class SignUpRequestDto {
                 .pw(this.pw)
                 .nickname(this.nickname)
                 .email(this.email)
-                .image(this.image)
                 .build();
     }
 
