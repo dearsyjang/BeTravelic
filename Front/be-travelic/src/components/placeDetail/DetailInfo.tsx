@@ -1,18 +1,21 @@
 import "../css/PlaceDetail.css"
 
-interface detailInfo {
-  id: number;
-  category: string;
+interface DetailInfo {
+  placeId: number;
+  categories: number;
+  region: number;
+  addr: string;
   title: string;
-  imgUrl: string;
-  rating: number;
-  address: string;
-  phoneNumber: string;
-  detail: string;
+  image: string;
+  mapx: string;
+  mapy: string;
+  score: number;
+  content_id: number;
+  overview: string;
 }
 
-function DetailInfo( props: detailInfo) {
-  const { id, category, title, imgUrl, rating, address, phoneNumber, detail } = props
+function DetailInfo( props: DetailInfo) {  
+  const { placeId, categories, region, addr, title, image, mapx, mapy, score, content_id, overview } = props
   
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -24,7 +27,7 @@ function DetailInfo( props: detailInfo) {
                 id="placeImage"
                 alt="placeImage"
                 className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-                src={imgUrl}
+                src={image}
               />
 
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -51,14 +54,14 @@ function DetailInfo( props: detailInfo) {
 
                 <hr />
 
-                <h3 className="m-1">{address}</h3>
-                <h3 className="m-2">{phoneNumber}</h3>
+                <h3 className="m-1">{addr}</h3>
+                {/* 전화번호 <h3 className="m-2">{phoneNumber}</h3> */}
 
                 {/* 별점과 리뷰 => 수정 및 추가 예정(개수) */}
                 <div className="flex m-1">
                   {(function () {
                     let stars = [];
-                    for (let i = 0; i < rating; i++) {
+                    for (let i = 0; i < score; i++) {
                       stars.push(<span>⭐</span>);
                     }
                     return stars;
@@ -66,7 +69,7 @@ function DetailInfo( props: detailInfo) {
                   <p>(50)</p>
                 </div>
 
-                <p className="leading-relaxed m-1 mt-3">{detail}</p>
+                <p className="leading-relaxed m-1 mt-3">{overview}</p>
               </div>
             </div>
           </div>

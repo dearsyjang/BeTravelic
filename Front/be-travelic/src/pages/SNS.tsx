@@ -9,7 +9,7 @@ function SNS() {
   const user_id = 1
   const [ feeds, setFeeds ] = useState<Feed[]>([]);
 
-  // Feed GET
+  // Feed GET (django)
   useEffect(() => {
     axios
       .get(`http://j7d205.p.ssafy.io:8081/api/v1/feed_recommend/${user_id}`)
@@ -19,7 +19,7 @@ function SNS() {
       })
       .catch((err) => console.log(err))
    }, [])
-
+   
 
   return (
       <div id="SNS" className="flex flex-row">
