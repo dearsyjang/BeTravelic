@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
+
 import CommentsModal from "./CommentsModal"
+
+import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
 import "../css/Feed.css"
 
 
 interface Feed {
-  feedid: number;
-  nickname: string;
-  date: string;
-  place: string;
-  imgUrl: string;
-  likes: number;
-  comments: number;
   contents: string;
+  created_at: string;
+  image_x: string;
+  image_y: string;
+  place_id: string;
+  user_id: string;
+  visited_at: string;
+  nickname: string;
 }
 
 
 function Feed( props: Feed) {
-  const { feedid, nickname, date, place, imgUrl, likes, comments, contents } = props
+  const { contents, nickname, created_at, image_x, image_y, place_id, user_id, visited_at } = props
 
   // 모달창
   // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
@@ -38,7 +40,7 @@ function Feed( props: Feed) {
           <img
             alt=""
             className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
-            src="https://dummyimage.com/103x103"
+            src={image_x}
           />
           <div className="flex-grow">
             <Link to={`/mypage`}>
@@ -48,10 +50,10 @@ function Feed( props: Feed) {
           </div>
 
           <FaMapMarkerAlt id="MarkIcon" />
-          <h2 className="ml-1 mr-5">{place}</h2>
+          <h2 className="ml-1 mr-5">장소!?</h2>
 
           <FaRegCalendarAlt id="CalendarIcon" />
-          <h2 className="ml-1 mr-3">{date}</h2>
+          <h2 className="ml-1 mr-3">{visited_at}</h2>
         </div>
       </div>
 
@@ -61,7 +63,7 @@ function Feed( props: Feed) {
             id="FeedImage"
             className=""
             alt="SNSimage"
-            src="https://dummyimage.com/720x600"
+            src={image_y}
           />
         </div>
 
@@ -79,7 +81,7 @@ function Feed( props: Feed) {
             <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
             </svg>
           </button>
-          <p className="mt-2">{likes}</p>
+          <p className="mt-2">likes</p>
 
 
           {/* 댓글 버튼 */}
@@ -98,7 +100,7 @@ function Feed( props: Feed) {
                 viewBox="0 0 24 24"
               >
                 <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-              </svg>{comments}
+              </svg>comments
             </button>
             
             <CommentsModal

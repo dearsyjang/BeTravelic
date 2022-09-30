@@ -27,7 +27,7 @@ public class User  {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "image")
+    @Column(name = "image", nullable = true)
     private String image;
     @Column(name = "refresh_token")
     private String refreshToken;
@@ -56,14 +56,13 @@ public class User  {
         this.refreshToken = refreshToken;
     }
     @Builder
-    public User(String pw, String id, String nickname, String email, String image
-
+    public User(String pw, String id, String nickname, String email
     ){
         this.id = id;
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
-        this.image = image;
+        this.image = "image";
     }
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
