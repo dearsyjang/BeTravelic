@@ -15,7 +15,7 @@ function UserRecommend() {
   const user_id = 1
   const [ userRecommends, setUserRecommends ] = useState<UserRecommend[]>([]);
 
-  // UserRecommend GET (django)
+  // UserRecommend GET
   useEffect(() => {
     axios
       .get(`http://j7d205.p.ssafy.io:8081/api/v1/user_recommend/${user_id}`)
