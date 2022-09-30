@@ -7,8 +7,8 @@ import "../../pages/css/OnBoard.css";
 
 interface error {
   email: boolean;
-  password: boolean;
-  confirmedPassword?: boolean;
+  pw: boolean;
+  confirmedpw?: boolean;
 }
 
 const SignUpForm: React.FC<{
@@ -18,9 +18,8 @@ const SignUpForm: React.FC<{
   const [inputValues, setInputValues] = useState({
     nickname: "",
     email: "",
-    password: "",
-    confirmedPassword: "",
-    image: "image",
+    pw: "",
+    confirmedpw: "",
   });
 
   const navigate = useNavigate();
@@ -28,21 +27,21 @@ const SignUpForm: React.FC<{
 
   const [errors, setErrors] = useState<error>({
     email: true,
-    password: true,
-    confirmedPassword: true,
+    pw: true,
+    confirmedpw: true,
   });
 
   // email 유효성 검사
   const emailRegex =
     /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
-  const passwordRegex =
+  const pwRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
   const emailIsValid = emailRegex.test(inputValues.email);
 
-  const confirmPasswordIsValid =
-    inputValues.password === inputValues.confirmedPassword ? true : false;
-  const passwordIsValid = passwordRegex.test(inputValues.password);
+  const confirmpwIsValid =
+    inputValues.pw === inputValues.confirmedpw ? true : false;
+  const pwIsValid = pwRegex.test(inputValues.pw);
 
   // blur 시 error 확인
   const onBlurHandler = (inputIdentifier: string) => {
@@ -53,15 +52,15 @@ const SignUpForm: React.FC<{
             ...curValue,
             [inputIdentifier]: emailIsValid,
           };
-        case "password":
+        case "pw":
           return {
             ...curValue,
-            [inputIdentifier]: passwordIsValid,
+            [inputIdentifier]: pwIsValid,
           };
-        case "confirmedPassword":
+        case "confirmedpw":
           return {
             ...curValue,
-            [inputIdentifier]: confirmPasswordIsValid,
+            [inputIdentifier]: confirmpwIsValid,
           };
         default:
           return {
@@ -91,33 +90,38 @@ const SignUpForm: React.FC<{
     // axios
     // 설문조사로
     e.preventDefault();
-    const { nickname, email, password, image } = inputValues;
+    const { nickname, email, pw } = inputValues;
+    const id = email;
 
     let res;
     if (identifier === "login") {
-      res = await login({ email, password });
+      res = await login({ email, pw });
+      console.log(res, "res");
     } else if (identifier === "signup") {
-      res = await register({ nickname, email, password, image });
+      res = await register({ nickname, email, pw, id });
     } else {
       setStatus(identifier);
     }
 
-    // const { accessToken, refreshToken } = res;
+    const { accessToken, refreshToken } = res;
 
     // token 저장
-    // dispatch(
-    //   authActions.authenticate({
-    //     accessToken,
-    //     refreshToken,
-    //   })
-    // );
-    // let userId: string | null = null;
-    // if (identifier === "login") {
-    //   userId = await getMemberId();
-    // }
+    dispatch(
+      authActions.authenticate({
+        accessToken,
+        refreshToken,
+      })
+    );
+    let userId: string | null = null;
+    if (identifier === "login") {
+      console.log("get userId");
 
-    // const url = userId === null ? "/survey" : `/mypage/${userId}`;
-    // navigate(url, { replace: true });
+      userId = await getMemberId(accessToken);
+      console.log(userId);
+    }
+
+    const url = userId === null ? "/survey" : `/mypage/${userId}`;
+    navigate(url, { replace: true });
   };
 
   return (
@@ -172,24 +176,24 @@ const SignUpForm: React.FC<{
 
           <div>
             <label
-              htmlFor="password"
+              htmlFor="pw"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
               비밀번호
             </label>
             <input
               type="password"
-              name="password"
-              id="password"
+              name="pw"
+              id="pw"
               placeholder="••••••••"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
               required
-              // ref={passwordRef}
-              onChange={inputChangeHandler.bind(this, "password")}
-              onBlur={onBlurHandler.bind(this, "password")}
+              // ref={pwRef}
+              onChange={inputChangeHandler.bind(this, "pw")}
+              onBlur={onBlurHandler.bind(this, "pw")}
             />
           </div>
-          {!errors.password && !passwordIsValid ? (
+          {!errors.pw && !pwIsValid ? (
             <div className="text-red-100">
               비밀번호는 대,소문자 및 특수문자를 포함한 8자리 이상 설정해주세요.
             </div>
@@ -198,25 +202,25 @@ const SignUpForm: React.FC<{
           {status === "signup" && (
             <div>
               <label
-                htmlFor="confirm-password"
+                htmlFor="confirm-pw"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
                 비밀번호 확인
               </label>
               <input
                 type="password"
-                name="confirm-password"
-                id="confirm-password"
+                name="confirm-pw"
+                id="confirm-pw"
                 placeholder="••••••••"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 required
-                // ref={confirmedPasswordRef}
-                onChange={inputChangeHandler.bind(this, "confirmedPassword")}
-                onBlur={onBlurHandler.bind(this, "confirmedPassword")}
+                // ref={confirmedpwRef}
+                onChange={inputChangeHandler.bind(this, "confirmedpw")}
+                onBlur={onBlurHandler.bind(this, "confirmedpw")}
               />
             </div>
           )}
-          {!errors.confirmedPassword && !confirmPasswordIsValid ? (
+          {!errors.confirmedpw && !confirmpwIsValid ? (
             <div className="text-red-100">비밀번호가 일치하지 않습니다.</div>
           ) : null}
           <div className="flex items-start justify-around">
