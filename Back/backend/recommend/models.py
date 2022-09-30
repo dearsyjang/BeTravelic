@@ -7,7 +7,8 @@ class User(models.Model):
     user_id = models.IntegerField(primary_key=True)
     nickname = models.CharField(max_length=16)
     email = models.CharField(max_length=32)
-    image = models.CharField(max_length=500)
+    file_name = models.CharField(max_length=500, blank=True, null=True)
+    real_file_name = models.CharField(max_length=500, blank=True, null=True)
     id= models.CharField(max_length=45)
     pw = models.CharField(max_length=45)
     refresh_token = models.CharField(max_length=500)
@@ -63,7 +64,8 @@ class UserPlace(models.Model):
 
 class Picture(models.Model):
     picture_id = models.IntegerField(primary_key=True)
-    image = models.CharField(max_length=500)
+    file_name = models.CharField(max_length=500, blank=True, null=True)
+    real_file_name = models.CharField(max_length=500, blank=True, null=True)
     region_id = models.ForeignKey('Regions', models.DO_NOTHING, db_column='region_id', blank=True, null=True)
     user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
 
@@ -96,7 +98,8 @@ class Regions(models.Model):
 class Review(models.Model):
     review_id = models.IntegerField(primary_key=True)
     contents = models.CharField(max_length=200)
-    image = models.CharField(max_length=255)
+    file_name = models.CharField(max_length=500, blank=True, null=True)
+    real_file_name = models.CharField(max_length=500, blank=True, null=True)
     score = models.IntegerField()
     created_at = models.DateTimeField()
     visited_at = models.CharField(max_length=45)
@@ -147,15 +150,23 @@ class Comment(models.Model):
 
 
 
-class Survey(models.Model):
+class SurveyCategory(models.Model):
     Survey_id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
-    surveycategory = models.CharField(max_length=45)
-    surveykeyword =  models.CharField(max_length=45)    
+    survey_category = models.CharField(max_length=45)
 
     class Meta:
         managed = False
-        db_table = 'Survey'  
+        db_table = 'survey_category'  
+
+class surveyKeyword(models.Model):
+    Survey_id = models.IntegerField(primary_key=True)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    survey_keyword =  models.CharField(max_length=45)    
+
+    class Meta:
+        managed = False
+        db_table = 'survey_keyword' 
 
 
 class Follow(models.Model):
@@ -171,8 +182,10 @@ class Follow(models.Model):
 class RecommendFeed(models.Model):
     recommend_user_id = models.IntegerField(primary_key=True)
     contents = models.CharField(max_length=500, blank=True, null=True)
-    image_x = models.CharField(max_length=500, blank=True, null=True)
-    image_y = models.CharField(max_length=500, blank=True, null=True)
+    file_name = models.CharField(max_length=500, blank=True, null=True)
+    real_file_name = models.CharField(max_length=500, blank=True, null=True)
+    file_name_user = models.CharField(max_length=500, blank=True, null=True)
+    real_file_name_user = models.CharField(max_length=500, blank=True, null=True)
     nickname = models.CharField(max_length=45, blank=True, null=True)
     created_at = models.CharField(max_length=45)
     visited_at = models.CharField(max_length=45)
@@ -186,7 +199,8 @@ class RecommendFeed(models.Model):
 
 class RecommendUser(models.Model):
     recommend_user_id = models.IntegerField(primary_key=True)
-    image = models.CharField(max_length=500, blank=True, null=True)
+    file_name = models.CharField(max_length=500, blank=True, null=True)
+    real_file_name = models.CharField(max_length=500, blank=True, null=True)
     nickname = models.CharField(max_length=45, blank=True, null=True)
     user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
     class Meta:

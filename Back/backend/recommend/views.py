@@ -36,7 +36,7 @@ from konlpy.tag import Okt
 
 conn = pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
-                        password='d205',
+                        password='betravelic205',
                         db='D205_2',
                         charset='utf8')
 
@@ -205,7 +205,7 @@ def place_recommend(request,user_id,category):
         def mysql_save(info_list):
             conn=pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
-                        password='d205',
+                        password='betravelic205',
                         db='D205_2',
                         charset='utf8')
 
@@ -285,7 +285,7 @@ def another_recommend(request,place_name):
         def mysql_save(info_list):
             conn=pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
-                        password='d205',
+                        password='betravelic205',
                         db='D205_2',
                         charset='utf8')
             cursor=conn.cursor()
@@ -353,7 +353,7 @@ def feed_recommend(request, user_id):
         for i in following_list:
             for j in range(len(user_review_place_data)):
                 if i== user_review_place_data['user_id'][j]:
-                    follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
+                    follow_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['file_name_x'][i],user_review_place_data['file_name_y'][i],user_review_place_data['real_file_name_x'][i],user_review_place_data['real_file_name_y'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
         set_follow_feed = set(follow_feed)
         set_follow_feed2 = list(set_follow_feed)
       
@@ -364,13 +364,13 @@ def feed_recommend(request, user_id):
         rec_feed=[]
         for i in lst2:
             if i != current_user_id and i not in following_list:
-                rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['image_y'][i],user_review_place_data['image_x'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
+                rec_feed.append(tuple([user_review_place_data['review_id'][i],user_review_place_data['place_id'][i],user_review_place_data['user_id'][i],user_review_place_data['review_id'][i],user_review_place_data['contents'][i],user_review_place_data['file_name_x'][i],user_review_place_data['file_name_y'][i],user_review_place_data['real_file_name_x'][i],user_review_place_data['real_file_name_y'][i],user_review_place_data['nickname'][i],user_review_place_data['created_at'][i],user_review_place_data['visited_at'][i]]))
         set_rec_feed = set(rec_feed)
         set_rec_feed2 = list(set_rec_feed)
  
         user_review_list = set_follow_feed2 + set_rec_feed2
     
-        df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
+        df=pd.DataFrame(user_review_list,columns=['recommend_user_id','place_id','user_id','review_id','contents','file_name','file_name_user','real_file_name','real_file_name_user','nickname','created_at','visited_at'])
         
         
         # rec_user=[]
@@ -385,7 +385,7 @@ def feed_recommend(request, user_id):
         def mysql_save(user_review_list):
             conn=pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
-                        password='d205',
+                        password='betravelic205',
                         db='D205_2',
                         charset='utf8')
             cursor=conn.cursor()
@@ -394,7 +394,7 @@ def feed_recommend(request, user_id):
 
 
             #cursor=conn.cursor()
-            sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,image_y,image_x,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,file_name,file_name_user,real_file_name,real_file_name_user,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.executemany(sql,user_review_list)
             # conn.commit()
             # conn.close()
@@ -435,7 +435,7 @@ def user_recommend(request, user_id):
         user_place_score = place_user_score.values.T
         #print(place_user_score)
 
-        SVD = TruncatedSVD(n_components=3)
+        SVD = TruncatedSVD(n_components=5)
         matrix=SVD.fit_transform(user_place_score)
         #print(matrix[0])
 
@@ -470,21 +470,21 @@ def user_recommend(request, user_id):
         # print(user_review_list)
         # df=pd.DataFrame(user_review_list,columns=['recommend_feed_id','place_id','user_id','review_id','contents','image_y','image_x','nickname','created_at','visited_at'])
         
-        
+        print(user_data)
         rec_user=[]
         for i in lst3:
             if i != current_user_id and i not in following_list:
-                rec_user.append(tuple([user_data['user_id'][i],user_data['image'][i],user_data['nickname'][i],user_data['user_id'][i]]))
+                rec_user.append(tuple([user_data['user_id'][i],user_data['file_name'][i],user_data['real_file_name'][i],user_data['nickname'][i],user_data['user_id'][i]]))
         set_rec_user = set(rec_user)
         set_rec_user2 = list(set_rec_user)
     
-        df=pd.DataFrame(set_rec_user2,columns=['recommend_user_id','image','nickname','user_id'])
-
+        df=pd.DataFrame(set_rec_user2,columns=['recommend_user_id','file_name','real_file_name','nickname','user_id'])
+        print(df)
 
         def mysql_save(set_rec_user2):
             conn=pymysql.connect(host='j7d205.p.ssafy.io',
                         user='root',
-                        password='d205',
+                        password='betravelic205',
                         db='D205_2',
                         charset='utf8')
             cursor=conn.cursor()
@@ -503,7 +503,7 @@ def user_recommend(request, user_id):
             cursor.execute(sql)
 
             #cursor=conn.cursor()
-            sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
+            sql="insert into recommenduser(recommend_user_id,file_name,real_file_name,nickname,user_id) values(%s,%s,%s,%s,%s)"
             cursor.executemany(sql,set_rec_user2)
             conn.commit()
             conn.close()
