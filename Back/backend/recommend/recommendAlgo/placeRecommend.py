@@ -13,7 +13,7 @@
 
 # conn = pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
-#                         password='d205',
+#                         password='betravelic205',
 #                         db='D205_2',
 #                         charset='utf8')
 
@@ -60,7 +60,7 @@
 
 
 # def place_recommendations(current_user_id, selected_category):
-    
+
 #     user_keywords=[]
 #     for i in range(len(Place_review_category_data['contents'])):
 #         if Place_review_category_data['user_id'][i]== current_user_id and Place_review_category_data['category_name'][i]== selected_category:
@@ -68,14 +68,12 @@
 #             # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
 #             # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
 #             m_filtered= okt.nouns(Place_review_category_data['contents'][i])
-
 #             for j in m_filtered:
 #                 user_keywords.append(j)
 
 #     all_keywords= []
 #     for i in range(len(Place_review_category_data['contents'])):
 #         if Place_review_category_data['category_name'][i]== selected_category:
-
 #             # m = Mecab().pos(Place_review_category_data['contents'][i], flatten=True) 
 #             # m_filtered = [x for x, y in m if y in ['NNG','XR']] 
 #             m_filtered= okt.nouns(Place_review_category_data['contents'][i])
@@ -101,7 +99,7 @@
 #             for j in m_filtered:
 #                 lst[k].add(j)
 
-    
+
 #     set_user_keywords = set(user_keywords)
 #     set_all_keywords= set(all_keywords)
 #     print(set_all_keywords)
@@ -158,16 +156,17 @@
 #                 info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
 
 #     #return info_list
-#     #print(info_list)
+#     print(info_list)
 #     df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
-
+#     print(df)
 
 #     def mysql_save(info_list):
 #         conn=pymysql.connect(host='j7d205.p.ssafy.io',
-#                         user='root',
-#                         password='d205',
-#                         db='D205_2',
-#                         charset='utf8')
+#                     user='root',
+#                     password='betravelic205',
+#                     db='D205_2',
+#                     charset='utf8')
+
 #         cursor=conn.cursor()
 #         sql = "truncate recommendplace"
 #         cursor.execute(sql)
