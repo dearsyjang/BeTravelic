@@ -21,7 +21,7 @@ public class Survey {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String surveykeyword ;
+    private String surveykeyword;
     private Integer surveycategory;
 
     @Builder
