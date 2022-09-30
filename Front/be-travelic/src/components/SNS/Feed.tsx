@@ -43,7 +43,7 @@ function Feed( props: Feed) {
             src={image_x}
           />
           <div className="flex-grow">
-            <Link to={`/mypage`}>
+            <Link to={`/mypage/${user_id}`}>
               <h2 className="title-font font-medium ml-3">{nickname}</h2>
               {/* <p className="text-gray-500">{place}</p> */}
             </Link>
