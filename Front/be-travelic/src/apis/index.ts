@@ -8,18 +8,17 @@ export const springAxios: AxiosInstance = axios.create({
   // base url 설정
   baseURL: "http://j7d205.p.ssafy.io:8443",
   // cors
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 export const djangoAxios: AxiosInstance = axios.create({
   baseURL: "http://j7d205.pssafy.io:8081",
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 // AUTH_TOKEN 설정
 
-djangoAxios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-springAxios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+
 
 // refresh
 

@@ -84,3 +84,26 @@ export const fetchRegionalBookMarks = async ({ regionId, userId }: Region) => {
     console.log(err.response?.data);
   }
 };
+
+export const fetchUserInfo = async () => {
+  const url = "users";
+  const accessToken = localStorage.getItem("accessToken");
+  console.log(accessToken);
+  
+  try {
+    const res = await springAxios({
+      method: "get",
+      url,
+      // headers: {
+      //   Authorization: `Bearer ${accessToken}`,
+      // },
+    });
+
+    console.log(res.data.data, "fetch userinfo");
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err.response?.data);
+    console.log(err);
+    
+  }
+};
