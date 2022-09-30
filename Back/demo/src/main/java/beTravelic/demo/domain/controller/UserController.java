@@ -27,13 +27,13 @@ public class UserController {
     private final JwtProvider jwtProvider;
     @PostMapping
     @ApiOperation(value = "회원가입", notes = "id, pw 입력")
-    public ResponseEntity<CommonResponse> signUpUser(@ModelAttribute SignUpRequestDto dto) throws IOException {
+    public ResponseEntity<CommonResponse> signUpUser(@RequestBody SignUpRequestDto dto) throws IOException {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.signUpUser(dto)), HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ApiOperation(value = "로그인", notes = "id, pw 입력")
-    public ResponseEntity<CommonResponse> login(@Validated LoginRequestDto dto) throws Exception {
+    public ResponseEntity<CommonResponse> login(@Validated @RequestBody LoginRequestDto dto) throws Exception {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.login(dto)), HttpStatus.OK);
     }
 
