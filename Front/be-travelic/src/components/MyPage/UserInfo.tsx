@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from "react";
 import follow from "../../assets/image/follow.png";
 import records from "../../assets/image/records.png";
 import FollowModal from "../common/FollowModal";
-import { fetchFollows, Follow } from "../../apis/mypage";
+import { fetchFollows, fetchUserInfo, Follow } from "../../apis/mypage";
 import { useParams } from "react-router-dom";
 
 const UserInfo: React.FC = () => {
@@ -16,14 +16,13 @@ const UserInfo: React.FC = () => {
 
   useLayoutEffect(() => {
     const initialData = async () => {
-      // axios
+      await fetchUserInfo();
     };
     initialData();
   }, []);
 
   const showModalHandler = async (identifier: string) => {
-
-// 
+    //
     // const res = await fetchFollows(userId!, identifier);
     // setFollows(res.data);
 
@@ -31,7 +30,6 @@ const UserInfo: React.FC = () => {
 
     const tabNum = identifier === "followerList" ? 1 : 2;
     setTabNumber(tabNum);
-
   };
 
   return (
