@@ -58,6 +58,14 @@ public class User  {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<SurveyKeyword> surveyKeywords = new ArrayList<>();
+
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<SurveyCategory> surveyCategories = new ArrayList<>();
+
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
@@ -75,5 +83,6 @@ public class User  {
     public User(Long user_id) {
         this.user_id = user_id;
     }
+
 
 }
