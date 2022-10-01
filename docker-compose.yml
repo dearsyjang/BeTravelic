@@ -30,6 +30,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443" 
 
     volumes:
       - /home/ubuntu/docker-volume/ssl:/var/www/html
