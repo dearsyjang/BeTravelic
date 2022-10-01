@@ -46,10 +46,10 @@ public class UserController {
 
     @GetMapping("")
     @ApiOperation(value = "회원 정보 받아오기", notes = "header에 token 담아서 요청")
-    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request, @RequestParam("id")String id) throws Exception {
-//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-//        String id = (String) request.getAttribute("id");
+    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
     }
 
