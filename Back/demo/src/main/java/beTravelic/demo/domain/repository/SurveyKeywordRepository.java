@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface SurveyKeywordRepository extends JpaRepository<SurveyCategory, Long> {
+public interface SurveyKeywordRepository extends JpaRepository<SurveyKeyword, String> {
 
     @Query("SELECT sk.surveyKeyword FROM SurveyKeyword sk WHERE sk.user.id=:id")
     List<String> findSurveyKeywordById(@Param("id")String id);
