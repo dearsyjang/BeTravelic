@@ -43,14 +43,14 @@ public class UserController {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getAccessToken(refreshToken)), HttpStatus.OK);
     }
 
-    @GetMapping
-    @ApiOperation(value = "회원 정보 방아오기", notes = "header에 token 담아서 요청")
-    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
-    }
+//    @GetMapping
+//    @ApiOperation(value = "회원 정보 방아오기", notes = "header에 token 담아서 요청")
+//    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
+//    }
 
 
     @GetMapping("/nickname/{nickName}")

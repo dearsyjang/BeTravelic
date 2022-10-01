@@ -1,13 +1,15 @@
 package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.*;
-import beTravelic.demo.domain.entity.Survey;
+
+import beTravelic.demo.domain.entity.SurveyCategory;
+import beTravelic.demo.domain.entity.SurveyKeyword;
 import beTravelic.demo.domain.exception.DuplicatedNickNameException;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.exception.NoExistUserException;
 import beTravelic.demo.domain.repository.FollowRepository;
 import beTravelic.demo.domain.repository.ReviewRepository;
-import beTravelic.demo.domain.repository.SurveyRepository;
+//import beTravelic.demo.domain.repository.SurveyRepository;
 import beTravelic.demo.domain.repository.UserRepository;
 import beTravelic.demo.global.util.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +25,11 @@ import java.io.IOException;
 public class UserService {
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
-    private final SurveyRepository surveyRepository;
+//    private final SurveyRepository surveyRepository;
     private final FollowRepository followRepository;
     private final ReviewRepository reviewRepository;
     // 회원가입
-    @Transactional
+//    @Transactional
     public SignupResponseDto signUpUser(SignUpRequestDto dto) throws IOException {
         User user = dto.toUserEntity();
         String accessToken = jwtProvider.getAccessToken(user.getId());
@@ -65,20 +67,22 @@ public class UserService {
     }
 
     // 사용자 정보 조회
-    public UserInfoResponseDto getUserInfo(String id) {
-        User user = userRepository.findUserById(id).orElseThrow(() ->
-             new RuntimeException("일치하는 사용자 없음"));
-        Survey survey = surveyRepository.findSurveyByUser_Id(id).orElseThrow(() ->
-                new RuntimeException("일치하는 사용자 없음"));
-        int follower_cnt = followRepository.countByFollower_Id(id);
-        int following_cnt = followRepository.countByFollowing_Id(id);
-        int review_cnt = reviewRepository.countReviewByUser_Id(id);
-        UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.ofUser(user, survey);
-        userInfoResponseDto.setFollowerCnt(follower_cnt);
-        userInfoResponseDto.setFollowingCnt(following_cnt);
-        userInfoResponseDto.setreviewCnt(review_cnt);
-        return userInfoResponseDto;
-    }
+//    public UserInfoResponseDto getUserInfo(String id) {
+//        User user = userRepository.findUserById(id).orElseThrow(() ->
+//             new RuntimeException("일치하는 사용자 없음"));
+//        SurveyCategory survey = surveyRepository.findSurveyByUser_Id(id).orElseThrow(() ->
+//                new RuntimeException("일치하는 사용자 없음"));
+//        SurveyKeyword survey = surveyRepository.findSurveyByUser_Id(id).orElseThrow(() ->
+//                new RuntimeException("일치하는 사용자 없음"));
+//        int follower_cnt = followRepository.countByFollower_Id(id);
+//        int following_cnt = followRepository.countByFollowing_Id(id);
+//        int review_cnt = reviewRepository.countReviewByUser_Id(id);
+//        UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.ofUser(user, survey);
+//        userInfoResponseDto.setFollowerCnt(follower_cnt);
+//        userInfoResponseDto.setFollowingCnt(following_cnt);
+//        userInfoResponseDto.setreviewCnt(review_cnt);
+//        return userInfoResponseDto;
+//    }
 
     public GetAccessTokenResponseDto getAccessToken(String refreshToken) {
         User user = userRepository.findUserByRefreshToken(refreshToken).orElseThrow(() ->
