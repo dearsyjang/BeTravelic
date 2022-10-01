@@ -14,6 +14,7 @@
 //import org.springframework.web.bind.annotation.*;
 //
 //import javax.servlet.http.HttpServletRequest;
+//import java.util.List;
 //
 //@RequiredArgsConstructor
 //@RequestMapping("/survey")
@@ -23,12 +24,23 @@
 //    private final SurveyService surveyService;
 //    private final JwtProvider jwtProvider;
 //
+//
 //    @PostMapping
 //    @ApiOperation(value = "설문조사 저장")
-//    public ResponseEntity<CommonResponse> surveySave(HttpServletRequest request, @RequestBody SurveySaveRequestDto dto) throws Exception {
+//    public ResponseEntity<CommonResponse> surveySave(HttpServletRequest request,
+//                                                     @RequestParam("surveyCategory")List<Long> surveyCategory,
+//                                                     @RequestParam("surveyKeyword")List<String> surveyKeyword) throws Exception {
 //        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
 //        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
 //        String id = (String) request.getAttribute("id");
-//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(surveyService.surveySave(id, dto)), HttpStatus.OK);
+//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(surveyService.surveySave(id, surveyCategory, surveyKeyword)), HttpStatus.OK);
 //    }
+////    @PostMapping
+////    @ApiOperation(value = "설문조사 저장")
+////    public ResponseEntity<CommonResponse> surveySave(HttpServletRequest request, @RequestBody SurveySaveRequestDto dto) throws Exception {
+////        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+////        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+////        String id = (String) request.getAttribute("id");
+////        return new ResponseEntity<>(CommonResponse.getSuccessResponse(surveyService.surveySave(id, dto)), HttpStatus.OK);
+////    }
 //}

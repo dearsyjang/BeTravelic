@@ -8,6 +8,7 @@ import beTravelic.demo.global.util.jwt.JwtProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +44,14 @@ public class UserController {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getAccessToken(refreshToken)), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    @ApiOperation(value = "회원 정보 방아오기", notes = "header에 token 담아서 요청")
-//    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
-//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-//        String id = (String) request.getAttribute("id");
-//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
-//    }
+    @GetMapping
+    @ApiOperation(value = "회원 정보 받아오기", notes = "header에 token 담아서 요청")
+    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
+    }
 
 
     @GetMapping("/nickname/{nickName}")
