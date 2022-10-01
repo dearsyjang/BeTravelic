@@ -1,14 +1,10 @@
 package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.*;
-
-import beTravelic.demo.domain.entity.SurveyCategory;
-import beTravelic.demo.domain.entity.SurveyKeyword;
 import beTravelic.demo.domain.exception.DuplicatedNickNameException;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.exception.NoExistUserException;
 import beTravelic.demo.domain.repository.*;
-//import beTravelic.demo.domain.repository.SurveyRepository;
 import beTravelic.demo.global.util.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +20,8 @@ import java.util.List;
 public class UserService {
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
-
     private final SurveyCategoryRepository surveyCategoryRepository;
-
     private final SurveyKeywordRepository surveyKeywordRepository;
-
     private final FollowRepository followRepository;
     private final ReviewRepository reviewRepository;
     // 회원가입
