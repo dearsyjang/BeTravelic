@@ -27,13 +27,16 @@ public class ReviewResDto {
     private String contents;
 
     // 이미지 주소
-    private String image;
+    private String fileName;
+    private String realFileName;
 
     private Long score;
 
     private Date created_at;
 
     private String visited_at;
+
+    private int reviewLike;
 
 //    @Setter
 //    List<CommentResponseDto> comments;
@@ -45,10 +48,12 @@ public class ReviewResDto {
                 .user(review.getUser().getUser_id())
                 .region(review.getRegion().getRegionId())
                 .contents(review.getContents())
-                .image(review.getImage())
+                .fileName(review.getFileName())
+                .realFileName(review.getRealFileName())
                 .score(review.getScore())
                 .created_at(review.getCreated_at())
                 .visited_at(review.getVisited_at())
+                .reviewLike(review.getReviewLike())
                 .build();
     }
 //    public static ReviewResDto of(Review review) {
@@ -72,7 +77,8 @@ public class ReviewResDto {
         this.user = review.getUser().getUser_id();
         this.region = review.getRegion().getRegionId();
         this.contents = review.getContents();
-        this.image = review.getImage();
+        this.fileName = review.getFileName();
+        this.realFileName = review.getRealFileName();
         this.score = review.getScore();
         this.created_at = review.getCreated_at();
         this.visited_at = review.getVisited_at();

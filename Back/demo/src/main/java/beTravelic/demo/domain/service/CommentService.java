@@ -28,7 +28,7 @@ public class CommentService {
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
 
-    @Transactional
+//    @Transactional
     public CommentSaveResponseDto commentSave(String id, Long reviewId, CommentSaveRequestDto dto){
         Comment comment = dto.toCommentEntity();
         Review review = reviewRepository.findReviewByReviewId(reviewId).orElseThrow(() ->
@@ -75,7 +75,7 @@ public class CommentService {
 ////        }
 //    }
 //
-    @Transactional
+//    @Transactional
     public void commentDelete(String id, Long commentId) throws Exception {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
                 new RuntimeException("일치하는 댓글이 없음"));

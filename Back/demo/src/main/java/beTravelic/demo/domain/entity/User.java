@@ -27,10 +27,16 @@ public class User  {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "image", nullable = true)
-    private String image;
     @Column(name = "refresh_token")
     private String refreshToken;
+
+    // file_name
+    @Column(name = "file_name")
+    private String fileName;
+
+    // real_file_name
+    @Column(name = "real_file_name")
+    private String realFileName;
 
 //    @Embedded
 //    @Setter
@@ -62,7 +68,7 @@ public class User  {
         this.pw = pw;
         this.nickname = nickname;
         this.email = email;
-        this.image = "image";
+//        this.image = "image";
     }
 
     @Builder(builderClassName = "ReviewUserId", builderMethodName = "ReviewUserId")
