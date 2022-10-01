@@ -22,7 +22,7 @@ public class SurveyCategory {
     private User user;
 
     @Column(name = "survey_category")
-    private String surveyCategory;
+    private Long surveyCategory;
 
 
 
