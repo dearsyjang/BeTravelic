@@ -117,7 +117,6 @@ const SignUpForm: React.FC<{
       console.log("get userId");
 
       userId = await getMemberId(accessToken);
-      console.log(userId);
     }
 
     const url = userId === null ? "/survey" : `/mypage/${userId}`;

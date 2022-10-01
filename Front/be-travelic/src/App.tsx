@@ -11,7 +11,7 @@ import SNS from "./pages/SNS";
 import { Provider, useSelector } from "react-redux";
 import store, { RootState } from "./store";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import './App.css'
+import "./App.css";
 
 function App() {
   const isAuthenticated = useSelector(
@@ -42,7 +42,7 @@ function App() {
           <Routes location={location}>
             <Route path="/" element={<OnBoard />} />
             <Route path="/survey" element={<Survey />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage:id" element={<MyPage />} />
             <Route
               path="/recommendMain"
               element={
