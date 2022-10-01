@@ -2,13 +2,10 @@ package beTravelic.demo.domain.controller;
 
 //import beTravelic.demo.domain.dto.GetUserRegionReqDto;
 //import beTravelic.demo.domain.dto.ReviewDto;
-import beTravelic.demo.domain.dto.GetUserRegionReqDto;
+import beTravelic.demo.domain.dto.ReviewLikeReqDto;
 import beTravelic.demo.domain.dto.ReviewReqDto;
 //import beTravelic.demo.domain.dto.ReviewResDto;
 import beTravelic.demo.domain.dto.ReviewResDto;
-import beTravelic.demo.domain.entity.Region;
-import beTravelic.demo.domain.entity.Review;
-import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.service.ReviewService;
 import beTravelic.demo.global.common.CommonResponse;
 import io.swagger.annotations.ApiOperation;
@@ -95,8 +92,23 @@ public class ReviewController {
         }
     }
 
-//    @ApiOperation(value = "여행기록 좋아요", notes = "")
-//    PostMapping("/feed/travel-history/like/{reviewId}")
-//    public ResponseEntity<?>
+    @ApiOperation(value = "여행기록 좋아요", notes = "")
+    @PostMapping("/feed/travel-history/like/{reviewId}")
+    public ResponseEntity<CommonResponse> likeReview(@RequestParam("id")String id, @RequestParam("reviewId")Long reviewId) {
+
+        reviewService.saveReviewLike(id, reviewId);
+        return null;
+    }
+
+    @ApiOperation(value = "여행기록 좋아요 취소", notes="")
+    @DeleteMapping("feed/travel-history/like/{reviewId}")
+    public ResponseEntity<?> deleteReviewLike(@RequestParam("id")String id ,@RequestParam(name="reviewId") Long reviewId){
+        try {
+            reviewService.deleteReviewLike(id, reviewId);
+            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
+        }   catch (Exception e) {
+            return new ResponseEntity<>((false), HttpStatus.valueOf(400));
+        }
+    }
 
 }
