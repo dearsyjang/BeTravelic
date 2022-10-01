@@ -17,8 +17,8 @@ public class PlaceController {
 
 
     @GetMapping("/{place_id}")
-    public ResponseEntity<CommonResponse> getPlace(HttpServletRequest request, @PathVariable("place_id") long placeId){
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(placeService.getPlace(placeId)), HttpStatus.OK);
+    public ResponseEntity<CommonResponse> getPlace(HttpServletRequest request, @PathVariable("place_id") long place_id){
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(placeService.getPlace(place_id)), HttpStatus.OK);
     }
 
 }
