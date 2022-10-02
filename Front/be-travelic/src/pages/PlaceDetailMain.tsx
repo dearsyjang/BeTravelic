@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+
 
 import { DetailInfo, DetailRecommend, MapContainer } from "../components/index";
 import "./css/PlaceDetailMain.css";
 
 function PlaceDetailMain() {
-  const place_id = 1
+  
+  const { place_id } = useParams()
   const [ place, setPlace ] = useState<DetailInfo>();
 
   // 여행지 상세정보 GET (spring)
+  const getPlaceDetail = async() => {
+    const response = await (await axios.get(`http://j7d205.p.ssafy.io:8443/places/${place_id}`))
+    console.log(response.data.data)
+    setPlace(response.data.data)
+  }
+  
   useEffect(() => {
-    axios
-      .get(`http://j7d205.p.ssafy.io:8443/places/${place_id}`)
-      .then(( { data } ) => {
-        console.log(data.data)
-        console.log(data)
-        setPlace(data.data)
-      })
-      .catch((err) => console.log(err))
+    getPlaceDetail()
   }, [])
 
   return (
@@ -42,10 +44,10 @@ function PlaceDetailMain() {
       <div className="container px-5 mx-auto">
         <div id="kakaomap">
           {place &&
-            <MapContainer
-            lat={place.mapx}
-            lng={place.mapy}
-          />}
+            <MapContainer 
+              mapx={place.mapx}
+              mapy={place.mapy}
+            />}
         </div>
       </div>
       
@@ -59,7 +61,7 @@ function PlaceDetailMain() {
             </div>
           </div>
 
-          <div className="flex flex-wrap" id="DetailRecommendContainer">
+          <div id="DetailRecommendContainer">
             {place && <DetailRecommend
               title={place.title}
              />}
