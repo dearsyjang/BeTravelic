@@ -20,7 +20,7 @@ public class ReviewResDto {
 
     private Long place;
 
-    private Long user;
+    private String user;
 
     private Long region;
 
@@ -45,7 +45,7 @@ public class ReviewResDto {
         return ReviewResDto.builder()
                 .reviewId(review.getReviewId())
                 .place(review.getPlace().getPlaceId())
-                .user(review.getUser().getUser_id())
+                .user(review.getUser().getId())
                 .region(review.getRegion().getRegionId())
                 .contents(review.getContents())
                 .fileName(review.getFileName())
@@ -74,7 +74,7 @@ public class ReviewResDto {
     public ReviewResDto (Review review) {
         this.reviewId = review.getReviewId();
         this.place = review.getPlace().getPlaceId();
-        this.user = review.getUser().getUser_id();
+        this.user = review.getUser().getId();
         this.region = review.getRegion().getRegionId();
         this.contents = review.getContents();
         this.fileName = review.getFileName();

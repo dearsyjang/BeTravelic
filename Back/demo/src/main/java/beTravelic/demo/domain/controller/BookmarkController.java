@@ -51,17 +51,17 @@ public class BookmarkController {
     @GetMapping("/user")
     public ResponseEntity<?> getBookmarkByUser(HttpServletRequest request) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("user_id", jwtProvider.getUserIdFromAccessToken(accessToken));
-        Long user_id = (Long) request.getAttribute("user_id");
-        List<BookmarkResDto> bookmarks = bookmarkService.findAllByUser(user_id);
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        List<BookmarkResDto> bookmarks = bookmarkService.findAllByUser(id);
         return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
     }
     @GetMapping("/region/{region_id}/user")
     public ResponseEntity<?> getBookmarkByRegionAndUser(HttpServletRequest request, @PathVariable("region_id")Long region_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("user_id", jwtProvider.getUserIdFromAccessToken(accessToken));
-        Long user_id = (Long) request.getAttribute("user_id");
-    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(region_id, user_id);
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(region_id, id);
     return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
 }
 
