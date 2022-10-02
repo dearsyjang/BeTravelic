@@ -3,8 +3,8 @@
 # import json
 # import pandas as pd
 # import pymysql
-# url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&_type=json&listYN=Y&arrange=C&mapX=128.6922646449&mapY=35.9910080699&radius=100000"
-# #url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&numOfRows=1000&pageNo=10&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=C&mapX=128.6922646449&mapY=35.9910080699&radius=10000"
+# url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=500&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&_type=json&listYN=Y&arrange=C&mapX=127.2305&mapY=36.2101&radius=100000"
+# #url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=500&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=u%2BjV5wk3kfRDNYzjkRRvxna4o90S3cnR3le8jzWGVkrVgM%2B%2BqjF%2FODE8lJEb1dqGLTamXXqLSFFUIHi73hOX%2FA%3D%3D&_type=json&listYN=Y&arrange=C&mapX=128.54&mapY=37.45&radius=100000"
 # response= requests.get(url,verify=False)
 # res=response.text
 # data=json.loads(res)
@@ -13,12 +13,16 @@
 # info_list=[]
 # for place in places:
 #     #print(place)
-#     if place["firstimage"]:
-#         place_id = places.index(place)+1
+#     if place["firstimage"] and place["contenttypeid"] != '32' and place["contenttypeid"] != '38' and place["contenttypeid"] != '25':
+#         place_id = places.index(place)+1417
 #         # category_id=place.place_category.filter(place["contenttypeid"]=categories['content_type_id'])
 #         category_id = 0
 #         region_id=0
 #         contenttypeid = place["contenttypeid"]
+
+
+
+
 #         if place["contenttypeid"] == '12':
 #             category_id = 1
 #         elif place["contenttypeid"] == '14':
@@ -103,7 +107,7 @@
 
 # df=pd.DataFrame(info_list,columns=['place_id','category_id','addr','region_id','score','title','image','mapx','mapy','content_id','overview'])
 # #print(df)
-# print(df)
+
 # def mysql_save(info_list):
 #     conn=pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
