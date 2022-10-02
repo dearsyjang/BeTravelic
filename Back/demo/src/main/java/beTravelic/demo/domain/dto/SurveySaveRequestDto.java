@@ -15,8 +15,8 @@ import java.util.List;
 public class SurveySaveRequestDto {
 
 //    private User user;
-    private ArrayList<String> keyword;
-    private ArrayList<Long> category;
+    private ArrayList<String> keywords;
+    private ArrayList<Long> categories;
 
 
 //    public SurveyKeyword toSurveKeywordEntity(){
