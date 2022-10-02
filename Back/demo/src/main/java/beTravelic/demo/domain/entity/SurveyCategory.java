@@ -30,5 +30,9 @@ public class SurveyCategory {
         this.surveyCategory = surveyCategory;
     }
 
-
+    @Builder
+    public SurveyCategory (User user, Long surveyCategory){
+        this.user = user;
+        this.surveyCategory = surveyCategory;
+    }
 }
