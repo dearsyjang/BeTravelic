@@ -47,14 +47,14 @@ public class BookmarkService {
 
     //지역별 북마크 조회
 
-    public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, Long user_id) {
-        return bookmarkRepository.findAllByUserAndRegion(user_id, regionId);
+    public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, String id) {
+        return bookmarkRepository.findAllByUserAndRegion(id, regionId);
     }
 
 
     //모든 북마크 조회
-    public List<BookmarkResDto> findAllByUser(Long user_id) {
-        return bookmarkRepository.findAllByUser(user_id);
+    public List<BookmarkResDto> findAllByUser(String id) {
+        return bookmarkRepository.findAllByUser(id);
     }
 
 
