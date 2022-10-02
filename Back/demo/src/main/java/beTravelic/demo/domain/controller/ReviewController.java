@@ -101,28 +101,41 @@ public class ReviewController {
         }
     }
 
+//    @ApiOperation(value = "여행기록 좋아요", notes = "")
+//    @PostMapping("/feed/travel-history/like/{review_id}")
+//    public ResponseEntity<CommonResponse> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        reviewService.saveReviewLike(id, review_id);
+//        return null;
+//    }
     @ApiOperation(value = "여행기록 좋아요", notes = "")
     @PostMapping("/feed/travel-history/like/{review_id}")
-    public ResponseEntity<CommonResponse> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
-        reviewService.saveReviewLike(id, review_id);
-        return null;
-    }
-
-    @ApiOperation(value = "여행기록 좋아요 취소", notes="")
-    @DeleteMapping("feed/travel-history/like/{review_id}")
-    public ResponseEntity<?> deleteReviewLike(HttpServletRequest request ,@RequestParam(name="review_id") Long review_id) throws Exception {
+    public ResponseEntity<?> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
         try {
-            reviewService.deleteReviewLike(id, review_id);
-            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
-        }   catch (Exception e) {
-            return new ResponseEntity<>((false), HttpStatus.valueOf(400));
+            reviewService.reviewLike(id, review_id);
+            return new ResponseEntity<>(true, HttpStatus.valueOf(201));
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.valueOf(500));
         }
     }
+
+//    @ApiOperation(value = "여행기록 좋아요 취소", notes="")
+//    @DeleteMapping("feed/travel-history/like/{review_id}")
+//    public ResponseEntity<?> deleteReviewLike(HttpServletRequest request ,@RequestParam(name="review_id") Long review_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        try {
+//            reviewService.deleteReviewLike(id, review_id);
+//            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
+//        }   catch (Exception e) {
+//            return new ResponseEntity<>((false), HttpStatus.valueOf(400));
+//        }
+//    }
 
 }
