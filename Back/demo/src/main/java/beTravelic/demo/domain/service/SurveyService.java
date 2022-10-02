@@ -1,5 +1,5 @@
 //package beTravelic.demo.domain.service;
-
+//
 //import beTravelic.demo.domain.dto.SurveyCategoryDto;
 //import beTravelic.demo.domain.dto.SurveySaveRequestDto;
 //import beTravelic.demo.domain.dto.SurveySaveResponseDto;
@@ -20,17 +20,14 @@
 //    private final SurveyCategoryRepository surveyCategoryRepository;
 //    private final SurveyKeywordRepository surveyKeywordRepository;
 //
-//    public SurveySaveResponseDto surveySave(String id, List<Long> surveyCategory, List<String> surveyKeyword){
-//
+//    public SurveySaveResponseDto surveySave(String id,SurveySaveRequestDto dto){
 //
 //        User user = userRepository.findUserById(id).orElseThrow(() ->
 //                new RuntimeException("일치하는 사용자가 없음"));
-//        survey.setUser(user);
-//        survey.setSurveycategory(dto.getCategory());
-//        survey.setSurveykeyword(dto.getKeyword());
-//        surveyRepository.save(survey);
+//        List<Long> category = dto.getCategory();
+//        List<String> keyword = dto.getKeyword();
 //
-//        return new SurveySaveResponseDto(survey.getId());
+//
 //    }
 //
 //}

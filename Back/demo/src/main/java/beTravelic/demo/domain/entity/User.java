@@ -30,13 +30,9 @@ public class User  {
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    // file_name
-    @Column(name = "file_name")
-    private String fileName;
-
-    // real_file_name
-    @Column(name = "real_file_name")
-    private String realFileName;
+    @Embedded
+    @Setter
+    private Picture picture;
 
 //    @Embedded
 //    @Setter
