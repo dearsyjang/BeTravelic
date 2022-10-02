@@ -8,7 +8,7 @@ interface UserRecommend {
 }
 
 function UserRecommendItem( props: UserRecommend ) {
-    const { user_id, image, nickname } = props
+    const { image, nickname } = props
     return(
       <div id="UserRecommendCardItem">
           <p className="flex items-center m-4">
