@@ -15,7 +15,7 @@
 
 # conn = pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
-#                         password='d205',
+#                         password='betravelic205',
 #                         db='D205_2',
 #                         charset='utf8')
 
@@ -76,9 +76,9 @@
 
 #     # 가장 유사한 10개의 여행지의 인덱스를 얻는다.
 #     place_indices = [idx[0] for idx in sim_scores]
-
+ 
 #     info_list=[]
-#     print(place_indices)
+
 #     for i in range(len(place_indices)):
 #         for j in range(len(place_data)):
 #             if place_indices[i] == place_data.index[j]:
@@ -92,7 +92,7 @@
 #     def mysql_save(info_list):
 #         conn=pymysql.connect(host='j7d205.p.ssafy.io',
 #                         user='root',
-#                         password='d205',
+#                         password='betravelic205',
 #                         db='D205_2',
 #                         charset='utf8')
 #         cursor=conn.cursor()
@@ -108,7 +108,7 @@
 #     mysql_save(info_list)
 
 
-# selected_place_name='석계서원'
+# selected_place_name='청화산캠프'
 # print(another_recommendations(selected_place_name))
 
 
