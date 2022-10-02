@@ -53,7 +53,7 @@ function App() {
               }
             />
             {/* <Route path="/kakao" element={<Redirect />} /> */}
-            <Route path="/place/:id" element={<PlaceDetailMain />} />
+            <Route path="/place/:place_id" element={<PlaceDetailMain />} />
             <Route path="/sns" element={<SNS />} />
           </Routes>
         </CSSTransition>

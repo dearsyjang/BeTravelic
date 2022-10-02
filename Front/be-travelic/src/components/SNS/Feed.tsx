@@ -20,7 +20,7 @@ interface Feed {
 
 
 function Feed( props: Feed) {
-  const { contents, nickname, created_at, image_x, image_y, place_id, user_id, visited_at } = props
+  const { contents, nickname, image_x, image_y, user_id, visited_at } = props
 
   // 모달창
   // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
@@ -45,12 +45,12 @@ function Feed( props: Feed) {
           <div className="flex-grow">
             <Link to={`/mypage/${user_id}`}>
               <h2 className="title-font font-medium ml-3">{nickname}</h2>
-              {/* <p className="text-gray-500">{place}</p> */}
             </Link>
           </div>
 
-          <FaMapMarkerAlt id="MarkIcon" />
-          <h2 className="ml-1 mr-5">장소!?</h2>
+          {/* 장소 표시하려 했으나, 데이터 없어서 빼겠습니다! */}
+          {/* <FaMapMarkerAlt id="MarkIcon" />
+          <h2 className="ml-1 mr-5">장소</h2> */}
 
           <FaRegCalendarAlt id="CalendarIcon" />
           <h2 className="ml-1 mr-3">{visited_at}</h2>
