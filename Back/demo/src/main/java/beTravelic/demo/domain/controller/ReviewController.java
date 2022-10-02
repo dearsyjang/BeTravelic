@@ -111,7 +111,7 @@ public class ReviewController {
 //        return null;
 //    }
     @ApiOperation(value = "여행기록 좋아요", notes = "")
-    @PostMapping("/feed/travel-history/like/{review_id}")
+    @PostMapping("/feed/like")
     public ResponseEntity<?> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
