@@ -37,10 +37,10 @@ export const login = async (data: Register) => {
 
     djangoAxios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${res.data.data.accessToken}`;
+    ] = `${res.data.data.accessToken}`;
     springAxios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${res.data.data.accessToken}`;
+    ] = `${res.data.data.accessToken}`;
 
     console.log(res, "response");
     return res.data.data;
@@ -66,10 +66,10 @@ export const register = async (data: Register) => {
 
     djangoAxios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${res.data.data.accessToken}`;
+    ] = `${res.data.data.accessToken}`;
     springAxios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${res.data.data.accessToken}`;
+    ] = `${res.data.data.accessToken}`;
 
     return res.data.data;
   } catch (error) {
@@ -85,9 +85,11 @@ export const getMemberId = async (token: string) => {
   console.log(token);
 
   const decodedJwt: any = jwt_decode(token);
-  console.log(decodedJwt);
+  console.log(decodedJwt, 'decoded');
 
-  const memberId = decodedJwt?.memberId;
+  const memberId = decodedJwt?.user_id;
+  console.log('decoded id', memberId);
+  
   return memberId;
 };
 
