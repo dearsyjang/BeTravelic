@@ -32,13 +32,11 @@ public class MypagePicture {
     // real_file_name
     @Column(name = "real_file_name")
     private String realFileName;
-
-
-
-//    @Builder
-//    public MypagePicture(String realFileName, String fileName, String region){
-//        this.region = region;
-//        this.fileName = fileName;
-//        this.realFileName = realFileName;
-//    }
+    
+    @Builder
+    public MypagePicture(String realFileName, String fileName, Region region){
+        this.region = region;
+        this.fileName = fileName;
+        this.realFileName = realFileName;
+    }
 }

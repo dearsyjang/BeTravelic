@@ -9,6 +9,7 @@
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.stereotype.Service;
 //import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.web.multipart.MultipartFile;
 //
 //import java.io.File;
 //import java.util.List;
@@ -18,31 +19,13 @@
 //@RequiredArgsConstructor
 //public class MypageService {
 //    private final UserRepository userRepository;
-//
-//
+//    private final PictureService pictureService;
 //    @Value("${path.image:/image/}")
 //    private String IMAGE_PATH;
 //
-//    public MypagePictureResponseDto mypagePictureSave(String id, MypagePictureRequestDto dto) throws Exception {
-//        User user = userRepository.findUserById(id);
-//        MypagePicture mypagePicture = null;
-//        String fileName = UUID.randomUUID().toString();
-//        String contentType = dto.getMypagePicture().getContentType();
-//        File file = null;
-//        if(contentType.contains("image/jpeg")){
-//            file = new File(IMAGE_PATH + fileName + ".jpg");
-//            mypagePicture = MypagePicture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
-//        }else if(contentType.contains("image/png")){
-//            file = new File(IMAGE_PATH + fileName + ".png");
-//            mypagePicture = MypagePicture.builder().fileName(fileName).realFileName(fileName + ".png").build();
-//        }else if(contentType.contains("image/gif")){
-//            file = new File(IMAGE_PATH + fileName + ".gif");
-//            mypagePicture = MypagePicture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
-//        }else{
-//            new RuntimeException("일치하는 형식이 아닙니다.");
-//        }
-//        dto.getMypagePicture().transferTo(file);
-//        user.set
+//    public MypagePictureResponseDto mypagePictureSave(String id, MultipartFile mypagePicture, Long region) throws Exception {
+//       String picturUrl = pictureService.uploadFileToGCS(id, mypagePicture);
+//    return MypagePictureResponseDto()
 //    }
 //
 //
