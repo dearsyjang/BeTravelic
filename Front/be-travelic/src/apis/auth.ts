@@ -15,8 +15,8 @@ interface Register {
 }
 
 export interface Winners {
-  keyword_name: string[];
-  category_ids: number[];
+  keywords: string[];
+  categories: number[];
 }
 
 export const login = async (data: Register) => {
@@ -81,30 +81,38 @@ export const register = async (data: Register) => {
   }
 };
 
-export const getMemberId = async (token: string) => {
-  console.log(token);
+export const getMemberId = async () => {
 
-  const decodedJwt: any = jwt_decode(token);
-  console.log(decodedJwt, 'decoded');
-
-  const memberId = decodedJwt?.user_id;
-  console.log('decoded id', memberId);
+  const token = localStorage.getItem('accessToken')
+  if (token) {
+    const decodedJwt: any = jwt_decode(token);
+    console.log(decodedJwt, "decoded");
   
-  return memberId;
+    const memberId = decodedJwt?.user_id;
+    console.log("decoded id", memberId);
+    return memberId;
+    
+  }
+
 };
 
-export const fetchSurvey = async (data: Winners, userId: any) => {
+export const fetchSurvey = async (data: Winners) => {
+  const token = localStorage.getItem("accessToken");
   try {
     const res = await springAxios({
       method: "post",
-      url: `/survey/${userId}`,
+      url: `/survey`,
       data,
     });
 
-    return res.data;
+
+    
+
+    return res;
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response?.data);
+    console.log(err);
   }
 };
 

@@ -13,13 +13,15 @@ import store, { RootState } from "./store";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./App.css";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-
+import { AuthState } from "../src/store/auth";
 function App() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
 
   const location = useLocation();
+  const userId = useSelector((state: RootState) => state.auth.userId);
+
 
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -31,7 +33,9 @@ function App() {
 
   return (
     <>
-      {isAuthenticated && <Navbar isAuthenticated={isAuthenticated} />}
+      {isAuthenticated && (
+        <Navbar isAuthenticated={isAuthenticated} userId={userId} />
+      )}
       {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
       {/* <Navbar isAuthenticated={isAuthenticated} /> */}
       <TransitionGroup className="transition-group">
@@ -51,7 +55,7 @@ function App() {
               }
             />
             <Route
-              path="/mypage:id"
+              path="/mypage/:id"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
                   <MyPage />
@@ -73,8 +77,8 @@ function App() {
           </Routes>
         </CSSTransition>
       </TransitionGroup>
-      <Footer />
-      {/* {isAuthenticated && <Footer />} */}
+      {/* <Footer /> */}
+      {isAuthenticated && <Footer />}
     </>
   );
 }

@@ -26,7 +26,7 @@ const ArticleModal: React.FC<{
       <div className="modalContainer justify-center">
         <div className="max-w-sm rounded shadow-lg m-5"></div>
         <form className="">
-          <UploadPhoto type="place" />
+          {/* <UploadPhoto type="place" /> */}
           <PlaceSearchBar />
           <DatePick />
           <StarRatings rates={rates} setRates={setRates} />

@@ -8,6 +8,7 @@ import { authActions } from "../../store/auth";
 import "../css/SurveyPhotos.css";
 import { dummyPhotos } from "./SurveyData";
 import { Winners } from "../../apis/auth";
+import { fetchUserInfo } from "../../apis/mypage";
 
 interface Photo {
   id: number;
@@ -26,9 +27,10 @@ const SurveyPhotos: React.FC<{
   const [photos, setPhotos] = useState<Photo[]>();
   const [displays, setDisplays] = useState<Photo[]>();
   const [winners, setWinners] = useState<Winners>({
-    keyword_name: [],
-    category_ids: [],
+    keywords: [],
+    categories: [],
   });
+  const navigate = useNavigate();
   useEffect(() => {
     dummyPhotos.sort(() => Math.random() - 0.5);
     setPhotos(dummyPhotos);
@@ -44,30 +46,30 @@ const SurveyPhotos: React.FC<{
     } else {
       // 중복 제거
       const finals: Winners = {
-        keyword_name: [...new Set(winners.keyword_name)],
-        category_ids: [...new Set(winners.category_ids)],
+        keywords: [...new Set(winners.keywords)],
+        categories: [...new Set(winners.categories)],
       };
 
       // axios 요청 + 다른 곳으로 route
       console.log(finals, "winners");
-      // const userId = await getMemberId();
-      // const res = await fetchSurvey(finals, userId);
+      const { user_id } = await fetchUserInfo();
+      const res = await fetchSurvey(finals);
 
-      // if (res.status === 200) {
-      //   navigate(`/mypage/${userId}`);
-      // }
+      if (res?.status === 200) {
+        navigate(`/mypage/${user_id}`);
+      }
     }
 
-    if (winners.keyword_name) {
+    if (winners.keywords) {
       const newPhoto: Winners = {
-        keyword_name: [...winners.keyword_name, ...photo.keyword_name],
-        category_ids: [...winners.category_ids, photo.category_id],
+        keywords: [...winners.keywords, ...photo.keyword_name],
+        categories: [...winners.categories, photo.category_id],
       };
       setWinners(newPhoto);
     } else {
       setWinners({
-        keyword_name: [...photo.keyword_name],
-        category_ids: [photo.category_id],
+        keywords: [...photo.keyword_name],
+        categories: [photo.category_id],
       });
     }
   };
