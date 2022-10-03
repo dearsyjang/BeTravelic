@@ -1,13 +1,13 @@
 version: '3.7'
 
-services: 
+services:
   backend:
     image: backend-spring
     build:
       context: Back/demo
       dockerfile: Dockerfile
     ports:
-      - "8443:8443"  
+      - "8443:8443"
     volumes:
       - /home/ubuntu/docker-volume/ssl:/root
     container_name: "backend"
@@ -30,9 +30,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-
+      - "443:443"
     volumes:
       - /home/ubuntu/docker-volume/ssl:/var/www/html
     container_name: "frontend"
-  
-
