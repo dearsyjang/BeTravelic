@@ -1,40 +1,39 @@
-//package beTravelic.demo.domain.dto;
-//
-//import beTravelic.demo.domain.entity.*;
-//import beTravelic.demo.domain.service.UserService;
-//import lombok.Data;
-//import lombok.Getter;
-//import lombok.Setter;
-//import org.springframework.data.domain.PageRequest;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Data
-//@Getter
-//public class SurveySaveRequestDto {
-//
-////    private String keyword ;
-////    List<SurveyKeywordDto> keyword;
-////    List<SurveyCategoryDto> category;
-//    private List<String> keyword;
-//    private List<Long> category;
-//
-//
-//    public Survey toSurveyEntity(){
-//        return Survey.builder()
-//                .survey_keyword(this.keyword)
-//                .survey_category(this.category)
-//                .build();
+package beTravelic.demo.domain.dto;
+
+import beTravelic.demo.domain.entity.*;
+import beTravelic.demo.domain.service.UserService;
+import lombok.*;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class SurveySaveRequestDto {
+
+//    private User user;
+    private ArrayList<String> keywords;
+    private ArrayList<Long> categories;
+
+
+//    public SurveyKeyword toSurveKeywordEntity(){
+//           return  SurveyKeyword.builder()
+//                   .surveyKeyword(this.keyword)
+//                    .user(this.user)
+//                    .build();
+
+    }
+//    public List<Survey> toSurveyEntity(){
+//        List<Survey> surveys = new ArrayList<>();
+//        for(SurveyCategoryDto categoryDto : this.category){
+//            surveys.add(categoryDto.toEntity());
+//        }
+//        for(SurveyKeywordDto keywordDto : this.keyword){
+//            surveys.add(keywordDto.toEntity());
+//        }
+//        return surveys;
 //    }
-////    public List<Survey> toSurveyEntity(){
-////        List<Survey> surveys = new ArrayList<>();
-////        for(SurveyCategoryDto categoryDto : this.category){
-////            surveys.add(categoryDto.toEntity());
-////        }
-////        for(SurveyKeywordDto keywordDto : this.keyword){
-////            surveys.add(keywordDto.toEntity());
-////        }
-////        return surveys;
-////    }
-//}
+

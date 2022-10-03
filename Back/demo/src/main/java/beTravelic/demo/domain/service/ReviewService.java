@@ -39,7 +39,7 @@ public class ReviewService {
 //    @Transactional
     public Long post(ReviewReqDto reviewReqDto) throws Exception {
         reviewReqDto.setCreated_at(new Date());
-        reviewReqDto.setReviewLike(0);
+//        reviewReqDto.setReviewLike(0);
         Review reviewEntity = reviewRepository.save(reviewReqDto.toEntity());
 
         if(reviewEntity != null) {
@@ -61,17 +61,18 @@ public class ReviewService {
     }
 
 
-    public List<ReviewResDto> findAllByUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
+    public List<ReviewResDto> findAllByUser(String id) {
+        log.info("test" + id);
+        User user = userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
         List<Review> reviews = user.getReviews();
         return reviews.stream().map(ReviewResDto::new).collect(Collectors.toList());
     }
 
 
     // 유저의 지역 게시물들 조회
-    public List<ReviewResDto> findAllByRegionAndUser(Long regionId, Long userId) {
+    public List<ReviewResDto> findAllByRegionAndUser(Long regionId, String id) {
         log.info("지역 유저 정보로 게시글 조회하였습니다.");
-        return reviewRepository.findAllByUserAndRegion(userId, regionId);
+        return reviewRepository.findAllByUserAndRegion(id, regionId);
     }
 
     // 0928 비활성화
@@ -109,64 +110,69 @@ public class ReviewService {
 
 
     // 여행기록 좋아요
-//    @Transactional(rollbackFor = {Error.class})
-//    public void reviewLike(ReviewLikeReqDto reviewLikeReqDto) throws Exception {
-//        User user = userRepository.findById(reviewLikeReqDto.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
-//        Review review = reviewRepository.findById(reviewLikeReqDto.getReviewId()).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
-//        ReviewLike reviewLike = reviewLikeRepository.findByUserAndLike(user, review);
-//
-//        Review reviewEntity = null;
-//        // 해당 유저가 좋아요를 한 리뷰라면 OFF
-//        if (reviewLike != null) {
-//            reviewLikeRepository.delete(reviewLike);
-//
-//            // 좋아요 감소
-//            reviewEntity = reviewRepository.save(Review.builder()
-//                    .user(user)
-//                    .reviewId(review.getReviewId())
-//                    .place(review.getPlace())
-//                    .region(review.getRegion())
-//                    .contents(review.getContents())
-//                    .image(review.getImage())
-//                    .score(review.getScore())
-//                    .created_at(review.getCreated_at())
-//                    .visited_at(review.getVisited_at())
-//                    .reviewLike(review.getReviewLike() - 1)
-//                    .build());
-//            log.info(reviewEntity.getReviewId() + "번 게시글 좋아요 취소");
-//        }
-//
-//        // 해당 유저가 좋아요 안한 상태라면 ON
-//        else {
-//            reviewLike = ReviewLike.builder()
-//                    .user(user)
-//                    .review(review)
-//                    .build();
-//
-//            reviewLikeRepository.save(reviewLike);
-//
-//            // 좋아요 증가
-//            reviewEntity = reviewRepository.save(Review.builder()
-//                    .user(user)
-//                    .reviewId(review.getReviewId())
-//                    .place(review.getPlace())
-//                    .region(review.getRegion())
-//                    .contents(review.getContents())
-//                    .image(review.getImage())
-//                    .score(review.getScore())
-//                    .created_at(review.getCreated_at())
-//                    .visited_at(review.getVisited_at())
-//                    .reviewLike(review.getReviewLike() + 1)
-//                    .build());
-//            log.info(reviewEntity.getReviewId() + "번 게시글 좋아요");
-//        }
-//
-//        // 게시글 좋아요 수 반영 실패
-//        if (reviewEntity == null) {
-//            log.info("게시글 좋아요 수 반영 실패");
-//            throw new Exception("게시글 좋아요 수 반영 실패");
-//        }
-//    }
+    @Transactional(rollbackFor = {Error.class})
+    public void reviewLike(String id, Long reviewId) throws Exception {
+        User user = userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+        log.info("user");
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+        log.info("review");
+        ReviewLike reviewLike = reviewLikeRepository.findByUserAndReview(user, review);
+        log.info("reviewLike");
+
+        Review reviewEntity = null;
+        // 해당 유저가 좋아요를 한 리뷰라면 OFF
+        if (reviewLike != null) {
+            reviewLikeRepository.delete(reviewLike);
+
+            // 좋아요 감소
+            reviewEntity = reviewRepository.save(Review.builder()
+                    .user(user)
+                    .reviewId(review.getReviewId())
+                    .place(review.getPlace())
+                    .region(review.getRegion())
+                    .contents(review.getContents())
+                    .fileName(review.getFileName())
+                    .realFileName(review.getRealFileName())
+                    .score(review.getScore())
+                    .created_at(review.getCreated_at())
+                    .visited_at(review.getVisited_at())
+                    .reviewLike(review.getReviewLike() - 1)
+                    .build());
+            log.info(reviewEntity.getReviewId() + "번 게시글 좋아요 취소");
+        }
+
+        // 해당 유저가 좋아요 안한 상태라면 ON
+        else {
+            reviewLike = ReviewLike.builder()
+                    .user(user)
+                    .review(review)
+                    .build();
+
+            reviewLikeRepository.save(reviewLike);
+
+            // 좋아요 증가
+            reviewEntity = reviewRepository.save(Review.builder()
+                    .user(user)
+                    .reviewId(review.getReviewId())
+                    .place(review.getPlace())
+                    .region(review.getRegion())
+                    .contents(review.getContents())
+                    .fileName(review.getFileName())
+                    .realFileName(review.getRealFileName())
+                    .score(review.getScore())
+                    .created_at(review.getCreated_at())
+                    .visited_at(review.getVisited_at())
+                    .reviewLike(review.getReviewLike() + 1)
+                    .build());
+            log.info(reviewEntity.getReviewId() + "번 게시글 좋아요");
+        }
+
+        // 게시글 좋아요 수 반영 실패
+        if (reviewEntity == null) {
+            log.info("게시글 좋아요 수 반영 실패");
+            throw new Exception("게시글 좋아요 수 반영 실패");
+        }
+    }
 
     public ReviewLikeReqDto saveReviewLike(String id, Long reviewId) {
         ReviewLike reviewLike = new ReviewLike();

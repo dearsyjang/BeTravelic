@@ -1,15 +1,19 @@
 package beTravelic.demo.domain.controller;
 
 import beTravelic.demo.domain.dto.LoginRequestDto;
+import beTravelic.demo.domain.dto.ProfileSaveRequestDto;
 import beTravelic.demo.domain.dto.SignUpRequestDto;
+import beTravelic.demo.domain.service.PictureService;
 import beTravelic.demo.domain.service.UserService;
 import beTravelic.demo.global.common.CommonResponse;
 import beTravelic.demo.global.util.jwt.JwtProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +29,7 @@ import java.io.IOException;
 public class UserController {
     private final UserService userService;
     private final JwtProvider jwtProvider;
+    private final PictureService pictureService;
     @PostMapping
     @ApiOperation(value = "회원가입", notes = "id, pw 입력")
     public ResponseEntity<CommonResponse> signUpUser(@RequestBody SignUpRequestDto dto) throws IOException {
@@ -43,14 +48,14 @@ public class UserController {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getAccessToken(refreshToken)), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    @ApiOperation(value = "회원 정보 방아오기", notes = "header에 token 담아서 요청")
-//    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
-//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-//        String id = (String) request.getAttribute("id");
-//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
-//    }
+    @GetMapping
+    @ApiOperation(value = "회원 정보 받아오기", notes = "header에 token 담아서 요청")
+    public ResponseEntity<CommonResponse> getUserInfo(HttpServletRequest request) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.getUserInfo(id)), HttpStatus.OK);
+    }
 
 
     @GetMapping("/nickname/{nickName}")
@@ -62,5 +67,22 @@ public class UserController {
     @ApiOperation(value = "이메일 중복 확인", notes = "닉네임 입력")
     public ResponseEntity<?> checkEmail(@PathVariable("email") String email) throws Exception {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.checkEmail(email)), HttpStatus.OK);
+    }
+    @GetMapping(value = "/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    @ApiOperation(value = "프로필 사진 받기")
+    public byte[] userProfileImage(HttpServletRequest request) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        return pictureService.getUserProfileImage(id);
+    }
+
+    @PostMapping("/image")
+    @ApiOperation(value = "프로필 사진 저장")
+    public ResponseEntity<CommonResponse> userProfileSave(HttpServletRequest request, @RequestBody ProfileSaveRequestDto dto) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(pictureService.profileSave(id, dto)), HttpStatus.OK);
     }
 }

@@ -30,13 +30,9 @@ public class User  {
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    // file_name
-    @Column(name = "file_name")
-    private String fileName;
-
-    // real_file_name
-    @Column(name = "real_file_name")
-    private String realFileName;
+    @Embedded
+    @Setter
+    private Picture picture;
 
 //    @Embedded
 //    @Setter
@@ -58,6 +54,14 @@ public class User  {
     @OneToMany(mappedBy = "user")
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<SurveyKeyword> surveyKeywords = new ArrayList<>();
+
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<SurveyCategory> surveyCategories = new ArrayList<>();
+
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
@@ -75,5 +79,6 @@ public class User  {
     public User(Long user_id) {
         this.user_id = user_id;
     }
+
 
 }

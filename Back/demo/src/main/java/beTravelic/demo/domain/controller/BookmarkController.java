@@ -5,8 +5,10 @@ import beTravelic.demo.domain.dto.BookmarkResDto;
 import beTravelic.demo.global.common.CommonResponse;
 import beTravelic.demo.domain.dto.BookmarkSaveRequestDto;
 import beTravelic.demo.domain.service.BookmarkService;
+import beTravelic.demo.global.util.jwt.JwtProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,13 +23,17 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/bookmark")
 public class BookmarkController {
     private final BookmarkService bookmarkService;
+    private final JwtProvider jwtProvider;
 
     // 북마크 저장
     @PostMapping
-    public ResponseEntity<CommonResponse> bookmarkSave(@RequestParam("id")String id, @RequestParam("placeId") int placeId, @RequestParam("region_id") int regionId){
+    public ResponseEntity<CommonResponse> bookmarkSave(HttpServletRequest request, @RequestParam("place_id") int place_id, @RequestParam("region_id") int region_id) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
 //        long placeId = (long) request.getAttribute("place_id");
 //        long userId = (long) request.getAttribute("user_id");
-        bookmarkService.saveBookmark(id, placeId, regionId);
+        bookmarkService.saveBookmark(id, place_id, region_id);
         return null;
 //        return new ResponseEntity<>(CommonResponse.getSuccessResponse(bookmarkService.saveBookmark(placeId,userId,dto)), HttpStatus.OK);
     }
@@ -42,23 +48,27 @@ public class BookmarkController {
 ////        return ResponseEntity.ok(BookmarkService.saveBookmark(placeId, userId));
 //        }
 //    }
-    @GetMapping("/user/{user_id}")
-
-    public ResponseEntity<?> getBookmarkByUser(@PathVariable("user_id") Long user_id) {
-        List<BookmarkResDto> bookmarks = bookmarkService.findAllByUser(user_id);
+    @GetMapping("/user")
+    public ResponseEntity<?> getBookmarkByUser(HttpServletRequest request) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        List<BookmarkResDto> bookmarks = bookmarkService.findAllByUser(id);
         return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
     }
-    @GetMapping("/region/{regionId}/user/{user_id}")
-
-    public ResponseEntity<?> getBookmarkByRegionAndUser(@PathVariable("regionId")Long regionId, @PathVariable("user_id") Long user_id) {
-    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(regionId, user_id);
+    @GetMapping("/region/{region_id}/user")
+    public ResponseEntity<?> getBookmarkByRegionAndUser(HttpServletRequest request, @PathVariable("region_id")Long region_id) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+    List<BookmarkResDto> bookmarks = bookmarkService.findAllByRegionAndUser(region_id, id);
     return new ResponseEntity<>(bookmarks, HttpStatus.valueOf(200));
 }
 
-    @DeleteMapping("/{bookmarkId}")
-    public ResponseEntity<?> deleteReview(@PathVariable(name="bookmarkId") Long bookmarkId){
+    @DeleteMapping("/{bookmark_id}")
+    public ResponseEntity<?> deleteReview(@PathVariable(name="bookmark_id") Long bookmark_id){
         try {
-            bookmarkService.deleteById(bookmarkId);
+            bookmarkService.deleteById(bookmark_id);
             return new ResponseEntity<>(true, HttpStatus.valueOf(200));
         } catch (Exception e) {
             return new ResponseEntity<>(false, HttpStatus.valueOf(400));
