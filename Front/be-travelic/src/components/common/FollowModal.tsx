@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Follow } from "../../apis/mypage";
+import { fetchFollowList, Follow } from "../../apis/mypage";
 import CloseButton from "../MyPage/CloseButton";
 
 const FollowModal: React.FC<{
@@ -7,7 +7,7 @@ const FollowModal: React.FC<{
   tabNumber: number;
   follows: Follow[];
   setFollows: React.Dispatch<React.SetStateAction<Follow[]>>;
-  userId:string
+  userId: string;
 }> = ({ setShowFollowModal, tabNumber, follows, setFollows, userId }) => {
   const closeFollowModalHandler = () => {
     setShowFollowModal(false);
@@ -21,11 +21,18 @@ const FollowModal: React.FC<{
   ) => {
     e.preventDefault();
     const tabNum = identifier === "followerList" ? 1 : 2;
-    // const res = await fetchFollows(userId!, identifier);
-    // setFollows(res.data);
-
+    const res = await fetchFollowList(identifier);
+    setFollows(res.data);
     setOpenTab(tabNum);
   };
+
+  const followList = follows?.map((follow) => {
+    return (
+      <div className="underline text-center" key={follow.nickname}>
+        {follow.nickname}
+      </div>
+    );
+  });
 
   return (
     <div className="backdrop">
@@ -50,7 +57,6 @@ const FollowModal: React.FC<{
                   role="tablist"
                 >
                   팔로워
-                  {/* map으로 랜더링 */}
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -67,7 +73,6 @@ const FollowModal: React.FC<{
                   role="tablist"
                 >
                   팔로잉
-                  {/* map으로 랜더링 */}
                 </a>
               </li>
             </ul>
@@ -77,11 +82,15 @@ const FollowModal: React.FC<{
                   <div
                     className={openTab === 1 ? "block" : "hidden"}
                     id="link1"
-                  ></div>
+                  >
+                    {follows && followList}
+                  </div>
                   <div
                     className={openTab === 2 ? "block" : "hidden"}
                     id="link2"
-                  ></div>
+                  >
+                    {follows && followList}
+                  </div>
                 </div>
               </div>
             </div>
