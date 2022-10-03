@@ -12,6 +12,7 @@ import { Provider, useSelector } from "react-redux";
 import store, { RootState } from "./store";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./App.css";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
   const isAuthenticated = useSelector(
@@ -30,9 +31,9 @@ function App() {
 
   return (
     <>
-      {/* {isAuthenticated && <Navbar isAuthenticated={isAuthenticated} />} */}
+      {isAuthenticated && <Navbar isAuthenticated={isAuthenticated} />}
       {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
-      <Navbar isAuthenticated={isAuthenticated} />
+      {/* <Navbar isAuthenticated={isAuthenticated} /> */}
       <TransitionGroup className="transition-group">
         <CSSTransition
           key={location.pathname}
@@ -41,8 +42,22 @@ function App() {
         >
           <Routes location={location}>
             <Route path="/" element={<OnBoard />} />
-            <Route path="/survey" element={<Survey />} />
-            <Route path="/mypage:id" element={<MyPage />} />
+            <Route
+              path="/survey"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <Survey />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mypage:id"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <MyPage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/recommendMain"
               element={

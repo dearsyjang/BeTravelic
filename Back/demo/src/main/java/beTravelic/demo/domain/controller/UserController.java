@@ -7,6 +7,8 @@ import beTravelic.demo.domain.service.PictureService;
 import beTravelic.demo.domain.service.UserService;
 import beTravelic.demo.global.common.CommonResponse;
 import beTravelic.demo.global.util.jwt.JwtProvider;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,21 +71,42 @@ public class UserController {
     public ResponseEntity<?> checkEmail(@PathVariable("email") String email) throws Exception {
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(userService.checkEmail(email)), HttpStatus.OK);
     }
-    @GetMapping(value = "/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    @ApiOperation(value = "프로필 사진 받기")
-    public byte[] userProfileImage(HttpServletRequest request) throws Exception {
+//    @GetMapping(value = "/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_PNG_VALUE})
+//    @ApiOperation(value = "프로필 사진 받기")
+//    public byte[] userProfileImage(HttpServletRequest request) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        return pictureService.getUserProfileImage(id);
+//    }
+//
+//    @PostMapping("/image")
+//    @ApiOperation(value = "프로필 사진 저장")
+//    public ResponseEntity<CommonResponse> userProfileSave(HttpServletRequest request, @RequestBody MultipartFile file) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        pictureService.profileSave(id, file);
+//        return ResponseEntity.accepted().build();
+//    }
+
+    @PostMapping("profile/upload")
+    public ResponseEntity localUploadToStorage(HttpServletRequest request, @RequestBody MultipartFile file) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        return pictureService.getUserProfileImage(id);
+        String fileFromGCS = pictureService.uploadFileToGCS(id, file);
+        return ResponseEntity.ok(fileFromGCS.toString());
     }
 
-    @PostMapping("/image")
-    @ApiOperation(value = "프로필 사진 저장")
-    public ResponseEntity<CommonResponse> userProfileSave(HttpServletRequest request, @RequestBody ProfileSaveRequestDto dto) throws Exception {
+    @GetMapping(value = "profile/download")
+    @ApiOperation(value = "프로필 사진 받기")
+    public String getImage(HttpServletRequest request) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(pictureService.profileSave(id, dto)), HttpStatus.OK);
+        return  pictureService.getFileToGCS(id);
     }
+
 }
+
