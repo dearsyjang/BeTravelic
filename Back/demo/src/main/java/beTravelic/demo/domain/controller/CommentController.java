@@ -27,7 +27,7 @@ public class CommentController {
 
     private final CommentService commentService;
     private final JwtProvider jwtProvider;
-    @ApiOperation(value = "리뷰에 댓글 등록", notes = "성공 시 리뷰, 실패 시 null")
+    @ApiOperation(value = "리뷰에 댓글 등록", notes = "성공 시 true, 실패 시 false")
     @PostMapping("/feed/travel-review/{review_id}/comment")
     public ResponseEntity<?> commentSave(HttpServletRequest request, @PathVariable("review_id") Long review_id, CommentSaveRequestDto dto) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
@@ -69,7 +69,7 @@ public class CommentController {
 //
     @ApiOperation(value = "리뷰에 댓글 삭제", notes = "성공 시 true, 실패 시 false")
     @DeleteMapping("/feed/travel-review/comment/{comment_id}")
-    public ResponseEntity<?> commentDelete(HttpServletRequest request, @RequestParam("comment_id") Long comment_id) throws Exception {
+    public ResponseEntity<?> commentDelete(HttpServletRequest request, @PathVariable("comment_id") Long comment_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
