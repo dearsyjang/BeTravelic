@@ -101,15 +101,7 @@ public class ReviewController {
         }
     }
 
-//    @ApiOperation(value = "여행기록 좋아요", notes = "")
-//    @PostMapping("/feed/travel-history/like/{review_id}")
-//    public ResponseEntity<CommonResponse> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
-//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-//        String id = (String) request.getAttribute("id");
-//        reviewService.saveReviewLike(id, review_id);
-//        return null;
-//    }
+
     @ApiOperation(value = "여행기록 좋아요", notes = "")
     @PostMapping("/feed/like")
     public ResponseEntity<?> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
@@ -123,6 +115,26 @@ public class ReviewController {
             return new ResponseEntity<>(false, HttpStatus.valueOf(500));
         }
     }
+
+
+    @ApiOperation(value = "좋아요 상태 여부 확인", notes = "좋아요한 상태면 true, 아닌 경우 false")
+    @GetMapping("/like/{review_id}")
+    public ResponseEntity<?> isLike(HttpServletRequest request, @PathVariable Long review_id) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        boolean state = reviewService.isLikeReview(id, review_id);
+        return new ResponseEntity<>(state, HttpStatus.valueOf(200));
+    }
+//    @ApiOperation(value = "여행기록 좋아요", notes = "")
+//    @PostMapping("/feed/travel-history/like/{review_id}")
+//    public ResponseEntity<CommonResponse> likeReview(HttpServletRequest request, @RequestParam("review_id")Long review_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+//        reviewService.saveReviewLike(id, review_id);
+//        return null;
+//    }
 
 //    @ApiOperation(value = "여행기록 좋아요 취소", notes="")
 //    @DeleteMapping("feed/travel-history/like/{review_id}")
