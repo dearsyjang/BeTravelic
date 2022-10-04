@@ -1,14 +1,28 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { getMemberId } from "../../apis/auth";
+import { fetchUserInfo } from "../../apis/mypage";
 import logo from "../../assets/image/logo.png";
-import { authActions } from "../../store/auth";
+import { authActions, AuthState } from "../../store/auth";
 
-const Navbar: React.FC<{ isAuthenticated: boolean }> = ({
+const Navbar: React.FC<{ isAuthenticated: boolean; userId: string }> = ({
   isAuthenticated,
+  userId,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(userId);
+  
+  // const [userId, setUserId] = useState();
+  // useEffect(() => {
+  //   const initialData = async () => {
+  //     const { user_id } = await fetchUserInfo();
+  //     setUserId(user_id);
+  //   };
+  //   initialData();
+  // }, [userId]);
 
   const logoutHandler = () => {
     dispatch(authActions.logout());
@@ -27,7 +41,7 @@ const Navbar: React.FC<{ isAuthenticated: boolean }> = ({
         <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
           <NavLink
             style={({ isActive }) => (isActive ? { color: "#FFD24C" } : {})}
-            to="/mypage"
+            to={`/mypage/${userId}`}
           >
             <div className="mr-5 hover:text-gray-900">MyPage</div>
           </NavLink>

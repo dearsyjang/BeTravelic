@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getMemberId, login, register } from "../../apis/auth";
 import { authActions } from "../../store/auth";
 import "../../pages/css/OnBoard.css";
+import { fetchUserInfo } from "../../apis/mypage";
 
 interface error {
   email: boolean;
@@ -105,6 +106,8 @@ const SignUpForm: React.FC<{
 
     const { accessToken, refreshToken } = res;
 
+    // const {userId} = await fetchUserInfo()
+
     // token 저장
     dispatch(
       authActions.authenticate({
@@ -112,14 +115,12 @@ const SignUpForm: React.FC<{
         refreshToken,
       })
     );
-    let userId: string | null = null;
-    if (identifier === "login") {
-      console.log("get userId");
+    const { user_id } = await fetchUserInfo();
+    // const userId = await getMemberId();
+    dispatch(authActions.saveUserId(user_id));
+    console.log("dispatch완", user_id);
 
-      userId = await getMemberId(accessToken);
-    }
-
-    const url = userId === null ? "/survey" : `/mypage/${userId}`;
+    const url = identifier === "signup" ? "/survey" : `/mypage/${user_id}`;
     navigate(url, { replace: true });
   };
 

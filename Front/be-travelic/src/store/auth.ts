@@ -5,6 +5,7 @@ export interface AuthState {
   isAuthenticated: boolean;
   accessToken: string;
   refreshToken: string;
+  userId: string | null;
 }
 
 interface Token {
@@ -17,6 +18,7 @@ const initialState: AuthState = {
   accessToken: "",
   isAuthenticated: false,
   refreshToken: "",
+  userId: "",
 };
 
 export const authSlice = createSlice({
@@ -26,16 +28,20 @@ export const authSlice = createSlice({
     authenticate(state, action: PayloadAction<Token>) {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      console.log("진입");
       state.isAuthenticated = true;
       localStorage.setItem("accessToken", state.accessToken);
       localStorage.setItem("refershToken", state.refreshToken);
     },
+    saveUserId(state, action: PayloadAction<string | null>) {
+      console.log(action.payload, 'payload');
+      state.userId = action.payload;
+    },
     logout(state) {
       // state.token = null;
       state.isAuthenticated = false;
-      console.log("로그아웃");
-      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem('persist:root')
     },
     // fetchInfo(state, action) {
     //   // state.user.email = action.payload.email;
