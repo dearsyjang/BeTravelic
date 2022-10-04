@@ -120,7 +120,7 @@ export const fetchUserInfo = async () => {
 
 export const fetchPorfilePhoto = async (data: File) => {
   // const url = "http://j7d205.p.ssafy.io:8443/users/profile/upload";
-  const url = "/users/profile/upload";
+  const url = "users/profile/upload";
   const formData = new FormData();
   formData.append("File", data);
   console.log(data, "data");
@@ -139,6 +139,24 @@ export const fetchPorfilePhoto = async (data: File) => {
     });
 
     console.log(res);
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err.response?.data);
+    console.log(err);
+  }
+};
+
+export const downloadProfilePhoto = async () => {
+  const url = "users/profile/download";
+
+  try {
+    const res = await springAxios({
+      method: "get",
+      url,
+    });
+
+    return res
+
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response?.data);
