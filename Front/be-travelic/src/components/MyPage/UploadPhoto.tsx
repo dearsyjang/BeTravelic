@@ -1,7 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "../css/UploadPhoto.css";
 import logo from "../../assets/image/logo.png";
-import { fetchFollow, fetchPorfilePhoto } from "../../apis/mypage";
+import {
+  downloadProfilePhoto,
+  fetchFollow,
+  fetchPorfilePhoto,
+} from "../../apis/mypage";
 import { useParams } from "react-router-dom";
 
 const AVATAR =
@@ -60,6 +64,14 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
   const uploadImageHandler = () => {
     imageInput.current?.click();
   };
+
+  useLayoutEffect(() => {
+    const initialData = async () => {
+      const res = await downloadProfilePhoto();
+      setImage(res?.data)
+    };
+    initialData();
+  }, []);
 
   return (
     <>
