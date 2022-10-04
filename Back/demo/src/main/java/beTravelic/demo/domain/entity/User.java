@@ -35,9 +35,6 @@ public class User  {
     @Setter
     private Picture picture;
 
-//    @Embedded
-//    @Setter
-//    private MypagePicture mypagePicture;
 
     @Setter
     @OneToMany(mappedBy = "user")

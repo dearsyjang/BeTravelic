@@ -9,4 +9,5 @@
 //
 //
 //
+//    Optional<MypagePicture> findMypageByUser(String id);
 //}

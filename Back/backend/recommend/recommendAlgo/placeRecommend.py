@@ -106,18 +106,6 @@
 # stop_words = set(stop_words.split(' '))
 # def place_recommendations(current_user_id, selected_category):
 
-#     def mysql_delete():
-#         conn=pymysql.connect(host='j7d205.p.ssafy.io',
-#                     user='root',
-#                     password='betravelic205',
-#                     db='D205_2',
-#                     charset='utf8')
-#         cursor=conn.cursor()
-#         sql = "truncate table recommendplace"
-#         cursor.execute(sql)
-#         conn.commit()
-#         conn.close()
-#     mysql_delete()
 #     # 현재 유저의 리뷰에서 키워드를 추출
 #     user_keywords_all=[]
 #     for i in range(len(Place_review_category_data['contents'])):
@@ -240,15 +228,15 @@
 
 #     #코사인 유사도 높은 순서대로 정렬
 #     sorted_dic = sorted(dic.items(), reverse = True, key = lambda item: item[1])
-#     print(sorted_dic)
+  
 
 #     #인덱스 추출
 #     index_list=[]
 #     for i in sorted_dic:
 #         index_list.append(i[0])
-#     #상위 30개만
-#     index_list_100 = index_list[:10]
-#     print(index_list_100)
+#     #상위 100개만
+#     index_list_100 = index_list[:100]
+
 
 #     info_list=[]
 #     for i in index_list_100:
@@ -257,7 +245,7 @@
 #                 info_list.append(tuple([j,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
 
 #     #return info_list
-#     #print(info_list)
+#     print(info_list)
 #     df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
 #     #print(df)
 
@@ -269,7 +257,9 @@
 #                     charset='utf8')
 
 #         cursor=conn.cursor()
-       
+#         sql = "truncate recommendplace"
+#         cursor.execute(sql)
+        
 
 #         #cursor=conn.cursor()
 #         sql="insert into recommendplace(recommend_id,place_id,addr,score,mapx,mapy,title,image,overview) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
