@@ -22,14 +22,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/feed/travel-reveiw/{review_id}/comment")
+@RequestMapping("/feed/travel-review/{review_id}/comment")
 public class CommentController {
 
     private final CommentService commentService;
     private final JwtProvider jwtProvider;
     @ApiOperation(value = "리뷰에 댓글 등록", notes = "성공 시 리뷰, 실패 시 null")
     @PostMapping
-    public ResponseEntity<CommonResponse> commentSave(HttpServletRequest request, @RequestParam("review_id") Long review_id, CommentSaveRequestDto dto) throws Exception {
+    public ResponseEntity<CommonResponse> commentSave(HttpServletRequest request, @PathVariable("review_id") Long review_id, CommentSaveRequestDto dto) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");

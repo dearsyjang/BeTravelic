@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name="comment")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "comment_id")
     private Long comment_id;
 

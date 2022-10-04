@@ -1,6 +1,7 @@
 package beTravelic.demo.domain.controller;
 
 import beTravelic.demo.domain.dto.LoginRequestDto;
+import beTravelic.demo.domain.entity.MypagePicture;
 import beTravelic.demo.domain.service.MypageService;
 import beTravelic.demo.global.common.CommonResponse;
 import beTravelic.demo.global.util.jwt.JwtProvider;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/mypage")
@@ -37,7 +39,8 @@ public class MypagePictureController {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(beTravelic.demo.global.common.CommonResponse.getSuccessResponse(mypageService.getMypagePictures(id)),HttpStatus.OK);
+        List<MypagePicture> mypagePictures = mypageService.getMypagePictures(id);
+        return new ResponseEntity<>(beTravelic.demo.global.common.CommonResponse.getSuccessResponse(mypagePictures),HttpStatus.OK);
     }
 
     @PutMapping("/updateMyPicture")
