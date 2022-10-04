@@ -1,6 +1,7 @@
 package beTravelic.demo.domain.repository;
 
 import beTravelic.demo.domain.entity.MypagePicture;
+import beTravelic.demo.domain.entity.Picture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface MypagePictureRepository extends JpaRepository<MypagePicture, Long> {
-    @Autowired
-    Optional<MypagePicture> findMypageByUserId(String id);
+
+    List<MypagePicture> findMypagePicturesByUserId(String id);
 
     Optional<MypagePicture> findByUserAndRegion(String id, Long region_id);
 //    List<MypagePicture>findMypageListByUserId(String id);
