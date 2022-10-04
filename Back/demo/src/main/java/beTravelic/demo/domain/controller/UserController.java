@@ -114,7 +114,7 @@ public class UserController {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        pictureService.updateProfile(id, file);
+        pictureService.updateFileToGCS(id, file);
         return  ResponseEntity.accepted().build();
     }
 
