@@ -56,8 +56,8 @@ const OnBoard = () => {
 
   return (
     <div className="onBoardBody">
-      <div className="wrapper ">
-        <video className="videoTag" autoPlay muted>
+      <div className="wrapperOnboard">
+        <video className="videoBackground" autoPlay muted>
           <source src={background} type="video/mp4" />
         </video>
         <div className="mainDiv fadeIn">

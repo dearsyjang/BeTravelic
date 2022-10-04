@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import emptyHeart from "../../assets/image/empty-heart.png";
 
-const TripStyle = () => {
-  const [tags, setTags] = useState<string[]>(["활동적", "축제"]);
+const TripStyle: React.FC<{
+  tripStyles: string[] | undefined;
+}> = ({ tripStyles }) => {
+  const [tags, setTags] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (tripStyles) {
+      setTags(tripStyles.slice(0, 3));
+    }
+  }, [tripStyles]);
 
   const tagList = tags.map((tag) => {
-    return (<div className="mx-1">#{tag}</div>)
+    return <div className="mx-1">#{tag}</div>;
   });
+
+  console.log(tags);
 
   return (
     <div className="border border-blue-200 m-5 rounded-2xl pt-2 px-3 pb-5">

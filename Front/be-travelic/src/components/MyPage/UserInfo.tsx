@@ -2,29 +2,26 @@ import React, { useLayoutEffect, useState } from "react";
 import follow from "../../assets/image/follow.png";
 import records from "../../assets/image/records.png";
 import FollowModal from "../common/FollowModal";
-import { fetchFollows, fetchUserInfo, Follow } from "../../apis/mypage";
+import {
+  fetchFollowList,
+  fetchUserInfo,
+  Follow,
+  userInfoType,
+} from "../../apis/mypage";
 import { useParams } from "react-router-dom";
 
-const UserInfo: React.FC = () => {
+const UserInfo: React.FC<{ userInfos: userInfoType }> = ({ userInfos }) => {
   const [followers, setFollowers] = useState(0);
-  const [followees, setFollowees] = useState(0);
+  const [followings, setFollowings] = useState(0);
   const [travelRecords, setTravelRecords] = useState(0);
   const [showFollowModal, setShowFollowModal] = useState(false);
   const [tabNumber, setTabNumber] = useState(0);
   const [follows, setFollows] = useState<Follow[]>([]);
-  const { userId } = useParams();
-
-  useLayoutEffect(() => {
-    const initialData = async () => {
-      await fetchUserInfo();
-    };
-    initialData();
-  }, []);
+  const { id } = useParams();
 
   const showModalHandler = async (identifier: string) => {
-    //
-    // const res = await fetchFollows(userId!, identifier);
-    // setFollows(res.data);
+    const res = await fetchFollowList(identifier);
+    setFollows(res.data);
 
     setShowFollowModal(true);
 
@@ -40,7 +37,7 @@ const UserInfo: React.FC = () => {
           tabNumber={tabNumber}
           follows={follows}
           setFollows={setFollows}
-          userId={userId!}
+          userId={id!}
         />
       )}
       <div className="border border-blue-200 m-5 rounded-2xl pt-2 px-3 pb-5">
@@ -50,20 +47,20 @@ const UserInfo: React.FC = () => {
             onClick={showModalHandler.bind(this, "followerList")}
           >
             <img src={follow} alt="" className="w-5 mx-2" />
-            팔로워 {followers}
+            팔로워 {userInfos.followerCnt}
           </div>
           <div
             className="flex mx-2 cursor-pointer"
             onClick={showModalHandler.bind(this, "followingList")}
           >
             <img src={follow} alt="" className="w-5 mx-2" />
-            <p className="mr-10">필로잉 {followees}</p>
+            <p className="mr-10">팔로잉 {userInfos.followingCnt}</p>
           </div>
         </div>
         <div className="flex">
           <div className="flex mx-2">
             <img src={records} alt="" className="w-5 mx-2" />
-            여행기록 {travelRecords}
+            여행기록 {userInfos.reviewCnt}
           </div>
         </div>
       </div>

@@ -6,3 +6,7 @@
 * {
   font-family: "Gowun Dodum", sans-serif;
 }
+*::-webkit-scrollbar {
+  display: none; /* Chrome , Safari , Opera */
+  width: 0 !important;
+}
