@@ -8,6 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@Entity
 @Table(name="picture")
 public class MypagePicture {
 
@@ -33,9 +34,15 @@ public class MypagePicture {
     private String realFileName;
 
     @Builder
-    public MypagePicture(String realFileName, String fileName, Region region){
+    public MypagePicture(String realFileName, String fileName, Region region, User user){
+        this.user = user;
         this.region = region;
         this.fileName = fileName;
         this.realFileName = realFileName;
+    }
+
+    public void updateMypagePicture(String realFileName, String fileName){
+        this.realFileName = realFileName;
+        this.fileName = fileName;
     }
 }
