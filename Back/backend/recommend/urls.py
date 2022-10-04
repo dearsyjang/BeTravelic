@@ -1,7 +1,7 @@
 from . import views
-from .recommendAlgo import placeRecommend 
-from .recommendAlgo import snsRecommend
-from .recommendAlgo import anotherRecommend
+# from .recommendAlgo import placeRecommend 
+# from .recommendAlgo import snsRecommend
+# from .recommendAlgo import anotherRecommend
 
 
 from django.urls import path
