@@ -22,7 +22,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 //    ArrayList<ReviewResDto> findAllByUserAndRegion(User user, Region region);
     List<ReviewResDto> findAllByUserAndRegion(@Param("id") String id, @Param("regionId") Long regionId);
 
-    Optional<Review> findReviewByReviewId(long ReviewId);
+    Optional<Review> findReviewByReviewId(Long ReviewId);
     int countReviewByUser_Id(String id);
 
 //    @Query("SELECT r from Review r WHERE r.region = :region")

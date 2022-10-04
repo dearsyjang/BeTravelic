@@ -91,16 +91,20 @@ public class MypageService {
         return MypagePictureResponseDto.of(region_id, picture.getRealFileName(), user.getUser_id());
     }
 
-    public MypagePictureViewDto getMypagePictures(String id) throws Exception {
-        MypagePicture mypagePicture = mypagePictureRepository.findMypageByUserId(id).orElseThrow(() ->
-                new RuntimeException("일치하는 사용자 없음"));
-        MypagePictureViewDto mypagePictureViewDto = new MypagePictureViewDto();
-        mypagePictureViewDto.setRegion(mypagePicture.getRegion().getDo_gwangyuksi());
-        mypagePictureViewDto.setId(mypagePicture.getPictureId());
-        mypagePictureViewDto.setPictureUrl(mypagePicture.getRealFileName());
+    public List<MypagePicture> getMypagePictures(String id) {
+        List<MypagePicture> mypagePictures = mypagePictureRepository.findMypagePicturesByUserId(id);
+        return mypagePictures;
+    }
 
-        return mypagePictureViewDto;
-     }
+//    public MypagePictureViewDto getMypagePictures(String id) throws Exception {
+//        List<MypagePicture> mypagePicture = mypagePictureRepository.findMypagePicturesByUserId(id);
+////        MypagePictureViewDto mypagePictureViewDto = new MypagePictureViewDto();
+////        mypagePictureViewDto.setRegion(mypagePicture.getregion().getDo_gwangyuksi());
+////        mypagePictureViewDto.setId(mypagePicture.getPictureId());
+////        mypagePictureViewDto.setPictureUrl(mypagePicture.getRealFileName());
+////        return mypagePictureViewDto;
+//        return mypagePicture;
+//     }
 
     public MypageUpdateResponseDto mypagePictureUpdate(String id, MultipartFile mypagePicture, Long region_id) throws Exception {
         String keyFileName = "";
@@ -150,6 +154,7 @@ public class MypageService {
 
         return mypageUpdateResponseDto;
     }
+
 
 
 }
