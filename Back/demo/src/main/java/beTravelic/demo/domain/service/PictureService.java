@@ -43,14 +43,11 @@ public class PictureService {
         File path = new File("");
         System.out.println(path.getAbsolutePath());
 
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(path.getAbsolutePath() + "\\src\\main\\resources\\static/civil-forge-364402-29986bfb28c2.json"));
-
-//        String keyFileName = "";
-//        InputStream keyFile = ResourceUtils.getURL(path.getAbsolutePath() + "\\src\\main\\resources\\static/civil-forge-364402-29986bfb28c2.json").openStream();
+        InputStream keyFile = ResourceUtils.getURL("classpath:static/civil-forge-364402-29986bfb28c2.json").openStream();
 
         Storage storage = StorageOptions.newBuilder().setProjectId("BeTravelic")
                 // Key 파일 수동 등록
-                .setCredentials(credentials)
+                .setCredentials(GoogleCredentials.fromStream(keyFile))
                 .build().getService();
 
 
@@ -95,57 +92,56 @@ public class PictureService {
         String profileUrl = "https://storage.googleapis.com/be_travelic/" + user.getPicture().getRealFileName();
         return profileUrl;
     }
-//        public byte[] getUserProfileImage(String id) throws IOException {
-//        User user = userRepository.findUserById(id).orElseThrow(() ->
-//                new NoExistUserException());
-//        InputStream inputStream = new FileInputStream("https://storage.googleapis.com/be_travelic/" + user.getPicture().getRealFileName());
-//        return IOUtils.toByteArray(inputStream);
-//    }
+    public void updateFileToGCS(String id, MultipartFile proFile) throws IOException {
 
-//    @Value("${path.image:/image/}")
-//    private String IMAGE_PATH;
-//    public void profileSave(String id, MultipartFile proFile) throws Exception{
-////        String keyFileName = "civil-forge-364402-176d4136cb9c.json";
-////        InputStream keyFile = ResourceUtils.getURL("classpath:" + keyFileName).openStream();
-////
-////        Storage storage = StorageOptions.newBuilder().setProjectId("BeTravelic")
-////                // Key 파일 수동 등록
-////                .setCredentials(GoogleCredentials.fromStream(keyFile))
-////                .build().getService();
-//
-//        Picture picture = null;
-//        User user = userRepository.findUserById(id).orElseThrow(() ->
-//                new RuntimeException("일치하는 사용자 없음"));
-//        String fileName = UUID.randomUUID().toString();
-//        String contentType = proFile.getContentType();
-//        File file = null;
-//        if(contentType.contains("image/jpeg")){
-//            file = new File(IMAGE_PATH + fileName + ".jpg");
-//            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
-//        }else if(contentType.contains("image/png")){
-//            file = new File(IMAGE_PATH + fileName + ".png");
-//            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
-//        }else if(contentType.contains("image/gif")){
-//            file = new File(IMAGE_PATH + fileName + ".gif");
-//            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
-//        }else{
-//            new RuntimeException("지원하는 사진 형식이 아닙니다");
-//        }
-//
-////        proFile.transferTo(new File(proFile.getOriginalFilename()));
+
+        File path = new File("");
+        System.out.println(path.getAbsolutePath());
+
+        InputStream keyFile = ResourceUtils.getURL("classpath:static/civil-forge-364402-29986bfb28c2.json").openStream();
+
+        Storage storage = StorageOptions.newBuilder().setProjectId("BeTravelic")
+                // Key 파일 수동 등록
+                .setCredentials(GoogleCredentials.fromStream(keyFile))
+                .build().getService();
+
+
+        Picture picture = null;
+        User user = userRepository.findUserById(id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
+        File oldFile = new File(IMAGE_PATH + user.getPicture().getRealFileName());
+        oldFile.delete();
+
+        String fileName = UUID.randomUUID().toString();
+        String contentType = proFile.getContentType();
+        File file = null;
+        if(contentType.contains("image/jpeg")){
+            file = new File(IMAGE_PATH + fileName + ".jpg");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
+        }else if(contentType.contains("image/png")){
+            file = new File(IMAGE_PATH + fileName + ".png");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
+        }else if(contentType.contains("image/gif")){
+            file = new File(IMAGE_PATH + fileName + ".gif");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
+        }else{
+            new RuntimeException("지원하는 사진 형식이 아닙니다");
+        }
+
+        File convertFile = convertMultiPartToFile( proFile );
+
 //        proFile.transferTo(file);
-//        user.setProfile(picture);
-////        user.setPicture(picture);
-////        user.setProfileImage(picture);
-//        userRepository.save(user);
-//    }
-//
-//    public byte[] getUserProfileImage(String id) throws IOException {
-//        User user = userRepository.findUserById(id).orElseThrow(() ->
-//                new NoExistUserException());
-//        InputStream inputStream = new FileInputStream(IMAGE_PATH + user.getPicture().getRealFileName());
-//        return IOUtils.toByteArray(inputStream);
-//    }
+        user.setProfile(picture);
+        userRepository.save(user);
 
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder("be_travelic", picture.getRealFileName())
+                        .setAcl(new ArrayList<>(Arrays.asList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
+                        .build());
 
+        Blob blob = storage.createFrom(blobInfo, new FileInputStream(convertFile));
+
+//        return blob;
+
+    }
 }
