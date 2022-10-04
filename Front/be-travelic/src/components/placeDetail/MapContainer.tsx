@@ -11,7 +11,6 @@ interface MapContainer {
   mapy: string;
 }
 
-
 function MapContainer( props : MapContainer ){
 
   const { mapx, mapy } = props
@@ -47,3 +46,4 @@ function MapContainer( props : MapContainer ){
   }
 
 export default MapContainer; 
+

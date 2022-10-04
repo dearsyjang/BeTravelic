@@ -5,25 +5,22 @@ import UserRecommendItem from "./UserRecommendItem"
 import "../css/UserRecommend.css"
 
 interface UserRecommend {
-  recommmend_user_id: number;
-  nickname: string;
-  image: string;
   user_id: number;
 }
 
-function UserRecommend() {
-  const user_id = 1
-  const [ userRecommends, setUserRecommends ] = useState<UserRecommend[]>([]);
+function UserRecommend( { user_id } : UserRecommend ) {
+  const [ userRecommends, setUserRecommends ] = useState<UserRecommendItem[]>([]);
 
-  // UserRecommend GET
+  // UserRecommend Get (django)
+  const getUserRecommend = async() => {
+    console.log('사용자추천 props', user_id)
+    const response = await (await axios.get(`http://j7d205.p.ssafy.io:8081/api/v1/user_recommend/${user_id}`))
+    console.log('userRecommend', response.data)
+    setUserRecommends(response.data)
+  }
+
   useEffect(() => {
-    axios
-      .get(`http://j7d205.p.ssafy.io:8081/api/v1/user_recommend/${user_id}`)
-      .then(({data}) => {
-        console.log(data)
-        setUserRecommends(data)
-      })
-      .catch((err) => console.log(err))
+    getUserRecommend()
   }, [])
 
   return (
@@ -32,14 +29,15 @@ function UserRecommend() {
           <div id="UserRecommendCardHeader" className="justify-content-center align-content-center item-center">
                 <h2 className="text-center text-gray-900 m-3">다른 사용자 추천 🚀</h2>
             </div>
-            <div id="UserRecommendCardBody">
+            <div id="UserRecommendCardBody" key="{user.recommend_user_id}">
               {userRecommends.map((user, index) => (
               <div>
                   <UserRecommendItem
                     key={index}
-                    user_id={user.user_id}
-                    image={user.image}
+                    file_name={user.file_name}
+                    real_file_name={user.real_file_name}
                     nickname={user.nickname}
+                    user_id={user.user_id}
                   />
               </div>
               ))}
