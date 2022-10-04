@@ -22,23 +22,30 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/feed/travel-review/{review_id}/comment")
+@RequestMapping
 public class CommentController {
 
     private final CommentService commentService;
     private final JwtProvider jwtProvider;
     @ApiOperation(value = "리뷰에 댓글 등록", notes = "성공 시 리뷰, 실패 시 null")
-    @PostMapping
-    public ResponseEntity<CommonResponse> commentSave(HttpServletRequest request, @PathVariable("review_id") Long review_id, CommentSaveRequestDto dto) throws Exception {
+    @PostMapping("/feed/travel-review/{review_id}/comment")
+    public ResponseEntity<?> commentSave(HttpServletRequest request, @PathVariable("review_id") Long review_id, CommentSaveRequestDto dto) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(commentService.commentSave(id, review_id, dto)), HttpStatus.OK);
+//        return new ResponseEntity<>(CommonResponse.getSuccessResponse(commentService.commentSave(id, review_id, dto)), HttpStatus.OK);
+        try {
+            commentService.commentSave(id, review_id, dto);
+            return new ResponseEntity<>(true, HttpStatus.valueOf(201));
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return new ResponseEntity<>(false, HttpStatus.valueOf(500));
+        }
     }
 
 
     @ApiOperation(value = "리뷰의 댓글 조회", notes = "성공 시 리뷰, 실패 시 null")
-    @GetMapping
+    @GetMapping("/feed/travel-review/{review_id}/comment")
     public ResponseEntity<?> getCommentByReview(HttpServletRequest request, @PathVariable("review_id") Long review_id){
         try {
             List<CommentResDto> comments = commentService.findAllByReview(review_id);
@@ -61,7 +68,7 @@ public class CommentController {
 //    }
 //
     @ApiOperation(value = "리뷰에 댓글 삭제", notes = "성공 시 true, 실패 시 false")
-    @DeleteMapping("/{comment_id}")
+    @DeleteMapping("/feed/travel-review/comment/{comment_id}")
     public ResponseEntity<?> commentDelete(HttpServletRequest request, @RequestParam("comment_id") Long comment_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
