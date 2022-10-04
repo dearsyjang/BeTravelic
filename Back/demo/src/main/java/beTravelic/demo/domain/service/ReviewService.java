@@ -38,7 +38,9 @@ public class ReviewService {
 
 //    @Transactional
     public Long post(ReviewReqDto reviewReqDto) throws Exception {
+
         reviewReqDto.setCreated_at(new Date());
+
 //        reviewReqDto.setReviewLike(0);
         Review reviewEntity = reviewRepository.save(reviewReqDto.toEntity());
 
