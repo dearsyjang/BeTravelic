@@ -483,7 +483,7 @@ def feed_recommend(request, user_id):
 
         users = place_user_score.columns
         users_list = list(users)
-    
+
 
         lst=[]
         if current_user_id in users_list:
@@ -511,7 +511,7 @@ def feed_recommend(request, user_id):
         set_rec_feed = set(rec_feed)
         set_rec_feed2 = list(set_rec_feed)
         set_rec_feed2_sorted = sorted(set_rec_feed2, reverse= True, key=lambda x: x[9])
-    
+
 
         
         
@@ -529,7 +529,7 @@ def feed_recommend(request, user_id):
         set_follow_feed2 = list(set_follow_feed)
         set_follow_feed2_sorted = sorted(set_follow_feed2, reverse= True, key=lambda x: x[9])
 
-    
+
 
         
         #모든 유저의 리스트
@@ -537,25 +537,29 @@ def feed_recommend(request, user_id):
         #현재 사용자 제외
         all_user_list.remove(current_user_id)
         
+
+
         random_rec=[]
         # 팔로우도 없고 리뷰도 없는 유저 (3순위)
         if current_user_id not in users_list and current_user_id not in list(follow_data['follower_user_id']):
             for i in all_user_list:
-                user_index = user_data.index[(user_data['user_id']==i)]
-                user_index2= user_index.values[0]
-                random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-                # random_rec.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+                user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
+                user_index3= user_index.values
+                for user_index2 in user_index3:
+                    random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+                    # random_rec.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+        #print(random_rec)
         random_rec2 = set(random_rec)
         random_rec3 = list(random_rec2)
         random_rec3_sorted = sorted(random_rec3,  reverse= True, key=lambda x: x[9])
 
-    
+
         # #1순위
         # print(set_follow_feed2_sorted)
         # #2순위
         # print(set_rec_feed2_sorted)
         # #3순위
-        # print(random_rec3_sorted)
+        print(random_rec3_sorted)
 
         user_review_list = set_rec_feed2_sorted + set_follow_feed2_sorted + random_rec3_sorted
         #print(user_review_list)
@@ -601,7 +605,7 @@ def feed_recommend(request, user_id):
 
         #mysql_save(user_review_list)
         mysql_save(user_review_list2)
-    
+        
     feed_recommendations(current_user_id)
 
 
