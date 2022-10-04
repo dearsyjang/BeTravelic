@@ -40,6 +40,21 @@ public class PictureService {
     public String uploadFileToGCS(String id, MultipartFile proFile) throws IOException {
 
 
+//        File path = new File("");
+//        System.out.println(path.getAbsolutePath());
+
+//        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(path.getAbsolutePath() + "\\src\\main\\resources\\static/civil-forge-364402-29986bfb28c2.json"));
+//        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("http://localhost:8443/civil-forge-364402-29986bfb28c2.json"));
+
+//        String keyFileName = "";
+//        InputStream keyFile = ResourceUtils.getURL(path.getAbsolutePath() + "\\src\\main\\resources\\static/civil-forge-364402-29986bfb28c2.json").openStream();
+//        InputStream keyFile = ResourceUtils.getURL(path.getAbsolutePath() + "\\src\\main\\resources\\static/civil-forge-364402-29986bfb28c2.json").openStream();
+
+
+//        Storage storage = StorageOptions.newBuilder().setProjectId("BeTravelic")
+//                // Key 파일 수동 등록
+//                .setCredentials(credentials)
+//                .build().getService();
         File path = new File("");
         System.out.println(path.getAbsolutePath());
 
