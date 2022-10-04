@@ -6,20 +6,25 @@ import "./css/SNS.css";
 
 
 function SNS() {
-  const user_id = 1
-  const [ feeds, setFeeds ] = useState<Feed[]>([]);
 
-  // Feed GET
+  const [ userId, setUserId ] = useState();
+  const accessToken = localStorage.getItem("accessToken");
+
+  // userId GET (spring)
+  const getUserId = async() => {
+    const response = await axios.get(`http://j7d205.p.ssafy.io:8443/users`,
+    {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    }
+    )
+    console.log('userId', response.data.data.user_id)
+    setUserId(response.data.data.user_id)
+  }
   useEffect(() => {
-    axios
-      .get(`http://j7d205.p.ssafy.io:8081/api/v1/feed_recommend/${user_id}`)
-      .then(( { data } ) => {
-        console.log(data)
-        setFeeds(data)
-      })
-      .catch((err) => console.log(err))
-   }, [])
-
+    getUserId()
+  }, [])
 
   return (
       <div id="SNS" className="flex flex-row">
@@ -31,31 +36,20 @@ function SNS() {
 
           {/* 피드조회 */}
           <div id="Feed" className="flex flex-col mt-10 mr-10">
-            {feeds.map((feed, index) => (
-              <div
-                id="FeedContainer"
-                key="{feed.feedid}"
-                className="item-center justify-content"
-              >
-                <Feed
-                  key={index}
-                  nickname={feed.nickname}
-                  contents={feed.contents}
-                  created_at={feed.created_at}
-                  image_x={feed.image_x}
-                  image_y={feed.image_y}
-                  place_id={feed.place_id}
-                  user_id={feed.user_id}
-                  visited_at={feed.visited_at}
-                />
-              </div>
-            ))}
+            {userId &&
+              <Feed
+              user_id = {userId}
+              />}
           </div>
         </div>
         
         {/* 팔로우 추천 */}
         <div id="UserRecommend">
-          <UserRecommend />
+          { userId && 
+            <UserRecommend
+            user_id = {userId}
+            />
+          }
         </div>
       </div>
   );
