@@ -108,5 +108,15 @@ public class UserController {
         return  pictureService.getFileToGCS(id);
     }
 
+    @PutMapping("prfile/update")
+    @ApiOperation(value = "프로필 사진 수정")
+    public ResponseEntity<CommonResponse> updateImage(HttpServletRequest request, MultipartFile file) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        pictureService.updateProfile(id, file);
+        return  ResponseEntity.accepted().build();
+    }
+
 }
 
