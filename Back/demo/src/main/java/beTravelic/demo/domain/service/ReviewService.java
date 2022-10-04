@@ -200,4 +200,16 @@ public class ReviewService {
         reviewLikeRepository.delete(reviewLike);
 
     }
+
+    public boolean isLikeReview(String id, Long review_id) {
+        ReviewLike reviewLike = reviewLikeRepository.findByIdAndReview_id(id, review_id);
+        if (reviewLike == null) {
+            log.info("좋아요 안 누른 게시글입니다.");
+            return false;
+        } else {
+            log.info("좋아요 누른 게시글입니다.");
+            return true;
+        }
+    }
+
 }
