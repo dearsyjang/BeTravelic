@@ -44,6 +44,7 @@ public class CommentService {
 
     public List<CommentResDto> findAllByReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new IllegalArgumentException("해당하는 리뷰의 댓글이 없습니다."));
+
         List<Comment> comments = review.getComments();
         return comments.stream().map(CommentResDto::new).collect(Collectors.toList());
     }
