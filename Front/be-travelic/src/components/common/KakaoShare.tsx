@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 
 interface Kakao {
   placeId?: number;
@@ -9,6 +9,7 @@ interface Kakao {
 
 const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
   //   const onShareKakaoHandler = shareKakao();
+
   const shareKakao = () => {
     window.Kakao.Share.createDefaultButton({
       container: ".kakao",
@@ -35,7 +36,7 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
 
   useEffect(() => {
     shareKakao();
-  }, []);
+  }, [title, image, placeId]);
 
   return (
     <div>
