@@ -2,11 +2,10 @@ package beTravelic.demo.domain.repository;
 
 import beTravelic.demo.domain.entity.Follow;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.font.ShapeGraphicAttribute;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +13,22 @@ import java.util.Optional;
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     Optional<Follow> findFollowByFollower(String id);
     Optional<Follow> findFollowByFollowing(String id);
-    List<Follow> findFollowByFollowing_Id(String id);
+    List<Follow> findFollowByFollowing_Id(String Id);
 
-    List<Follow> findFollowByFollower_Id(String id);
+    List<Follow> findFollowByFollower_Id(String Id);
 
     int countByFollower_Id(String id);
     int countByFollowing_Id(String id);
+    @Query("SELECT f FROM Follow f WHERE f.follower.user_id=:userId")
+    List<Follow> findFollowByFollowerUserId(@Param("userId") Long userId);
+
+    @Query("SELECT f FROM Follow f WHERE f.following.user_id=:userId")
+    List<Follow> findFollowByFollowingUserId(@Param("userId") Long userId);
+    @Query("SELECT COUNT(f.follow_id) as cnt FROM Follow f WHERE f.following.user_id=:userId")
+    int countByFollowing_UserId(@Param("userId") Long userId);
+
+    @Query("SELECT COUNT(f.follow_id) as cnt FROM Follow f WHERE f.follower.user_id=:userId")
+    int countByFollower_UserId(@Param("userId") Long userId);
 
 //    Optional<Follow> findFollowingById(Long id);
 //    List<Follow> findFollowerByUser_Id(String id);

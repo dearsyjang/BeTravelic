@@ -96,8 +96,9 @@ public class MypageService {
 //        List<MypagePicture> mypagePictures = mypagePictureRepository.findMypagePicturesByUserId(id);
 //        return mypagePictures;
 //    }
-    public List<MypagePictureViewDto> findAllByUser(String id) {
-        User user = userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
+    public List<MypagePictureViewDto> findAllByUser(Long userId) {
+//        User user = userRepository.findUserById(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
+        User user = userRepository.findUserByUserId(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
         List<MypagePicture> mypagePictures = user.getMypagePictures();
         return mypagePictures.stream().map(MypagePictureViewDto::new).collect(Collectors.toList());
     }

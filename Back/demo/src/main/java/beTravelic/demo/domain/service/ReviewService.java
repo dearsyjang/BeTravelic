@@ -118,18 +118,18 @@ public class ReviewService {
     }
 
 
-    public List<ReviewResDto> findAllByUser(String id) {
-        log.info("test" + id);
-        User user = userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
+    public List<ReviewResDto> findAllByUser(Long userId) {
+        log.info("test" + userId);
+        User user = userRepository.findUserByUserId(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
         List<Review> reviews = user.getReviews();
         return reviews.stream().map(ReviewResDto::new).collect(Collectors.toList());
     }
 
 
     // 유저의 지역 게시물들 조회
-    public List<ReviewResDto> findAllByRegionAndUser(Long regionId, String id) {
+    public List<ReviewResDto> findAllByRegionAndUser(Long regionId, Long userId) {
         log.info("지역 유저 정보로 게시글 조회하였습니다.");
-        return reviewRepository.findAllByUserAndRegion(id, regionId);
+        return reviewRepository.findAllByUserAndRegion(userId, regionId);
     }
 
     // 0928 비활성화

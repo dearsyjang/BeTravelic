@@ -30,7 +30,7 @@ public class BookmarkService {
     private final RegionRepository regionRepository;
 
 
-    public BookmarkSaveRequestDto saveBookmark( String id, long placeId, long regionId) {
+    public BookmarkSaveRequestDto saveBookmark(String id, long placeId, long regionId) {
         Bookmark bookmark = new Bookmark();
         User user = userRepository.findUserById(id).orElseThrow(() ->
                 new IllegalArgumentException("유저없음"));
@@ -47,14 +47,14 @@ public class BookmarkService {
 
     //지역별 북마크 조회
 
-    public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, String id) {
-        return bookmarkRepository.findAllByUserAndRegion(id, regionId);
+    public List<BookmarkResDto> findAllByRegionAndUser(Long regionId, Long userId) {
+        return bookmarkRepository.findAllByUserAndRegion(userId, regionId);
     }
 
 
     //모든 북마크 조회
-    public List<BookmarkResDto> findAllByUser(String id) {
-        return bookmarkRepository.findAllByUser(id);
+    public List<BookmarkResDto> findAllByUser(Long userId) {
+        return bookmarkRepository.findAllByUser(userId);
     }
 
 
