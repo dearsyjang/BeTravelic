@@ -18,12 +18,13 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    @Query("SELECT r FROM Review r WHERE r.user.id=:id AND r.region.regionId=:regionId")
+    @Query("SELECT r FROM Review r WHERE r.user.user_id=:userId AND r.region.regionId=:regionId")
 //    ArrayList<ReviewResDto> findAllByUserAndRegion(User user, Region region);
-    List<ReviewResDto> findAllByUserAndRegion(@Param("id") String id, @Param("regionId") Long regionId);
+    List<ReviewResDto> findAllByUserAndRegion(@Param("userId") Long userId, @Param("regionId") Long regionId);
 
     Optional<Review> findReviewByReviewId(Long ReviewId);
-    int countReviewByUser_Id(String id);
+    @Query("SELECT COUNT(r.reviewId) as cnt From Review r Where r.user.user_id=:userId")
+    int countReviewByUser_userId(@Param("userId") Long userId);
 
 //    @Query("SELECT r from Review r WHERE r.region = :region")
 //    ArrayList<Review> findAllByRegion(Region region);

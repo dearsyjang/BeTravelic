@@ -14,6 +14,6 @@ import java.util.Optional;
 @Repository
 public interface SurveyKeywordRepository extends JpaRepository<SurveyKeyword, String> {
 
-    @Query("SELECT sk.surveyKeyword FROM SurveyKeyword sk WHERE sk.user.id=:id")
-    List<String> findSurveyKeywordById(@Param("id")String id);
+    @Query("SELECT sk.surveyKeyword FROM SurveyKeyword sk WHERE sk.user.user_id=:userId")
+    List<String> findSurveyKeywordById(@Param("userId") Long userId);
 }

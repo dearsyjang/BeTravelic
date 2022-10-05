@@ -44,19 +44,19 @@ public class FollowController {
 
     @GetMapping("/followingList")
     @ApiOperation(value = "팔로잉 리스트")
-    public ResponseEntity<CommonResponse> followingList(HttpServletRequest request) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(followService.followingList(id)), HttpStatus.OK);
+    public ResponseEntity<CommonResponse> followingList(@RequestParam("user_id") Long user_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(followService.followingList(user_id)), HttpStatus.OK);
     }
 
     @GetMapping("/followerList")
     @ApiOperation(value = "팔로워 리스트")
-    public ResponseEntity<CommonResponse> followerList(HttpServletRequest request) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
-        return new ResponseEntity<>(CommonResponse.getSuccessResponse(followService.followerList(id)), HttpStatus.OK);
+    public ResponseEntity<CommonResponse> followerList(@RequestParam("user_id") Long user_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+        return new ResponseEntity<>(CommonResponse.getSuccessResponse(followService.followerList(user_id)), HttpStatus.OK);
     }
 }

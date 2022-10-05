@@ -33,14 +33,14 @@ public class MypagePictureController {
 
     @GetMapping("/downloadMyPicture")
     @ApiOperation(value = "마이페이지 지도 대표사진 전체 불러오기")
-    public ResponseEntity<?> getMyPicture(HttpServletRequest request) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
+    public ResponseEntity<?> getMyPicture(@RequestParam("user_id") Long user_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
 //        List<MypagePicture> mypagePictures = mypageService.getMypagePictures(id);
 //        return new ResponseEntity<>(beTravelic.demo.global.common.CommonResponse.getSuccessResponse(mypagePictures),HttpStatus.OK);
         try {
-            List<MypagePictureViewDto> mypagePictures = mypageService.findAllByUser(id);
+            List<MypagePictureViewDto> mypagePictures = mypageService.findAllByUser(user_id);
             return ResponseEntity.ok(mypagePictures);
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

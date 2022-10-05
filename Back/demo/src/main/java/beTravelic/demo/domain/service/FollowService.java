@@ -1,6 +1,5 @@
 package beTravelic.demo.domain.service;
 
-import beTravelic.demo.domain.dto.FollowSaveRequestDto;
 import beTravelic.demo.domain.dto.FollowSaveResponseDto;
 import beTravelic.demo.domain.dto.FollowerListResponseDto;
 import beTravelic.demo.domain.dto.FollowingListResponseDto;
@@ -11,7 +10,6 @@ import beTravelic.demo.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +49,8 @@ public class FollowService {
         }
     }
 
-    public List<FollowingListResponseDto> followingList(String id){
-        List<Follow> tmpList = followRepository.findFollowByFollower_Id(id);
+    public List<FollowingListResponseDto> followingList(Long userId){
+        List<Follow> tmpList = followRepository.findFollowByFollowerUserId(userId);
         List<FollowingListResponseDto> followingList = new ArrayList<>();
 
         for (Follow f : tmpList){
@@ -62,8 +60,9 @@ public class FollowService {
         return followingList;
     }
 
-    public List<FollowerListResponseDto> followerList(String id){
-        List<Follow> tmpList = followRepository.findFollowByFollowing_Id(id);
+    public List<FollowerListResponseDto> followerList(Long userId){
+//        List<Follow> tmpList = followRepository.findFollowByFollowing_Id(userId);
+        List<Follow> tmpList = followRepository.findFollowByFollowingUserId(userId);
         List<FollowerListResponseDto> followerList = new ArrayList<>();
 
         for (Follow f : tmpList){
