@@ -20,6 +20,7 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "review_id")
+    @Setter
     private Long reviewId;
 
     //    여행지

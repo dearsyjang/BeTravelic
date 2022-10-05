@@ -1,4 +1,10 @@
-import React, { FormEvent, SetStateAction, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMemberId, login, register } from "../../apis/auth";
@@ -25,6 +31,8 @@ const SignUpForm: React.FC<{
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [isAlert, setIsAlert] = useState(false);
 
   const [errors, setErrors] = useState<error>({
     email: true,
@@ -92,36 +100,46 @@ const SignUpForm: React.FC<{
     // 설문조사로
     e.preventDefault();
     const { nickname, email, pw } = inputValues;
-    const id = email;
 
-    let res;
-    if (identifier === "login") {
-      res = await login({ email, pw });
-      console.log(res, "res");
-    } else if (identifier === "signup") {
-      res = await register({ nickname, email, pw, id });
-    } else {
+    if (identifier === "onboard") {
       setStatus(identifier);
     }
 
-    const { accessToken, refreshToken } = res;
+    if (!errors.email || !errors.pw) {
+      console.log(errors.email, errors.pw);
+      
+      setIsAlert(true);
+      return;
+    } else {
+      const id = email;
 
-    // const {userId} = await fetchUserInfo()
+      let res;
+      if (identifier === "login") {
+        res = await login({ email, pw });
+        console.log(res, "res");
+      } else if (identifier === "signup") {
+        res = await register({ nickname, email, pw, id });
+      }
 
-    // token 저장
-    dispatch(
-      authActions.authenticate({
-        accessToken,
-        refreshToken,
-      })
-    );
-    const { user_id } = await fetchUserInfo();
-    // const userId = await getMemberId();
-    dispatch(authActions.saveUserId(user_id));
-    console.log("dispatch완", user_id);
+      const { accessToken, refreshToken } = res;
 
-    const url = identifier === "signup" ? "/survey" : `/mypage/${user_id}`;
-    navigate(url, { replace: true });
+      // const {userId} = await fetchUserInfo()
+
+      // token 저장
+      dispatch(
+        authActions.authenticate({
+          accessToken,
+          refreshToken,
+        })
+      );
+      const { user_id } = await fetchUserInfo();
+      // const userId = await getMemberId();
+      dispatch(authActions.saveUserId(user_id));
+      console.log("dispatch완", user_id);
+
+      const url = identifier === "signup" ? "/survey" : `/mypage/${user_id}`;
+      navigate(url, { replace: true });
+    }
   };
 
   return (
@@ -240,6 +258,29 @@ const SignUpForm: React.FC<{
             </button>
           </div>
         </form>
+        {isAlert && (
+          <div
+            className="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800 justify-center"
+            role="alert"
+          >
+            <svg
+              aria-hidden="true"
+              className="flex-shrink-0 inline w-5 h-5 mr-3"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <div>
+              입력한 내용을 다시 확인해주세요 :)
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
