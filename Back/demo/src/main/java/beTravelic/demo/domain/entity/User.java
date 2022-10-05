@@ -60,6 +60,10 @@ public class User  {
     @OneToMany(mappedBy = "user")
     private List<SurveyCategory> surveyCategories = new ArrayList<>();
 
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private List<MypagePicture> mypagePictures = new ArrayList<>();
+
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }

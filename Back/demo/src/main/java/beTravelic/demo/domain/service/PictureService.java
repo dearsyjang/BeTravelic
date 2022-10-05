@@ -27,7 +27,7 @@ public class PictureService {
 
     private final UserRepository userRepository;
     private final Storage storage;
-    private File convertMultiPartToFile(MultipartFile file ) throws IOException
+    File convertMultiPartToFile(MultipartFile file) throws IOException
     {
         File convFile = new File( file.getOriginalFilename() );
         FileOutputStream fos = new FileOutputStream( convFile );

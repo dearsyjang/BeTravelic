@@ -19,7 +19,7 @@ function DetailRecommend({ title }: DetailRecommend) {
   const getRecommendPlace = async() => {
     const response = await (await axios.get(`http://j7d205.p.ssafy.io:8081/api/v1/another_recommend/${title}`))
 
-    // console.log(response.data) => 데이터 759개라서 자름
+    // console.log(response.data) => 데이터 임의로 자름
     var data = response.data.slice(0, 30)
     console.log(data)
     setRecommendPlace(data)
@@ -29,7 +29,7 @@ function DetailRecommend({ title }: DetailRecommend) {
     getRecommendPlace()
   }, [])
 
-  // 캐러셀
+  // 캐러셀 설정
   const settings = {
     dots: true,
     infinite: true,

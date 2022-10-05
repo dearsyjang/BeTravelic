@@ -1,22 +1,38 @@
 import React from 'react';
-import { useState  } from 'react';
-import '../css/CommentsModal.css';
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
-interface props {
-  open: boolean;
-  close: boolean;
-  id: number;
-  imgUrl: string;
-  comment: string;
+import CommentItem from "./CommentItem"
+
+import '../css/CommentsModal.css';
+import  { FiSend } from 'react-icons/fi'
+
+interface CommentsModal {
+  open: any
+  close: any
+  review_id: number
 }
 
-const CommentsModal = (props: any) => {
-  // 모달 => 열기, 닫기를 부모로부터 받아옴
-  const { open, close } = props;
+function CommentsModal ( props: CommentsModal ) {
+  const { open, close, review_id } = props;
+  const accessToken = localStorage.getItem("accessToken");
+  const [ comments, setComments ] = useState<CommentItem[]>([])
+
+  // 댓글 GET (srping)
+  const getComment = async() => {
+    console.log('댓글 props', review_id)
+    const response = await (await axios.get(`http://j7d205.p.ssafy.io:8443/feed/travel-review/${review_id}/comment`))
+    console.log('comment', response.data)
+    setComments(response.data)
+  }
+
+  useEffect(() => {
+    getComment()
+  }, [])
 
   // 댓글
-  const [comment, setReview] = useState('댓글내용');
+  const [comment, setReview] = useState('');
   const [Comments, setReviewArray] = useState([
     { id: '', imgUrl: '', comment: comment },
   ]);
@@ -36,8 +52,26 @@ const CommentsModal = (props: any) => {
     }
   };
 
+  const postComment = async(event: any) => {
+    console.log(review_id)
+    console.log(comment)
+    const response  = await axios.post(`http://j7d205.p.ssafy.io:8443/feed/travel-review/${review_id}/comment`,
+    {},
+    {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+      params: {
+        contents: comment
+      },
+    }
+    )
+    console.log(response.data)
+    if (response.data === 'true')
+      setReview('');
+  }
+
   return (
-    // 모달이 열릴때 openModal 클래스가 생성된다.
     <div id="CommentModal" className={open ? 'openModal modal' : 'modal'}>
       {open ? (
         <section>
@@ -47,56 +81,38 @@ const CommentsModal = (props: any) => {
               &times;
             </button>
           </header>
- 
-          {/* 댓글 부분 */}
-          <div id="CommentBody" className="flex items-center m-5">
-            <div id="Comments" className="flex items-center m-5">
-              <div className="m-3">
-                {Comments.map(data => (
-                  <div key={data.id}>
-                    <div className="inline-flex items-center">
-                      <img
-                        alt=""
-                        className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"
-                        src="https://dummyimage.com/103x103"
-                      />
-                      <div className='flex-grow'>
-                        <Link to={`/mypage`}>
-                          <h2 className="title-font font-medium ml-3">{data.id} |</h2>
-                        </Link>
-                      </div>
-                      <span id="CommentContent" className="title-font font-medium ml-3">{data.comment}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+
+          <div>
+            {comments.map((comment, index) => (
+              <CommentItem
+                key={index}
+                commentId={comment.commentId}
+                contents={comment.contents}
+                createdAt={comment.createdAt}
+                userId={comment.userId}
+                review_id={review_id}
+              />
+            ))}
           </div>
-          <hr/>
+ 
           <div id="CommentInputContainer" className="flex items-center mt-5">
             <input id="CommentInput"
                 className="comment-input"
                 type="text"
-                placeholder="댓글를 입력해주세요."
+                placeholder="댓글을 입력해주세요."
                 onKeyPress={event => {
                   handleTotalEnter(event);
                 }}
                 onKeyUp={event => {
                   handleReviewInput(event);
                 }} />
+            <button onClick={event => {postComment(event)}} className="m-3 mr-30"><FiSend/></button>
           </div>
-
-          <footer>
-            {/* 혹시 모를 닫힘 버튼 */}
-            {/* <button className="close" onClick={close}>
-              close
-            </button> */}
-          </footer>
         </section>
       ) : null}
     </div>
   );
-};
 
+}
 
 export default CommentsModal;

@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -91,9 +92,14 @@ public class MypageService {
         return MypagePictureResponseDto.of(region_id, picture.getRealFileName(), user.getUser_id());
     }
 
-    public List<MypagePicture> getMypagePictures(String id) {
-        List<MypagePicture> mypagePictures = mypagePictureRepository.findMypagePicturesByUserId(id);
-        return mypagePictures;
+//    public List<MypagePicture> getMypagePictures(String id) {
+//        List<MypagePicture> mypagePictures = mypagePictureRepository.findMypagePicturesByUserId(id);
+//        return mypagePictures;
+//    }
+    public List<MypagePictureViewDto> findAllByUser(String id) {
+        User user = userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 유저 리뷰가 없습니다."));
+        List<MypagePicture> mypagePictures = user.getMypagePictures();
+        return mypagePictures.stream().map(MypagePictureViewDto::new).collect(Collectors.toList());
     }
 
 //    public MypagePictureViewDto getMypagePictures(String id) throws Exception {

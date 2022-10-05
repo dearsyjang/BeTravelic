@@ -68,7 +68,9 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await downloadProfilePhoto();
-      setImage(res?.data)
+      if (res) {
+        setImage(res.data);
+      }
     };
     initialData();
   }, []);

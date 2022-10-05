@@ -76,7 +76,7 @@ public class UserService {
         userInfoResponseDto.setFollowerCnt(follower_cnt);
         userInfoResponseDto.setFollowingCnt(following_cnt);
         userInfoResponseDto.setreviewCnt(review_cnt);
-        userInfoResponseDto.setSurveyKeyword(surveyKeyword);
+//        userInfoResponseDto.setSurveyKeyword(surveyKeyword);
         return userInfoResponseDto;
     }
 
