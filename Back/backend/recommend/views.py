@@ -168,6 +168,7 @@ def place_recommend(request,user_id,category):
         
 
     # 현재 유저의 리뷰에서 키워드를 추출
+        # 현재 유저의 리뷰에서 키워드를 추출
         user_keywords_all=[]
         for i in range(len(Place_review_category_data['contents'])):
             if Place_review_category_data['user_id'][i]== current_user_id and Place_review_category_data['category_name'][i]== selected_category:
@@ -178,8 +179,8 @@ def place_recommend(request,user_id,category):
                 for word in result:
                     user_keywords_all += [keyword_dict[word] if keyword_dict.get(word) else '']
 
-    
-    
+
+
         #키워드 카운트
         user_keywords_count = Counter(user_keywords_all)
         #빈도 높은 5개의 키워드 추출
@@ -221,7 +222,6 @@ def place_recommend(request,user_id,category):
             all_place_keywords.append(s[0])
 
 
-
         # place 마다 키워드 추출
         lst= [set() for _ in range(len(place_data))]        #중복 제거를 위해 set으로 만들어줌
         k=1
@@ -243,7 +243,7 @@ def place_recommend(request,user_id,category):
                 for word in result:
                     lst[k].add(keyword_dict[word] if keyword_dict.get(word) else '')
                 
-    
+
 
         set_user_keywords = set(user_keywords)
         set_all_keywords= set(all_place_keywords)
@@ -285,28 +285,42 @@ def place_recommend(request,user_id,category):
         for i in range(len(v_lst)):
             cs = cos_sim(my_matrix, v_lst[i])
             dic[i]=cs
-    
+
 
         #코사인 유사도 높은 순서대로 정렬
         sorted_dic = sorted(dic.items(), reverse = True, key = lambda item: item[1])
-    
+
 
         #인덱스 추출
         index_list=[]
         for i in sorted_dic:
             index_list.append(i[0])
         #상위 30개만
-        index_list_30 = index_list[:30]
-
+        index_list_30 = index_list[:100]
+        #print(place_data)
         #코사인 유사도 높은 순서대로
         info_list=[]
         for i in range(len(index_list_30)):
             for j in range(len(place_data['place_id'])):
                 if index_list_30[i] == place_data['place_id'][j]:
-                    info_list.append(tuple([i,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
+                    s_category_name=''
+                    if place_data['category_id'][j]==1:
+                        s_category_name="관광지"
+                    elif place_data['category_id'][j]==2:
+                        s_category_name="박물관"
+                    elif place_data['category_id'][j]==3:
+                        s_category_name="축제"
+                    elif place_data['category_id'][j]==4:
+                        s_category_name="레저스포츠"
+                    elif place_data['category_id'][j]==5:
+                        s_category_name="쇼핑"
+                    elif place_data['category_id'][j]==6:
+                        s_category_name="음식점"
+                    if s_category_name==selected_category:
+                        info_list.append(tuple([i,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
 
         #return info_list
-        print(info_list)
+        #print(info_list)
         df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
         #print(df)
 
@@ -318,7 +332,7 @@ def place_recommend(request,user_id,category):
                         charset='utf8')
 
             cursor=conn.cursor()
-          
+        
             
 
             #cursor=conn.cursor()
