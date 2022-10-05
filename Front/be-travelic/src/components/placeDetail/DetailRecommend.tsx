@@ -20,22 +20,62 @@ function DetailRecommend({ title }: DetailRecommend) {
     const response = await (await axios.get(`http://j7d205.p.ssafy.io:8081/api/v1/another_recommend/${title}`))
 
     // console.log(response.data) => 데이터 임의로 자름
-    var data = response.data.slice(0, 30)
-    console.log(data)
-    setRecommendPlace(data)
+    // var data = response.data.slice(0, 30)
+    console.log(response.data)
+    setRecommendPlace(response.data)
   }
 
   useEffect(() => {
     getRecommendPlace()
   }, [])
 
-  // 캐러셀 설정
+  // 캐러셀 설정 설정
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: true, // 무한 스와이프
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
+    autoplay: true,
+    autoplaySilde: 10000, // 자동 슬라이드 시, 한 슬라이드에서 머무르는 시간
+    pauseOnHover: true,
+    responsive: [ // 반응형
+      {
+          breakpoint: 1440,
+          settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5
+          }
+      },
+      {
+          breakpoint: 1024,
+          settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4
+          }
+      },
+      {
+          breakpoint: 720,
+          settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3
+          }
+      },
+      {
+          breakpoint: 480,
+          settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+          }
+      },
+      {
+          breakpoint: 320,
+          settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+          }
+      }
+  ]
   };
 
   return (
