@@ -9,6 +9,10 @@ import MyPageCard from "../components/MyPage/MyPageCard";
 import PhotoInputModal from "../components/MyPage/PhotoInputModal";
 import PlaceContainer from "../components/MyPage/PlaceContainer";
 import "../pages/css/OnBoard.css";
+import { PlaceData } from "../components/MyPage/PlaceContainer";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { useNavigate, useParams } from "react-router-dom";
 
 export interface Display {
   regionId: number;
@@ -20,12 +24,18 @@ export interface Display {
 }
 
 const MyPage = () => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
+  const { id } = useParams();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showArticleModal, setShowArticleModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openTab, setOpenTab] = useState(1);
+  const [displayedPlace, setDisplayedPlace] = useState<PlaceData[]>([]);
   const [displays, setDisplays] = useState<Display[]>([]);
   const [regionId, setRegionId] = useState<number>(0);
   const [changes, setChanges] = useState(true);
+  const navigate = useNavigate();
+
   const openModal = () => {
     setShowModal(true);
   };
@@ -48,6 +58,7 @@ const MyPage = () => {
   };
 
   useLayoutEffect(() => {
+
     setIsLoading(true);
     const initialData = async () => {
       // 초기 데이터 호출
@@ -102,6 +113,8 @@ const MyPage = () => {
               {/* 맵 */}
               <MyMap
                 setShowModal={setShowModal}
+                openTab={openTab}
+                setDisplayedPlace={setDisplayedPlace}
                 displays={displays}
                 setRegionId={setRegionId}
                 changes={changes}
@@ -110,7 +123,12 @@ const MyPage = () => {
             </section>
             {/* 추천 */}
             <section>
-              <PlaceContainer />
+              <PlaceContainer
+                openTab={openTab}
+                setOpenTab={setOpenTab}
+                displayedPlace={displayedPlace}
+                setDisplayedPlace={setDisplayedPlace}
+              />
             </section>
           </div>
         </div>
