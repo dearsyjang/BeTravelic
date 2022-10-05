@@ -29,10 +29,7 @@ interface place {
   overview: string;
   score: number;
 }
-// 레저 & 스포츠는 텍스트 길이가 길어서 폰트 사이즈 그 부분만 조정
-const minFont = {
-  fontSize: "14px",
-};
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -58,11 +55,6 @@ const contentTypes = [
     imageUrl: `${process.env.PUBLIC_URL}/icons/leisure.png`,
   },
   {
-    typeNum: 32,
-    name: "숙박",
-    imageUrl: `${process.env.PUBLIC_URL}/icons/travel-bag.png`,
-  },
-  {
     typeNum: 38,
     name: "쇼핑",
     imageUrl: `${process.env.PUBLIC_URL}/icons/shopping.png`,
@@ -75,7 +67,7 @@ const contentTypes = [
 ];
 async function getRecommendPlace(userId: number, category: string) {
   let places: place[] = [];
-  console.log("userId in RecommendList : " + userId);
+  // console.log("userId in RecommendList : " + userId);
   console.log("category in RecommendList");
   console.log(category);
 
@@ -96,7 +88,6 @@ async function getRecommendPlace(userId: number, category: string) {
 }
 
 function RecommendPlaceMain({ latitude, longitude }: MapProps) {
-  const [loadMap, setLoadMap] = useState(false);
   const [openTab, setOpenTab] = useState(1);
   const [category, setCategory] = useState<string>("관광지");
   const [places, setPlaces] = useState<place[]>([]);
@@ -107,17 +98,16 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
     var localplaces: place[] = [];
     (async () => {
       localplaces = await getRecommendPlace(userId, category);
-      console.log(localplaces);
+      // console.log(localplaces);
       setPlaces(localplaces);
     })();
     // console.log(localplaces);
-    console.log("places");
-
-    console.log(places);
+    // console.log("places");
+    // console.log(places);
 
     const mapScript = document.createElement("script");
     mapScript.async = true;
-    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=df4bdb2422933e11c1563504af4b0c33&autoload=false`;
+    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=df4bdb2422933e11c1563504af4b0c33&libraries=clusterer&autoload=false`;
 
     document.head.appendChild(mapScript);
     const onLoadKakaoMap = () => {
@@ -129,37 +119,42 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
           center: new window.kakao.maps.LatLng(latitude, longitude),
           level: 12,
         };
-        // const markerPosition = new window.kakao.maps.LatLng(
-        //   latitude,
-        //   longitude,
-        // );
         const map = new window.kakao.maps.Map(container, options);
-        // 아래는 마커 테스트 및 센터 좌표 구하기 위함
-        // const marker = new window.kakao.maps.Marker({
-        //   position: markerPosition,
-        // });
 
-        window.kakao.maps.event.addListener(map, "center_changed", function () {
-          var level = map.getLevel();
-          var latlng = map.getCenter();
-          console.log("Center : " + latlng.getLat() + " ," + latlng.getLng());
-          console.log("Level : " + level);
+        // 아래는 마커 테스트 및 센터 좌표 구하기 위함
+        var markers = places.map((place) => {
+          console.log("place ");
+          console.log(place);
+
+          console.log("place mapx, mapy --> " + place.mapx + ", " + place.mapy);
+
+          return new window.kakao.maps.Marker({
+            position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
+          });
         });
-        // marker.setMap(map);
+        const clusterer = new window.kakao.maps.MarkerClusterer({
+          map: map,
+          averageCenter: true,
+          minLevel: 12,
+        });
+        clusterer.addMarkers(markers);
+
+        // window.kakao.maps.event.addListener(map, "center_changed", function () {
+        //   var level = map.getLevel();
+        //   var latlng = map.getCenter();
+        //   console.log("Center : " + latlng.getLat() + " ," + latlng.getLng());
+        //   console.log("Level : " + level);
+        // });
       });
     };
     mapScript.addEventListener("load", onLoadKakaoMap);
-    setLoadMap(true);
 
     return () => {
       mapScript.removeEventListener("load", onLoadKakaoMap);
-      setLoadMap(false);
     };
   }, [latitude, longitude]);
-  useEffect(() => {
-    console.log("Second useEffect Call");
-    console.log("category " + category);
-  }, [category]);
+
+  useEffect(() => {}, [places]);
 
   function changeCategory(type: string) {
     setCategory(type);
@@ -219,14 +214,14 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
 
             <div
               id='RecommendListIcons'
-              className='gird gap-2 grid-cols-6 grid-rows-1'
+              className='gird gap-2 grid-cols-5 grid-rows-1'
             >
               <RadioGroup
                 value={category}
                 onChange={changeCategory}
                 className='mt-4'
               >
-                <div className='grid grid-cols-7 gap-2 sm:grid-cols-7 lg:grid-cols-7'>
+                <div className='grid grid-cols-5 gap-2 sm:grid-cols-6 lg:grid-cols-6'>
                   {contentTypes.map((contentType, idx) => (
                     <div>
                       <RadioGroup.Option

@@ -4,6 +4,8 @@ import "../css/RecommendList.css";
 import RecommendListItem from "./RecommendListItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { ColorRing } from "react-loader-spinner";
+import { tree } from "d3";
 
 interface place {
   recommend_id: number;
@@ -18,9 +20,9 @@ interface place {
 }
 async function getRecommendPlace(userId: any, category: any) {
   let places: place[] = [];
-  console.log("userId in RecommendList : " + userId);
-  console.log("category in RecommendList");
-  console.log(category.category);
+  // console.log("userId in RecommendList : " + userId);
+  // console.log("category in RecommendList");
+  // console.log(category.category);
 
   await axios
     .get(
@@ -41,34 +43,53 @@ async function getRecommendPlace(userId: any, category: any) {
 function RecommendList(category: any) {
   const [places, setPlaces] = useState<place[]>([]);
   const userId = useSelector((state: RootState) => state.auth.userId);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   useEffect(() => {
     var localplaces: place[] = [];
     (async () => {
+      setIsLoaded(false);
       localplaces = await getRecommendPlace(userId, category);
-      console.log(localplaces);
+      // console.log(localplaces);
       setPlaces(localplaces);
     })();
-    console.log("category in RecommendList");
-    console.log(category);
-    console.log("places");
-    console.log(places);
-  }, []);
+    // console.log("category in RecommendList");
+    // console.log(category);
+    // console.log("places");
+    // console.log(places);
+  }, [category]);
+  useEffect(() => {
+    setIsLoaded(true);
+  }, [places]);
   return (
     <div className='RecommendListCoverContainer'>
-      <div>
-        {places.map((place) => (
-          <div key='{place.recommend_id}'>
-            <RecommendListItem
-              title={place.title}
-              imgUrl={place.image}
-              rating={place.score}
-              address={place.addr}
-              detailInfo={place.overview}
-              placeId={place.place_id}
-            />
-          </div>
-        ))}
-      </div>
+      {isLoaded ? (
+        <div>
+          {places.map((place) => (
+            <div key={place.recommend_id}>
+              <RecommendListItem
+                title={place.title}
+                imgUrl={place.image}
+                rating={place.score}
+                address={place.addr}
+                detailInfo={place.overview}
+                placeId={place.place_id}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className='makeCenter'>
+          <ColorRing
+            visible={true}
+            height='80'
+            width='80'
+            ariaLabel='blocks-loading'
+            wrapperStyle={{}}
+            wrapperClass='blocks-wrapper'
+            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          />
+        </div>
+      )}
     </div>
   );
 }

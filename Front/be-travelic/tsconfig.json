@@ -20,6 +20,9 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  "types": [
+    "kakao.maps.d.ts"
+  ],
   "include": [
     "src"
   ]

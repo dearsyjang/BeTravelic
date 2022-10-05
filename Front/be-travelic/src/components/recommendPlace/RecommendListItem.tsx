@@ -31,7 +31,7 @@ function RecommendListItem({
       <div>
         <div className='RecommendListTitle'>{title}</div>
         {/* 별점 표시 */}
-        {/* <div className='RecommendListRating'>
+        <div className='RecommendListRating'>
           {(function () {
             let stars = [];
             for (let i = 0; i < rating; i++) {
@@ -39,9 +39,11 @@ function RecommendListItem({
             }
             return stars;
           })()}
-        </div> */}
+        </div>
         <div className='RecommendListAddress'>{address}</div>
-        <div className='RecommendListDetail'>{detailInfo.slice(0, 40)}</div>
+        <div className='RecommendListDetail'>
+          {detailInfo.slice(0, 40) + "..."}
+        </div>
       </div>
       <div className='recommendDetailInfo_btn'>
         <button onClick={onClickDetail}>상세보기</button>
