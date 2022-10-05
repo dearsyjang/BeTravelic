@@ -56,12 +56,6 @@ function PlaceDetailMain() {
           />
         )}
       </div>
-      <KakaoShare
-        placeId={place?.placeId}
-        image={place?.image}
-        title={place?.title}
-        overview={place?.overview}
-      />
 
       <div className="container px-5 mx-auto">
         <div id="kakaomap">
