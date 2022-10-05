@@ -23,6 +23,7 @@ public class CommentResDto {
     private String contents;
 
     private Date createdAt;
+    private String nickname;
 
     public CommentResDto (Comment comment) {
         this.commentId = comment.getComment_id();
@@ -30,6 +31,7 @@ public class CommentResDto {
         this.userId = comment.getUser().getUser_id();
         this.contents = comment.getContents();
         this.createdAt = comment.getCreated_at();
+        this.nickname = comment.getUser().getNickname();
     }
 
 }
