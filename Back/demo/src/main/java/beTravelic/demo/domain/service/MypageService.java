@@ -121,22 +121,26 @@ public class MypageService {
                 .setCredentials(GoogleCredentials.fromStream(keyFile))
                 .build().getService();
 
-
-        Picture picture = null;
         User user = userRepository.findUserById(id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
+
+        File oldFile = new File(IMAGE_PATH + user.getPicture().getRealFileName());
+        oldFile.delete();
+
+        Picture picture = null;
+
         String fileName = UUID.randomUUID().toString();
         String contentType = mypagePicture.getContentType();
         File file = null;
         if(contentType.contains("image/jpeg")){
             file = new File(IMAGE_PATH + fileName + ".jpg");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".jpg").build();
         }else if(contentType.contains("image/png")){
             file = new File(IMAGE_PATH + fileName + ".png");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".png").build();
         }else if(contentType.contains("image/gif")){
             file = new File(IMAGE_PATH + fileName + ".gif");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".gif").build();
         }else{
             new RuntimeException("지원하는 사진 형식이 아닙니다");
         }
@@ -148,8 +152,10 @@ public class MypageService {
 
         Blob blob = storage.createFrom(blobInfo, new FileInputStream(convertFile));
 
+        Region region = regionRepository.findRegionByRegionId(region_id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
 
-        MypagePicture myPicture = mypagePictureRepository.findByUserAndRegion(id, region_id).orElseThrow(() ->
+        MypagePicture myPicture = mypagePictureRepository.findByUserAndRegion(user, region).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
 
         myPicture.updateMypagePicture(picture.getRealFileName(), picture.getFileName());
@@ -162,5 +168,14 @@ public class MypageService {
     }
 
 
+    public void mypagePictureDelete(String id, Long region_id){
+        User user = userRepository.findUserById(id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
 
+        Region region = regionRepository.findRegionByRegionId(region_id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
+        MypagePicture myPicture = mypagePictureRepository.findByUserAndRegion(user, region).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
+        mypagePictureRepository.delete(myPicture);
+    }
 }
