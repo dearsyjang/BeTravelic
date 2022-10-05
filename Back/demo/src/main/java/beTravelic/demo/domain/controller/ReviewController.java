@@ -94,9 +94,12 @@ public class ReviewController {
 
     @ApiOperation(value = "여행기록 수정", notes = "수정 시 true, 실패 시 false 반환")
     @PutMapping("/mypage/travel-history/{review_id}")
-    public ResponseEntity<?> putReview(@RequestBody ReviewReqDto reviewReqDto) {
+    public ResponseEntity<?> putReview(HttpServletRequest request, @PathVariable("review_id") Long review_id, ReviewReqDto reviewReqDto, MultipartFile file) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
         try {
-            reviewService.put(reviewReqDto);
+            reviewService.put(id, reviewReqDto, file, review_id);
             return new ResponseEntity<>(true, HttpStatus.valueOf(200));
         } catch (Exception e) {
             return new ResponseEntity<>(false, HttpStatus.valueOf(500));
