@@ -57,4 +57,14 @@ public class MypagePictureController {
         return new ResponseEntity<>(beTravelic.demo.global.common.CommonResponse.getSuccessResponse(mypageService.mypagePictureUpdate(id, file, region_id)),HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteMyPicture")
+    @ApiOperation(value = "마이페이지 지도 대표사진 삭제하기")
+    public ResponseEntity<CommonResponse> deleteMyPicture(HttpServletRequest request, @RequestParam("region_id") Long region_id) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        mypageService.mypagePictureDelete(id, region_id);
+        return  ResponseEntity.ok().build();
+    }
+
 }
