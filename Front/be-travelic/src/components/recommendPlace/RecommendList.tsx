@@ -1,66 +1,95 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "../css/RecommendList.css";
 import RecommendListItem from "./RecommendListItem";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { ColorRing } from "react-loader-spinner";
+import { tree } from "d3";
 
-const dummyData = [
-  {
-    placeId: 101,
-    title: "관광지 이름1",
-    imgUrl: "관광지 이미지 URL",
-    rating: 5,
-    address: "관광지 주소1",
-    detailInfo: "관광지 상세정보1",
-  },
-  {
-    placeId: 102,
-    title: "관광지 이름2",
-    imgUrl: "관광지 이미지 URL",
-    rating: 2,
-    address: "관광지 주소2",
-    detailInfo: "관광지 상세정보2",
-  },
-  {
-    placeId: 103,
-    title: "관광지 이름3",
-    imgUrl: "관광지 이미지 URL",
-    rating: 5,
-    address: "관광지 주소3",
-    detailInfo: "관광지 상세정보3",
-  },
-  {
-    placeId: 104,
-    title: "관광지 이름4",
-    imgUrl: "관광지 이미지 URL",
-    rating: 4,
-    address: "관광지 주소4",
-    detailInfo: "관광지 상세정보4",
-  },
-  {
-    placeId: 105,
-    title: "관광지 이름5",
-    imgUrl: "관광지 이미지 URL",
-    rating: 3,
-    address: "관광지 주소5",
-    detailInfo: "관광지 상세정보5",
-  },
-];
+interface place {
+  recommend_id: number;
+  addr: string;
+  title: string;
+  image: string;
+  mapx: string;
+  mapy: string;
+  place_id: number;
+  overview: string;
+  score: number;
+}
+async function getRecommendPlace(userId: any, category: any) {
+  let places: place[] = [];
+  // console.log("userId in RecommendList : " + userId);
+  // console.log("category in RecommendList");
+  // console.log(category.category);
 
-function RecommendList() {
+  await axios
+    .get(
+      `http://j7d205.p.ssafy.io:8081/api/v1/place_recommend/${userId}/${category.category}`,
+    )
+    .then((res) => {
+      // console.log(res.data);
+      places = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // console.log(places);
+
+  return places;
+}
+
+function RecommendList(category: any) {
+  const [places, setPlaces] = useState<place[]>([]);
+  const userId = useSelector((state: RootState) => state.auth.userId);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  useEffect(() => {
+    var localplaces: place[] = [];
+    (async () => {
+      setIsLoaded(false);
+      localplaces = await getRecommendPlace(userId, category);
+      // console.log(localplaces);
+      setPlaces(localplaces);
+    })();
+    // console.log("category in RecommendList");
+    // console.log(category);
+    // console.log("places");
+    // console.log(places);
+  }, [category]);
+  useEffect(() => {
+    setIsLoaded(true);
+  }, [places]);
   return (
     <div className='RecommendListCoverContainer'>
-      <div>
-        {dummyData.map((place) => (
-          <div key='{place.placeId}'>
-            <RecommendListItem
-              title={place.title}
-              imgUrl={place.imgUrl}
-              rating={place.rating}
-              address={place.address}
-              detailInfo={place.detailInfo}
-            />
-          </div>
-        ))}
-      </div>
+      {isLoaded ? (
+        <div>
+          {places.map((place) => (
+            <div key={place.recommend_id}>
+              <RecommendListItem
+                title={place.title}
+                imgUrl={place.image}
+                rating={place.score}
+                address={place.addr}
+                detailInfo={place.overview}
+                placeId={place.place_id}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className='makeCenter'>
+          <ColorRing
+            visible={true}
+            height='80'
+            width='80'
+            ariaLabel='blocks-loading'
+            wrapperStyle={{}}
+            wrapperClass='blocks-wrapper'
+            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          />
+        </div>
+      )}
     </div>
   );
 }
