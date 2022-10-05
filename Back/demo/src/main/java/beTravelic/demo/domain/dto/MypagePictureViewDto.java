@@ -16,13 +16,15 @@ import java.util.List;
 @Builder
 public class MypagePictureViewDto {
 
-    private Long mypagePictureId;
-    private String region;
-    private String pictureUrl;
+    //    private Long mypagePictureId;
+    private Long regionId;
+    private String regionName;
+    private String image;
 
     public MypagePictureViewDto(MypagePicture mypagePicture) {
-        this.mypagePictureId = mypagePicture.getPictureId();
-        this.region = mypagePicture.getRegion().getDo_gwangyuksi();
-        this.pictureUrl = mypagePicture.getFileName();
+//        this.mypagePictureId = mypagePicture.getPictureId();
+        this.regionId = mypagePicture.getRegion().getRegionId();
+        this.regionName = mypagePicture.getRegion().getDo_gwangyuksi();
+        this.image = mypagePicture.getFileName();
     }
 }
