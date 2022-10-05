@@ -105,12 +105,12 @@ const SignUpForm: React.FC<{
       setStatus(identifier);
     }
 
-    if (!errors.email || !errors.pw) {
-      console.log(errors.email, errors.pw);
+    // if (!errors.email || !errors.pw) {
+    //   console.log(errors.email, errors.pw);
       
-      setIsAlert(true);
-      return;
-    } else {
+    //   setIsAlert(true);
+    //   return;
+    // } else {
       const id = email;
 
       let res;
@@ -139,7 +139,7 @@ const SignUpForm: React.FC<{
 
       const url = identifier === "signup" ? "/survey" : `/mypage/${user_id}`;
       navigate(url, { replace: true });
-    }
+    // }
   };
 
   return (

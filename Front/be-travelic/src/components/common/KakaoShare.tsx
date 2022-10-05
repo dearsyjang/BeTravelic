@@ -1,5 +1,6 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../css/KakaoShare.css"
+
 
 interface Kakao {
   placeId?: number;
@@ -10,6 +11,7 @@ interface Kakao {
 
 const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
   //   const onShareKakaoHandler = shareKakao();
+  const ref = useRef(false);
 
   const shareKakao = () => {
     window.Kakao.Share.createDefaultButton({
@@ -36,6 +38,13 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
   };
 
   useEffect(() => {
+    if (!ref.current) {
+      ref.current = true;
+      console.log(ref.current);
+      return;
+    }
+    console.log(ref.current);
+
     shareKakao();
   }, [title, image, placeId]);
 
