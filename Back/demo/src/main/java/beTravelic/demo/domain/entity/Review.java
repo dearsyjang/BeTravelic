@@ -28,6 +28,7 @@ public class Review {
     private Place place;
 
     //    유저
+    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -57,6 +58,7 @@ public class Review {
     private String visited_at;
 
     //  게시글 좋아요
+    @Setter
     @Column(name = "reviewLike")
     private int reviewLike;
 
