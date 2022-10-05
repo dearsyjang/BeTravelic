@@ -25,6 +25,6 @@ public class MypagePictureViewDto {
 //        this.mypagePictureId = mypagePicture.getPictureId();
         this.regionId = mypagePicture.getRegion().getRegionId();
         this.regionName = mypagePicture.getRegion().getDo_gwangyuksi();
-        this.image = mypagePicture.getFileName();
+        this.image = "https://storage.googleapis.com/be_travelic/"+mypagePicture.getFileName();
     }
 }
