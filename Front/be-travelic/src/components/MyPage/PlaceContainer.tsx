@@ -113,7 +113,14 @@ const PlaceContainer: React.FC<{
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-  }, [openTab, displayedPlace]);
+  }, [openTab]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [displayedPlace]);
 
   const changeTabHandler = async (
     identifier: string,
@@ -172,7 +179,7 @@ const PlaceContainer: React.FC<{
       <div>
         {/* tab 번호에 따라 다른 데이터 전송 */}
         {/* <PlaceItemList items={openTab ? A : B} */}
-        {isLoading ? (
+        {isLoading && (
           <div
             className="flex items-center justify-center"
             style={{ height: "700px" }}
@@ -187,7 +194,19 @@ const PlaceContainer: React.FC<{
               colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
             />
           </div>
-        ) : (
+        )}
+        {!isLoading && !displayedPlace.length && 
+        (
+          <div
+            className="flex items-center justify-center"
+            style={{ height: "700px" }}
+          >
+            {openTab === 1 ? '아직 방문한 장소가 없네요. 여행지를 기록해보세요' : '아직 북마크한 장소가 없네요. 북마크를 해보세요.'}
+            </div>
+        )
+        
+        }
+        {!isLoading && displayedPlace && (
           <PlaceItemList items={displayedPlace} />
         )}
       </div>
