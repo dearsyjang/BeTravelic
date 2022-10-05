@@ -48,6 +48,7 @@ public class Review {
 
     //    게시글 작성일
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date created_at;
 
@@ -60,12 +61,15 @@ public class Review {
     private int reviewLike;
 
     // file_name
+    @Setter
     @Column(name = "file_name")
     private String fileName;
 
     // real_file_name
+    @Setter
     @Column(name = "real_file_name")
     private String realFileName;
+
 
     //    Comment와 연결
     @OneToMany(mappedBy = "review")
