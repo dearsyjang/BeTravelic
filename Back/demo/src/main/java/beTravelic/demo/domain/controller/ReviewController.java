@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,9 +30,12 @@ public class ReviewController {
 
     @ApiOperation(value = "여행기록 등록", notes = "성공 시 reviewId 반환, 실패시 status 반환")
     @PostMapping("/feed/travel-review")
-    public ResponseEntity<?> postReview(@RequestBody ReviewReqDto reviewReqDto) {
+    public ResponseEntity<?> postReview(HttpServletRequest request,@RequestBody ReviewReqDto reviewReqDto, MultipartFile file) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
         try{
-            Long reviewId = reviewService.post(reviewReqDto);
+            Long reviewId = reviewService.post(id, reviewReqDto, file);
             return new ResponseEntity<>(reviewId, HttpStatus.valueOf(201));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
