@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import "../css/PlaceDetail.css"
 import Bookmark from "./Bookmark"
+import KakaoShare from "../common/KakaoShare"
 
 interface DetailInfo {
   placeId: number;
@@ -67,13 +68,12 @@ function DetailInfo( props: DetailInfo) {
                   </h1>
 
                   {/* 북마크 버튼 */}
-                  <Bookmark
-                    like={like}
-                    onClick={postLike}
-                  />
-                </div>                  
+                  <Bookmark like={like} onClick={postLike} />
+                </div>
                 <hr />
-                <h3 className="text-gray-900 text-xl title-font font-medium m-1 m">{addr}</h3>
+                <h3 className="text-gray-900 text-xl title-font font-medium m-1 m">
+                  {addr}
+                </h3>
 
                 {/* 별점과 리뷰 */}
                 <div className="flex m-1">
@@ -88,6 +88,15 @@ function DetailInfo( props: DetailInfo) {
                 </div>
 
                 <p className="leading-relaxed text-lg m-1 mt-5">{overview}</p>
+                <div className="float-right">
+                  {/* 카카오톡 공유하기 */}
+                  <KakaoShare
+                    placeId={placeId}
+                    image={image}
+                    title={title}
+                    overview={overview}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ const UploadPhoto = ({ type }: DefaultImage) => {
   const changePhotoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.files![0]);
     if (event.target.files![0]) {
-      setFile(event.target.files![0]);
+      setFile(event.target.files![0]); // 요거 보내면 됨!
     } else {
       //업로드 취소할 시
       if (type === "place") {
@@ -43,6 +43,7 @@ const UploadPhoto = ({ type }: DefaultImage) => {
       }
     };
     reader.readAsDataURL(event.target.files![0]);
+    console.log(file)
   };
 
   const uploadImageHandler = () => {
