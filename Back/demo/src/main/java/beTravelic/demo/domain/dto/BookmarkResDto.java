@@ -11,6 +11,7 @@ import lombok.Getter;
 public class BookmarkResDto {
     private Long bookmarkId;
     private Long placeId;
+    private String placeName;
 
     private Long regionId;
     private String regionName;
@@ -22,6 +23,7 @@ public class BookmarkResDto {
         return BookmarkResDto.builder()
                 .bookmarkId(bookmark.getBookmarkId())
                 .placeId(bookmark.getPlace().getPlaceId())
+                .placeName(bookmark.getPlace().getTitle())
                 .userId(bookmark.getUser().getUser_id())
                 .regionId(bookmark.getRegion().getRegionId())
                 .regionName(bookmark.getRegion().getDo_gwangyuksi())
