@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PlaceData } from "./PlaceContainer";
 import PlaceItem from "./PlaceItem";
 
@@ -12,12 +12,8 @@ const PlaceItemList = ({
 }: {
   items: PlaceData[];
 }): React.ReactElement => {
-
-    console.log(items);
-    
-
   const cardList = items.map((item: PlaceData) => {
-    return (<PlaceItem item={item} />);
+    return <PlaceItem item={item} />;
   });
 
   return <>{cardList}</>;

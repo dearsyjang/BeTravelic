@@ -1,88 +1,119 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import PlaceItemList from "./PlaceItemList";
 import "../css/MyPageCard.css";
 import { fetchAllBookMarks, fetchAllVisitedPlaces } from "../../apis/mypage";
 import { useParams } from "react-router-dom";
+import { ColorRing } from "react-loader-spinner";
+import { style } from "d3";
 
 export interface PlaceData {
   id: number;
   imageUrl: string;
   title: string;
-  visitedDate?: Date;
+  visited_at?: string;
   isBookMarked?: boolean;
+  image?: string;
+  placeId?: string;
+  placeName?: string;
 }
 
-const dummyData: Array<PlaceData> = [
-  {
-    id: 1,
-    imageUrl: "https://picsum.photos/200/300",
-    title: "랜덤사진",
-    visitedDate: new Date("2022-09-20"),
-  },
-  {
-    id: 2,
-    imageUrl: "https://picsum.photos/200/300",
-    title: "사진",
-    visitedDate: new Date("2021-04-01"),
-  },
-  {
-    id: 3,
-    imageUrl: "https://loremflickr.com/320/240",
-    title: "랜덤",
-    visitedDate: new Date("2021-03-02"),
-  },
-  {
-    id: 4,
-    imageUrl: "https://loremflickr.com/320/240",
-    title: "랜덤",
-    visitedDate: new Date("2021-01-02"),
-  },
-];
+// const dummyData: Array<PlaceData> = [
+//   {
+//     id: 1,
+//     imageUrl: "https://picsum.photos/200/300",
+//     title: "랜덤사진",
+//     visited_at: new Date("2022-09-20"),
+//   },
+//   {
+//     id: 2,
+//     imageUrl: "https://picsum.photos/200/300",
+//     title: "사진",
+//     visited_at: new Date("2021-04-01"),
+//   },
+//   {
+//     id: 3,
+//     imageUrl: "https://loremflickr.com/320/240",
+//     title: "랜덤",
+//     visited_at: new Date("2021-03-02"),
+//   },
+//   {
+//     id: 4,
+//     imageUrl: "https://loremflickr.com/320/240",
+//     title: "랜덤",
+//     visited_at: new Date("2021-01-02"),
+//   },
+// ];
 
-const dummyData2: Array<PlaceData> = [
-  {
-    id: 1,
-    imageUrl: "https://picsum.photos/200/300",
-    title: "랜덤사진",
-    visitedDate: new Date("2022-09-20"),
-  },
-  {
-    id: 2,
-    imageUrl: "https://picsum.photos/200/300",
-    title: "사진",
-    visitedDate: new Date("2021-04-01"),
-  },
-  {
-    id: 3,
-    imageUrl: "https://loremflickr.com/320/240",
-    title: "랜덤",
-    visitedDate: new Date("2021-03-02"),
-  },
-  {
-    id: 4,
-    imageUrl: "https://loremflickr.com/320/240",
-    title: "랜덤",
-    visitedDate: new Date("2021-01-02"),
-  },
-];
+// const dummyData2: Array<PlaceData> = [
+//   {
+//     id: 1,
+//     imageUrl: "https://picsum.photos/200/300",
+//     title: "랜덤사진",
+//     visited_at: new Date("2022-09-20"),
+//   },
+//   {
+//     id: 2,
+//     imageUrl: "https://picsum.photos/200/300",
+//     title: "사진",
+//     visited_at: new Date("2021-04-01"),
+//   },
+//   {
+//     id: 3,
+//     imageUrl: "https://loremflickr.com/320/240",
+//     title: "랜덤",
+//     visited_at: new Date("2021-03-02"),
+//   },
+//   {
+//     id: 4,
+//     imageUrl: "https://loremflickr.com/320/240",
+//     title: "랜덤",
+//     visited_at: new Date("2021-01-02"),
+//   },
+// ];
 
-const PlaceContainer = () => {
-  const [openTab, setOpenTab] = useState(1);
-  const { userId } = useParams();
+const PlaceContainer: React.FC<{
+  openTab: number;
+  setOpenTab: React.Dispatch<SetStateAction<number>>;
+  displayedPlace: PlaceData[];
+  setDisplayedPlace: React.Dispatch<SetStateAction<PlaceData[]>>;
+}> = ({ openTab, setOpenTab, setDisplayedPlace, displayedPlace }) => {
+  const { id } = useParams();
   const [allPlaces, setAllPlaces] = useState<PlaceData[]>([]);
-  const [display, setDisplays] = useState<PlaceData[]>([]);
+  const [allBookmarks, setAllBookmarks] = useState<PlaceData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
     const initialData = async () => {
-      const res = await fetchAllVisitedPlaces(userId!);
-      setAllPlaces(res);
+      const [visited, bookmark] = await Promise.all([
+        fetchAllVisitedPlaces(),
+        fetchAllBookMarks(),
+      ]);
+
+      setDisplayedPlace(visited);
+      setAllPlaces(visited);
+      setAllBookmarks(bookmark);
+      console.log(visited, "boo");
     };
 
-    // initialData()
-
+    initialData();
   }, []);
 
-  useEffect(() => {}, [openTab]);
+  // tab 변경시 체인지
+  useEffect(() => {
+    setIsLoading(true);
+    const items = openTab === 1 ? allPlaces : allBookmarks;
+    console.log(items, "items");
+
+    setDisplayedPlace(items);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [openTab, displayedPlace]);
 
   const changeTabHandler = async (
     identifier: string,
@@ -91,12 +122,11 @@ const PlaceContainer = () => {
     e.preventDefault();
 
     if (identifier === "visited") {
-      // setDisplays(allPlaces);
+      // setDisplayedPlace(allPlaces);
     } else if (identifier === "bookmark") {
       // const res = await fetchAllBookMarks(userId!);
-      // setDisplays(res);
-      console.log('bookmark');
-      
+      // setDisplayedPlace(res);
+      console.log("bookmark");
     }
 
     setOpenTab((prev) => (prev + 1) % 2);
@@ -142,8 +172,24 @@ const PlaceContainer = () => {
       <div>
         {/* tab 번호에 따라 다른 데이터 전송 */}
         {/* <PlaceItemList items={openTab ? A : B} */}
-
-        <PlaceItemList items={dummyData} />
+        {isLoading ? (
+          <div
+            className="flex items-center justify-center"
+            style={{ height: "700px" }}
+          >
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+            />
+          </div>
+        ) : (
+          <PlaceItemList items={displayedPlace} />
+        )}
       </div>
     </div>
   );
