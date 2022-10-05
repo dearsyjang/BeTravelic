@@ -91,7 +91,7 @@ public class UserController {
 //    }
 
     @PostMapping("profile/upload")
-    public ResponseEntity localUploadToStorage(HttpServletRequest request, @RequestBody MultipartFile file) throws Exception {
+    public ResponseEntity localUploadToStorage(HttpServletRequest request, @RequestParam MultipartFile file) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
