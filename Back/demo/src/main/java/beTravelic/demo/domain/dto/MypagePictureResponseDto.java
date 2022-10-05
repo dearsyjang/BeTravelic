@@ -14,12 +14,12 @@ import javax.persistence.Column;
 public class MypagePictureResponseDto {
     private Long user_id;
     private Long region;
-    private String realFileName;
-    private String fileName;
+    private String image;
+//    private String fileName;
     public static MypagePictureResponseDto of(Long region, String realFileName, Long user_id){
         return  MypagePictureResponseDto.builder()
-                .realFileName(realFileName)
-                .fileName(realFileName)
+                .image(realFileName)
+//                .fileName(realFileName)
                 .region(region)
                 .user_id(user_id)
                 .build();

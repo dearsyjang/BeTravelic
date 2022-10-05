@@ -24,7 +24,7 @@ public class MypagePictureController {
 
     @PostMapping("/uploadMyPicture")
     @ApiOperation(value = "마이페이지 지도 대표사진 저장", notes = "file, region_id 입력")
-    public ResponseEntity<CommonResponse> postMyPicture(HttpServletRequest request, @RequestBody MultipartFile file, @RequestParam("region_id") Long region_id) throws Exception {
+    public ResponseEntity<CommonResponse> postMyPicture(HttpServletRequest request, @RequestParam MultipartFile file, @RequestParam("region_id") Long region_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
