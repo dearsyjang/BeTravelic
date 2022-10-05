@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useParams } from "react-router-dom";
 import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
@@ -21,7 +21,10 @@ function App() {
 
   const location = useLocation();
   const userId = useSelector((state: RootState) => state.auth.userId);
-
+  const isSurveyed = window.location.href.includes('survey')
+  console.log(isSurveyed);
+  
+  
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // survey 시 navbar 제거 위함
@@ -32,7 +35,7 @@ function App() {
 
   return (
     <>
-      {isAuthenticated && (
+      {isAuthenticated && !isSurveyed && (
         <Navbar isAuthenticated={isAuthenticated} userId={userId} />
       )}
       {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
