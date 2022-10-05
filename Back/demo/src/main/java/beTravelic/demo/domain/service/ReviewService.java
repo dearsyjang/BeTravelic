@@ -6,21 +6,25 @@ package beTravelic.demo.domain.service;
 import beTravelic.demo.domain.dto.ReviewLikeReqDto;
 import beTravelic.demo.domain.dto.ReviewReqDto;
 import beTravelic.demo.domain.dto.ReviewResDto;
-import beTravelic.demo.domain.entity.Region;
-import beTravelic.demo.domain.entity.Review;
-import beTravelic.demo.domain.entity.ReviewLike;
-import beTravelic.demo.domain.entity.User;
+import beTravelic.demo.domain.entity.*;
 import beTravelic.demo.domain.repository.RegionRepository;
 import beTravelic.demo.domain.repository.ReviewLikeRepository;
 import beTravelic.demo.domain.repository.ReviewRepository;
 import beTravelic.demo.domain.repository.UserRepository;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,18 +39,67 @@ public class ReviewService {
     private final ReviewLikeRepository reviewLikeRepository;
 
     private final RegionRepository regionRepository;
-
+    private final PictureService pictureService;
+    @Value("${path.image:/image/}")
+    private String IMAGE_PATH;
 //    @Transactional
-    public Long post(ReviewReqDto reviewReqDto) throws Exception {
+    public Long post(String id, ReviewReqDto reviewReqDto, MultipartFile reviewFile) throws Exception {
+        File path = new File("");
+        System.out.println(path.getAbsolutePath());
 
-        reviewReqDto.setCreated_at(new Date());
+        InputStream keyFile = ResourceUtils.getURL("classpath:static/civil-forge-364402-29986bfb28c2.json").openStream();
+
+        Storage storage = StorageOptions.newBuilder().setProjectId("BeTravelic")
+                // Key 파일 수동 등록
+                .setCredentials(GoogleCredentials.fromStream(keyFile))
+                .build().getService();
+
+
+        Picture picture = null;
+        User user = userRepository.findUserById(id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
+        String fileName = UUID.randomUUID().toString();
+        String contentType = reviewFile.getContentType();
+        File file = null;
+        if(contentType.contains("image/jpeg")){
+            file = new File(IMAGE_PATH + fileName + ".jpg");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
+        }else if(contentType.contains("image/png")){
+            file = new File(IMAGE_PATH + fileName + ".png");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
+        }else if(contentType.contains("image/gif")){
+            file = new File(IMAGE_PATH + fileName + ".gif");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
+        }else{
+            new RuntimeException("지원하는 사진 형식이 아닙니다");
+        }
+
+        File convertFile = pictureService.convertMultiPartToFile( reviewFile );
+
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder("be_travelic", picture.getRealFileName())
+                        .setAcl(new ArrayList<>(Arrays.asList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
+                        .build());
+
+        Blob blob = storage.createFrom(blobInfo, new FileInputStream(convertFile));
+
+        Review reviewDto = reviewReqDto.toEntity();
+        reviewDto.setCreated_at(new Date());
+//        reviewReqDto.setCreated_at(new Date());
 
 //        reviewReqDto.setReviewLike(0);
-        Review reviewEntity = reviewRepository.save(reviewReqDto.toEntity());
 
-        if(reviewEntity != null) {
-            log.info(reviewEntity.getReviewId() + "번 여행기록 등록 완료!");
-            return reviewEntity.getReviewId();
+        String reviewFileUrl = "https://storage.googleapis.com/be_travelic/"+picture.getRealFileName();
+//        reviewReqDto.setFileName(picture.getFileName());
+//        reviewReqDto.setRealFileName(reviewFileUrl);
+//        Review reviewEntity = reviewRepository.save(reviewReqDto.toEntity());
+        reviewDto.setRealFileName(reviewFileUrl);
+        reviewDto.setFileName(picture.getFileName());
+        reviewRepository.save(reviewDto);
+
+        if(reviewDto != null) {
+            log.info(reviewDto.getReviewId() + "번 여행기록 등록 완료!");
+            return reviewDto.getReviewId();
         } else {
             log.info("여행기록 등록 실패");
             throw new Exception("여행기록 등록 실패");
