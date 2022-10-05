@@ -16,12 +16,11 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import { AuthState } from "../src/store/auth";
 function App() {
   const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
+    (state: RootState) => state.auth.isAuthenticated,
   );
 
   const location = useLocation();
   const userId = useSelector((state: RootState) => state.auth.userId);
-
 
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -38,16 +37,16 @@ function App() {
       )}
       {/* 로그인 기능 구현 될 경우 Navbar 수정 */}
       {/* <Navbar isAuthenticated={isAuthenticated} /> */}
-      <TransitionGroup className="transition-group">
+      <TransitionGroup className='transition-group'>
         <CSSTransition
           key={location.pathname}
-          classNames="pageSlider"
+          classNames='pageSlider'
           timeout={500}
         >
           <Routes location={location}>
-            <Route path="/" element={<OnBoard />} />
+            <Route path='/' element={<OnBoard />} />
             <Route
-              path="/survey"
+              path='/survey'
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
                   <Survey />
@@ -55,7 +54,7 @@ function App() {
               }
             />
             <Route
-              path="/mypage/:id"
+              path='/mypage/:id'
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
                   <MyPage />
@@ -63,7 +62,7 @@ function App() {
               }
             />
             <Route
-              path="/recommendMain"
+              path='/recommendMain'
               element={
                 <RecommendPlaceMain
                   latitude={36.271610662143146}
@@ -72,8 +71,8 @@ function App() {
               }
             />
             {/* <Route path="/kakao" element={<Redirect />} /> */}
-            <Route path="/place/:place_id" element={<PlaceDetailMain />} />
-            <Route path="/sns" element={<SNS />} />
+            <Route path='/place/:place_id' element={<PlaceDetailMain />} />
+            <Route path='/sns' element={<SNS />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>

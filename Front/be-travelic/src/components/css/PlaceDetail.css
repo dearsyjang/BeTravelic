@@ -4,13 +4,13 @@ hr {
   border: 0;
   width: auto;
   height: 1px;
-  background: #C3CBCD;
+  background: #c3cbcd;
 }
 
 #placeDetailInfoCard {
   border-style: solid;
   border-width: 1px;
-  border-color: #C3CBCD;
+  border-color: #c3cbcd;
 }
 
 #placeDetailInfo {
@@ -19,12 +19,12 @@ hr {
   margin-bottom: 50px;
 }
 
-#line{
+#line {
   border: 3px;
   color: black;
 }
 
-.flexbox > *{
+.flexbox > * {
   flex-grow: 0;
 }
 
@@ -32,7 +32,13 @@ hr {
   width: 300px;
 }
 
-#DetailRecommendContainer{
+#DetailRecommendContainer {
+  justify-content: center;
+  align-items: center;
+}
+.makeCenter {
+  height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
