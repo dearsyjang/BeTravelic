@@ -39,8 +39,8 @@ export const fetchFollowList = async (followType: string) => {
   }
 };
 
-export const fetchAllVisitedPlaces = async (userId: string) => {
-  const url = `/mypage/travel-history/user/${userId}`;
+export const fetchAllVisitedPlaces = async () => {
+  const url = `/mypage/travel-history/user`;
 
   try {
     const res = await springAxios({
@@ -59,17 +59,22 @@ export const fetchRegionalVisitedPlaces = async (
   regionId: string,
   userId: string
 ) => {
-  const url = `/mypage/travel-history/region/${regionId}/user/${userId}`;
+  const url = `/mypage/travel-history/region/${regionId}/user`;
 
   try {
+    const res = await springAxios({
+      method: "get",
+      url,
+    });
+    return res.data;
   } catch (error) {
     const err = error as AxiosError;
     console.log(err.response?.data);
   }
 };
 
-export const fetchAllBookMarks = async (userId: string) => {
-  const url = `/bookmark/user/${userId}`;
+export const fetchAllBookMarks = async () => {
+  const url = `/bookmark/user`;
   try {
     const res = await springAxios({
       method: "get",
@@ -80,8 +85,11 @@ export const fetchAllBookMarks = async (userId: string) => {
   } catch (error) {}
 };
 
-export const fetchRegionalBookMarks = async ({ regionId, userId }: Region) => {
-  const url = `/bookmark/region/${regionId}/user/${userId}`;
+export const fetchRegionalBookMarks = async (
+  regionId: string,
+  userId: string
+) => {
+  const url = `/bookmark/region/${regionId}/user`;
 
   try {
     const res = await springAxios({
