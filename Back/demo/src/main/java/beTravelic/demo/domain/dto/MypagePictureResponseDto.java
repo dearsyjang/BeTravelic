@@ -18,7 +18,7 @@ public class MypagePictureResponseDto {
 //    private String fileName;
     public static MypagePictureResponseDto of(Long region, String realFileName, Long user_id){
         return  MypagePictureResponseDto.builder()
-                .image(realFileName)
+                .image("https://storage.googleapis.com/be_travelic/" + realFileName)
 //                .fileName(realFileName)
                 .region(region)
                 .user_id(user_id)
