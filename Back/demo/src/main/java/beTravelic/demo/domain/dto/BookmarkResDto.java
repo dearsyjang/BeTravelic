@@ -18,7 +18,9 @@ public class BookmarkResDto {
     private Long place;
 
     private Long region;
+    private String regionName;
     private Long user;
+    private String image;
 
     public static BookmarkResDto of(Bookmark bookmark) {
         return BookmarkResDto.builder()
@@ -26,6 +28,8 @@ public class BookmarkResDto {
                 .place(bookmark.getPlace().getPlaceId())
                 .user(bookmark.getUser().getUser_id())
                 .region(bookmark.getRegion().getRegionId())
+                .regionName(bookmark.getRegion().getDo_gwangyuksi())
+                .image(bookmark.getPlace().getImage())
                 .build();
     }
     public BookmarkResDto (Bookmark bookmark) {
