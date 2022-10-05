@@ -1,9 +1,16 @@
-import React, { SetStateAction, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  SetStateAction,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import * as d3 from "d3";
 import korea from "../../assets/geojson/korea.json";
 import "../css/MyMap.css";
 import { useEffect } from "react";
 import logo from "../../assets/image/logo.png";
+import { Display } from "../../pages/MyPage";
+import { getMapPothos } from "../../apis/mypage";
 
 const dummyData = [
   {
@@ -76,19 +83,25 @@ const dummyData = [
   },
 ];
 
-const MyMap:React.FC<{
-  setShowModal: React.Dispatch<SetStateAction<boolean>>
-}> = ({setShowModal}) => {
+const MyMap: React.FC<{
+  setShowModal: React.Dispatch<SetStateAction<boolean>>;
+  displays: Display[];
+  setRegionId: React.Dispatch<SetStateAction<number>>;
+  changes: boolean;
+  setDisplays: React.Dispatch<SetStateAction<Display[]>>;
+}> = ({ setShowModal, displays, setRegionId, changes, setDisplays }) => {
   const initialScale = 5500; //확대시킬 값
   const initialX = -12000; //초기 위치값 X
   const initialY = 4150; //초기 위치값 Y
-  const [displays, setDisplays] = useState(dummyData);
+  console.log(displays, "여기는 mymap");
+  const didMount = useRef(false);
+  // const [displays, setDisplays] = useState(dummyData);
   // const path = d3.select("path");
 
   // 전역 변수로 timer를 선언하여 if state에서 접근할 수 있게 함.
-  let timer:any;
+  let timer: any;
 
-  const fetchRecordsHandler = (e:any) => {
+  const fetchRecordsHandler = (e: any) => {
     if (e.type == "mouseover") {
       timer = setTimeout(() => {
         console.log("지역", e.target.__data__.properties.name);
@@ -101,34 +114,30 @@ const MyMap:React.FC<{
     }
   };
 
-  const areaFn = (d:any) => {
-    console.log(d);
+  const areaFn = (d: any) => {
     const code = d.properties.id;
-    console.log(code);
-    //console.log(code);
-    return code;
+    return "code" + code;
   };
 
-  const fileFn = (d:any) => {
+  const fileFn = (d: any) => {
     const code = d.properties.id;
     // const imgfile = "data:image/png;base64," + d[code].file;
     // console.log("imgfile 받음?", d[code].file);
-
-    const imgfile = "";
-
-    return logo;
-  };
-
-  const fillFn = (d:any) => {
-    // const pcolor = "#aaa";
     const id = d.properties.id;
     const fill = "url(#" + id + ")";
+
     return fill;
   };
 
-  const showModalHandler = (e:any) => {
-    console.log(e.target.__data__.properties);
-    console.log(e);
+  const fillFn = (d: any) => {
+    const pcolor = "#aaa";
+    // const id = d.properties.id;
+    // const fill = "url(#" + id + ")";
+    return pcolor;
+  };
+
+  const showModalHandler = (e: any) => {
+    setRegionId(e.target.__data__.properties.id);
     setShowModal(true);
   };
 
@@ -145,7 +154,7 @@ const MyMap:React.FC<{
       .attr("height", 1000);
 
     const g = svg.append("g");
-    const path:any = d3.geoPath().projection(projection);
+    const path: any = d3.geoPath().projection(projection);
 
     // 맵 그리기
     g.selectAll("path")
@@ -155,29 +164,39 @@ const MyMap:React.FC<{
       .attr("d", path)
       .attr("class", "countries")
       .attr("fill", fillFn)
+      .attr("id", areaFn)
       .on("click", showModalHandler)
       .on("mouseover", fetchRecordsHandler)
       .on("mouseleave", fetchRecordsHandler);
 
     const defs = svg.append("defs");
 
+    const initialPhotos = async () => {
+      const res = await getMapPothos();
+      console.log(res);
+      setDisplays(res);
+      res.map((display: Display) => {
+        g.select(`#code${display.regionId}`).attr("fill", fileFn);
+        if (display.image !== null) {
+          defs
+            .append("pattern")
+            .attr("id", display.regionId)
+            .attr("patternUnits", "userSpaceOnUse")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .append("svg:image")
+            .attr("xlink:href", display.image)
+            // .attr("width", "520px")
+            // .attr("height", "500px")
+            .attr("x", 0)
+            .attr("y", 300);
+        }
+      });
+    };
+    initialPhotos();
+
     // 사진 넣기
-    displays.map((display) => {
-      if (display.url) {
-        defs
-          .append("pattern")
-          .attr("id", display.id)
-          .attr("patternUnits", "userSpaceOnUse")
-          .attr("width", "100%")
-          .attr("height", "100%")
-          .append("svg:image")
-          .attr("xlink:href", display.url)
-          // .attr("width", "520px")
-          // .attr("height", "500px")
-          .attr("x", 30)
-          .attr("y", -50);
-      }
-    });
+    // });
     // defs
     //   .append("pattern")
     //   .attr("id", "5")
@@ -236,9 +255,35 @@ const MyMap:React.FC<{
   }, []);
 
   useEffect(() => {
-    
-  }, [displays])
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
 
+    const svg = d3.select(".canvas");
+    const g = d3.select("g");
+    // 맵 그리기
+    const defs = svg.select("defs");
+
+    displays.map((display) => {
+      g.select(`#code${display.regionId}`).attr("fill", fileFn);
+      if (display.image !== null) {
+        defs
+          .append("pattern")
+          .attr("id", display.regionId)
+          .attr("patternUnits", "userSpaceOnUse")
+          .attr("width", "100%")
+          .attr("height", "100%")
+          .append("svg:image")
+          .attr("xlink:href", display.image)
+          // .attr("width", "520px")
+          // .attr("height", "500px")
+          .attr("x", 0)
+          .attr("y", 300);
+      }
+    });
+    console.log("변경");
+  }, [changes]);
 
   return (
     <>
