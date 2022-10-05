@@ -60,13 +60,13 @@ public class MypageService {
         File file = null;
         if(contentType.contains("image/jpeg")){
             file = new File(IMAGE_PATH + fileName + ".jpg");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".jpg").build();
         }else if(contentType.contains("image/png")){
             file = new File(IMAGE_PATH + fileName + ".png");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".png").build();
         }else if(contentType.contains("image/gif")){
             file = new File(IMAGE_PATH + fileName + ".gif");
-            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
+            picture = Picture.builder().fileName(fileName).realFileName("https://storage.googleapis.com/be_travelic/"+fileName + ".gif").build();
         }else{
             new RuntimeException("지원하는 사진 형식이 아닙니다");
         }
