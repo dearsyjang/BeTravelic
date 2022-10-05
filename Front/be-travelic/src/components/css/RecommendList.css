@@ -25,15 +25,20 @@
   height: 60px;
 }
 .RecommendPlaceImage {
-  width: 200px;
-  height: 100px;
+  max-width: 200px;
+  max-height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 }
 .RecommendPlaceImage img {
   width: 300px;
   height: 100px;
+}
+.makeFlexRow {
+  display: flex;
+  flex-direction: row;
 }
 .RecommendListItemContainer {
   display: flex;
@@ -55,6 +60,7 @@
 }
 /* 리스트 상세 정보 */
 .RecommendListDetail {
+  width: 100%;
 }
 /* 리스트 주소 */
 .RecommendListAddress {
@@ -65,7 +71,6 @@
   overflow: auto;
 }
 .recommendDetailInfo_btn {
-  margin-left: 40%;
 }
 .recommendDetailInfo_btn button {
   width: 80px;
