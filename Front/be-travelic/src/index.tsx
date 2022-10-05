@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./store";
 import { PersistGate } from "reduxjs-toolkit-persist/integration/react";
 
-window.Kakao.init("df596e8519f8cd67abbd9473496ce3b8");
+window.Kakao.init("df4bdb2422933e11c1563504af4b0c33");
 window.Kakao.isInitialized();
 console.log(window.Kakao.isInitialized());
 
