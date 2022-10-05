@@ -12,7 +12,6 @@ const Survey: React.FC<{}> = () => {
       <div className="wrapper">
         <div className="surveyDiv">
           <ProgressBar progress={progress} />
-          <img src={logo} className="surveyLogo" />
           <div className="surveyTitle">
             <h1>더 끌리는 사진을 선택해주세요. </h1>
           </div>
