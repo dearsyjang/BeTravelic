@@ -63,15 +63,15 @@ public class UserService {
     }
 
     // 사용자 정보 조회
-    public UserInfoResponseDto getUserInfo(String id) {
-        User user = userRepository.findUserById(id).orElseThrow(() ->
+    public UserInfoResponseDto getUserInfo(Long userId) {
+        User user = userRepository.findUserByUserId(userId).orElseThrow(() ->
              new RuntimeException("일치하는 사용자 없음"));
 //        SurveyCategory surveyCategory = surveyCategoryRepository.findSurveyCategoryById(id).orElseThrow(() ->
 //                new RuntimeException("일치하는 사용자 없음"));
-        List<String> surveyKeyword = surveyKeywordRepository.findSurveyKeywordById(id);
-        int follower_cnt = followRepository.countByFollower_Id(id);
-        int following_cnt = followRepository.countByFollowing_Id(id);
-        int review_cnt = reviewRepository.countReviewByUser_Id(id);
+        List<String> surveyKeyword = surveyKeywordRepository.findSurveyKeywordById(userId);
+        int follower_cnt = followRepository.countByFollower_UserId(userId);
+        int following_cnt = followRepository.countByFollowing_UserId(userId);
+        int review_cnt = reviewRepository.countReviewByUser_userId(userId);
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.ofUser(user, surveyKeyword);
         userInfoResponseDto.setFollowerCnt(follower_cnt);
         userInfoResponseDto.setFollowingCnt(following_cnt);

@@ -68,12 +68,12 @@ public class ReviewController {
 
     @ApiOperation(value = "유저별 여행기록 조회", notes = "게시글 리스트 또는 null 반환")
     @GetMapping("/mypage/travel-history/user")
-    public ResponseEntity<?> getReviewByUser(HttpServletRequest request) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
+    public ResponseEntity<?> getReviewByUser(@RequestParam("user_id") Long user_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
         try {
-            List<ReviewResDto> reviews = reviewService.findAllByUser(id);
+            List<ReviewResDto> reviews = reviewService.findAllByUser(user_id);
             return ResponseEntity.ok(reviews);
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -83,11 +83,11 @@ public class ReviewController {
 
     @ApiOperation(value = "유저의 지역별 여행기록 조회", notes = "게시글 리스트 또는 null 반환")
     @GetMapping("/mypage/travel-history/region/{region_id}/user")
-    public ResponseEntity<?> getReviewByRegionAndUser(HttpServletRequest request, @PathVariable("region_id")Long region_id) throws Exception {
-        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
-        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
-        String id = (String) request.getAttribute("id");
-        List<ReviewResDto> reviews = reviewService.findAllByRegionAndUser(region_id, id);
+    public ResponseEntity<?> getReviewByRegionAndUser(@RequestParam("user_id") Long user_id, @PathVariable("region_id")Long region_id) throws Exception {
+//        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+//        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+//        String id = (String) request.getAttribute("id");
+        List<ReviewResDto> reviews = reviewService.findAllByRegionAndUser(region_id, user_id);
         return new ResponseEntity<>(reviews, HttpStatus.valueOf(200));
     }
 
