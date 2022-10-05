@@ -1,15 +1,11 @@
 package beTravelic.demo.domain.dto;
 
-import beTravelic.demo.domain.entity.Place;
 import beTravelic.demo.domain.entity.Review;
-import beTravelic.demo.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Builder
@@ -18,17 +14,22 @@ public class ReviewResDto {
 
     private Long reviewId;
 
-    private Long place;
+    private Long placeId;
+    private String placeName;
 
     private String user;
 
-    private Long region;
+    private Long regionId;
+
+    private String regionName;
 
     private String contents;
 
-    // 이미지 주소
+    // 이미지 주소 : realFileName
+    private String image;
+    // 파일 네임
     private String fileName;
-    private String realFileName;
+
 
     private Long score;
 
@@ -44,12 +45,14 @@ public class ReviewResDto {
     public static ReviewResDto of(Review review) {
         return ReviewResDto.builder()
                 .reviewId(review.getReviewId())
-                .place(review.getPlace().getPlaceId())
+                .placeId(review.getPlace().getPlaceId())
+                .placeName(review.getPlace().getTitle())
                 .user(review.getUser().getId())
-                .region(review.getRegion().getRegionId())
+                .regionId(review.getRegion().getRegionId())
+                .regionName(review.getRegion().getDo_gwangyuksi())
                 .contents(review.getContents())
+                .image(review.getRealFileName())
                 .fileName(review.getFileName())
-                .realFileName(review.getRealFileName())
                 .score(review.getScore())
                 .created_at(review.getCreated_at())
                 .visited_at(review.getVisited_at())
@@ -73,12 +76,14 @@ public class ReviewResDto {
 
     public ReviewResDto (Review review) {
         this.reviewId = review.getReviewId();
-        this.place = review.getPlace().getPlaceId();
+        this.placeId = review.getPlace().getPlaceId();
+        this.placeName = review.getPlace().getTitle();
         this.user = review.getUser().getId();
-        this.region = review.getRegion().getRegionId();
+        this.regionId = review.getRegion().getRegionId();
+        this.regionName = review.getRegion().getDo_gwangyuksi();
         this.contents = review.getContents();
         this.fileName = review.getFileName();
-        this.realFileName = review.getRealFileName();
+        this.image = review.getRealFileName();
         this.score = review.getScore();
         this.created_at = review.getCreated_at();
         this.visited_at = review.getVisited_at();

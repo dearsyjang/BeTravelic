@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
+import "../css/KakaoShare.css"
 
 interface Kakao {
   placeId?: number;
@@ -9,6 +10,7 @@ interface Kakao {
 
 const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
   //   const onShareKakaoHandler = shareKakao();
+
   const shareKakao = () => {
     window.Kakao.Share.createDefaultButton({
       container: ".kakao",
@@ -35,13 +37,14 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
 
   useEffect(() => {
     shareKakao();
-  }, []);
+  }, [title, image, placeId]);
 
   return (
     <div>
-      <button className="kakao">
+      <button className="kakao m-3">
         <img
-          src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+          id="kakaologo"
+          src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
           alt="카카오링크 보내기 버튼"
         />
         공유하기

@@ -16,10 +16,10 @@ import java.util.Date;
 @ToString
 public class ReviewReqDto {
 
-    private Long reviewId;
+//    private Long reviewId;
     private Long place_id;
 
-    private Long user_id;
+//    private Long user_id;
 
     private Long regionId;
 
@@ -27,25 +27,25 @@ public class ReviewReqDto {
 
     private Long score;
 
-    private Date created_at;
+//    private Date created_at;
 
     private String visited_at;
 
-    private int reviewLike;
+//    private int reviewLike;
 
 
     public Review toEntity() {
         Date created_at = new Date();
         return Review.builder()
-                .reviewId(this.reviewId)
+//                .reviewId(this.reviewId)
                 .place(Place.ReviewPlaceId().place_id(Long.valueOf(this.place_id)).build())
-                .user(User.ReviewUserId().user_id((Long.valueOf(this.user_id))).build())
+//                .user(User.ReviewUserId().user_id((Long.valueOf(this.user_id))).build())
                 .region(Region.ReviewRegionId().regionId((Long.valueOf(regionId))).build())
                 .contents(this.contents)
                 .score(this.score)
-                .created_at(this.created_at)
+//                .created_at(this.created_at)
                 .visited_at(this.visited_at)
-                .reviewLike(this.reviewLike)
+//                .reviewLike(this.reviewLike)
                 .build();
     }
 
