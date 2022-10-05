@@ -16,7 +16,7 @@ import java.util.Date;
 @ToString
 public class ReviewReqDto {
 
-    private Long reviewId;
+//    private Long reviewId;
     private Long place_id;
 
 //    private Long user_id;
@@ -37,7 +37,7 @@ public class ReviewReqDto {
     public Review toEntity() {
         Date created_at = new Date();
         return Review.builder()
-                .reviewId(this.reviewId)
+//                .reviewId(this.reviewId)
                 .place(Place.ReviewPlaceId().place_id(Long.valueOf(this.place_id)).build())
 //                .user(User.ReviewUserId().user_id((Long.valueOf(this.user_id))).build())
                 .region(Region.ReviewRegionId().regionId((Long.valueOf(regionId))).build())

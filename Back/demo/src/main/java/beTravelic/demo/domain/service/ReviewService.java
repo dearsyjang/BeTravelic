@@ -142,10 +142,59 @@ public class ReviewService {
 //
 
 //    @Transactional
-    public void put(ReviewReqDto reviewReqDto) throws Exception {
-        // 수정 날짜 대신 생성 날짜 변경
-//        reviewReqDto.setCreated_at(new Date());
-        Review reviewEntity = reviewRepository.save(reviewReqDto.toEntity());
+    public void put(String id, ReviewReqDto reviewReqDto, MultipartFile reviewFile, Long review_id) throws Exception {
+
+        File path = new File("");
+        System.out.println(path.getAbsolutePath());
+
+        InputStream keyFile = ResourceUtils.getURL("classpath:static/civil-forge-364402-29986bfb28c2.json").openStream();
+
+        Storage storage = StorageOptions.newBuilder().setProjectId("BeTravelic")
+                // Key 파일 수동 등록
+                .setCredentials(GoogleCredentials.fromStream(keyFile))
+                .build().getService();
+
+
+        Picture picture = null;
+        User user = userRepository.findUserById(id).orElseThrow(() ->
+                new RuntimeException("일치하는 사용자 없음"));
+        String fileName = UUID.randomUUID().toString();
+        String contentType = reviewFile.getContentType();
+        File file = null;
+        if(contentType.contains("image/jpeg")){
+            file = new File(IMAGE_PATH + fileName + ".jpg");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".jpg").build();
+        }else if(contentType.contains("image/png")){
+            file = new File(IMAGE_PATH + fileName + ".png");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".png").build();
+        }else if(contentType.contains("image/gif")){
+            file = new File(IMAGE_PATH + fileName + ".gif");
+            picture = Picture.builder().fileName(fileName).realFileName(fileName + ".gif").build();
+        }else{
+            new RuntimeException("지원하는 사진 형식이 아닙니다");
+        }
+
+        File convertFile = pictureService.convertMultiPartToFile( reviewFile );
+
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder("be_travelic", picture.getRealFileName())
+                        .setAcl(new ArrayList<>(Arrays.asList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
+                        .build());
+
+        Blob blob = storage.createFrom(blobInfo, new FileInputStream(convertFile));
+
+        Review reviewDto = reviewReqDto.toEntity();
+        reviewDto.setReviewId(review_id);
+        reviewDto.setReviewLike(0);
+        reviewDto.setUser(user);
+        reviewDto.setCreated_at(new Date());
+
+        String reviewFileUrl = "https://storage.googleapis.com/be_travelic/"+picture.getRealFileName();
+        reviewDto.setRealFileName(reviewFileUrl);
+        reviewDto.setFileName(picture.getFileName());
+
+        /////////////////////////////////
+        Review reviewEntity = reviewRepository.save(reviewDto);
 
         if (reviewEntity == null) {
             log.info("여행기록 수정 실패");
