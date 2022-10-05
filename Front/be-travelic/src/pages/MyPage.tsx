@@ -34,6 +34,10 @@ const MyPage = () => {
   const [displays, setDisplays] = useState<Display[]>([]);
   const [regionId, setRegionId] = useState<number>(0);
   const [changes, setChanges] = useState(true);
+  const [changedPhoto, setChangedPhoto] = useState({
+    id: 0,
+    image: "",
+  });
   const navigate = useNavigate();
 
   const openModal = () => {
@@ -53,6 +57,7 @@ const MyPage = () => {
     });
     console.log("여기는 displays");
     setChanges((prev) => !prev);
+    setChangedPhoto({ id, image });
     setDisplays(newDisplays);
     return newDisplays;
   };
@@ -114,10 +119,12 @@ const MyPage = () => {
                 setShowModal={setShowModal}
                 openTab={openTab}
                 setDisplayedPlace={setDisplayedPlace}
+                // display는 젤 초기임
                 displays={displays}
+                setDisplays={setDisplays}
                 setRegionId={setRegionId}
                 changes={changes}
-                setDisplays={setDisplays}
+                changedPhoto={changedPhoto}
               />
             </section>
             {/* 추천 */}
