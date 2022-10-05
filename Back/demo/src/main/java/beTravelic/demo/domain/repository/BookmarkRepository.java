@@ -16,13 +16,13 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
 
 //    void  deleteByUserIdAndPlaceId(Long placeId, Long userId);
-    @Query("SELECT r FROM Bookmark r WHERE r.user.id=:id AND r.region.regionId=:regionId")
+    @Query("SELECT r FROM Bookmark r WHERE r.user.user_id=:userId AND r.region.regionId=:regionId")
 //    ArrayList<ReviewResDto> findAllByUserAndRegion(User user, Region region);
-    List<BookmarkResDto> findAllByUserAndRegion(@Param("id") String id, @Param("regionId") Long regionId);
+    List<BookmarkResDto> findAllByUserAndRegion(@Param("userId") Long userId, @Param("regionId") Long regionId);
 
-    @Query("SELECT r FROM Bookmark r WHERE r.user.id=:id")
+    @Query("SELECT r FROM Bookmark r WHERE r.user.user_id=:userId")
 //    ArrayList<ReviewResDto> findAllByUserAndRegion(User user, Region region);
-    List<BookmarkResDto> findAllByUser(@Param("id") String id);
+    List<BookmarkResDto> findAllByUser(@Param("userId") Long userId);
 
     Optional<Bookmark> findBookmarkByBookmarkId(long BookmarkId);
 }

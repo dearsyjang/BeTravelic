@@ -86,8 +86,8 @@ public class PictureService {
 //        return blob;
         return blob.getMediaLink();
     }
-    public String getFileToGCS(String id) throws IOException {
-        User user = userRepository.findUserById(id).orElseThrow(() ->
+    public String getFileToGCS(Long userId) throws IOException {
+        User user = userRepository.findUserByUserId(userId).orElseThrow(() ->
                 new NoExistUserException());
         String profileUrl = "https://storage.googleapis.com/be_travelic/" + user.getPicture().getRealFileName();
         return profileUrl;
