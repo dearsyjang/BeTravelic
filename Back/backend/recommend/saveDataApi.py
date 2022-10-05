@@ -3,8 +3,8 @@
 # import json
 # import pandas as pd
 # import pymysql
-# url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=500&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&_type=json&listYN=Y&arrange=C&mapX=127.2305&mapY=36.2101&radius=100000"
-# #url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=500&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=u%2BjV5wk3kfRDNYzjkRRvxna4o90S3cnR3le8jzWGVkrVgM%2B%2BqjF%2FODE8lJEb1dqGLTamXXqLSFFUIHi73hOX%2FA%3D%3D&_type=json&listYN=Y&arrange=C&mapX=128.54&mapY=37.45&radius=100000"
+# url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=500&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=Fhj6wYwYTAPqmUqp1muDBvajeKuzLaLOqJ8cF8kOaihooH1zwUx/QxfJHIDNK2Z92OJy1v4aOzdzDUGkankf6Q==&_type=json&listYN=Y&arrange=C&mapX=128.8759524&mapY=37.7519967&radius=100000"
+# #url = "https://apis.data.go.kr/B551011/KorService/locationBasedList?numOfRows=500&pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=u%2BjV5wk3kfRDNYzjkRRvxna4o90S3cnR3le8jzWGVkrVgM%2B%2BqjF%2FODE8lJEb1dqGLTamXXqLSFFUIHi73hOX%2FA%3D%3D&_type=json&listYN=Y&arrange=C&mapX=128.2586002&mapY=38.0786359&radius=100000"
 # response= requests.get(url,verify=False)
 # res=response.text
 # data=json.loads(res)
@@ -13,8 +13,10 @@
 # info_list=[]
 # for place in places:
 #     #print(place)
-#     if place["firstimage"] and place["contenttypeid"] != '32' and place["contenttypeid"] != '38' and place["contenttypeid"] != '25':
-#         place_id = places.index(place)+1417
+#     # if place["firstimage"] and place["contenttypeid"] != '32' and place["contenttypeid"] != '38' and place["contenttypeid"] != '25':
+#     if place["firstimage"] and place["contenttypeid"] == '39' :
+#         place_id = places.index(place)+4400
+#         print(place_id)
 #         # category_id=place.place_category.filter(place["contenttypeid"]=categories['content_type_id'])
 #         category_id = 0
 #         region_id=0
