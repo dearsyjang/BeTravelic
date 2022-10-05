@@ -84,6 +84,8 @@ public class ReviewService {
         Blob blob = storage.createFrom(blobInfo, new FileInputStream(convertFile));
 
         Review reviewDto = reviewReqDto.toEntity();
+        reviewDto.setReviewLike(0);
+        reviewDto.setUser(user);
         reviewDto.setCreated_at(new Date());
 //        reviewReqDto.setCreated_at(new Date());
 
@@ -142,7 +144,7 @@ public class ReviewService {
 //    @Transactional
     public void put(ReviewReqDto reviewReqDto) throws Exception {
         // 수정 날짜 대신 생성 날짜 변경
-        reviewReqDto.setCreated_at(new Date());
+//        reviewReqDto.setCreated_at(new Date());
         Review reviewEntity = reviewRepository.save(reviewReqDto.toEntity());
 
         if (reviewEntity == null) {
