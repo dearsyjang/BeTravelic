@@ -4,10 +4,12 @@ import logo from "../../assets/image/logo.png";
 import {
   downloadProfilePhoto,
   fetchFollow,
-  fetchPorfilePhoto,
+  fetchIsFollowed,
+  fetchProfilePhoto,
 } from "../../apis/mypage";
 import { useParams } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 const AVATAR =
   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -21,25 +23,25 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
     }
     return AVATAR;
   });
-
-  const { id } = useParams();
-  const numberId = Number(id);
+  const currentMember = useSelector((state: RootState) => state.auth.userId);
+  const [isFollowed, setIsFollowed] = useState(false);
 
   const [file, setFile] = useState<File>();
 
   const imageInput = useRef<HTMLInputElement>(null);
 
   const fetchFollowHandler = async () => {
-    await fetchFollow(id!);
+    await fetchFollow(String(userId), isFollowed);
+    setIsFollowed((prev) => !prev);
   };
 
   const changePhotoHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(event.target.files![0]);
+    const identifier = image === AVATAR ? "post" : "put";
     if (event.target.files![0]) {
       setFile(event.target.files![0]);
-      const res = await fetchPorfilePhoto(event.target.files![0]);
+      const res = await fetchProfilePhoto(event.target.files![0], identifier);
     } else {
       //업로드 취소할 시
       if (type === "place") {
@@ -55,21 +57,33 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
     reader.onload = () => {
       if (reader.readyState === 2 && typeof reader.result === "string") {
         setImage(reader.result);
-        console.log(reader.result);
       }
     };
     reader.readAsDataURL(event.target.files![0]);
   };
 
   const uploadImageHandler = () => {
+    if (userId !== Number(currentMember)) {
+      return;
+    }
+
     imageInput.current?.click();
   };
 
   useLayoutEffect(() => {
     const initialData = async () => {
-      const res = await downloadProfilePhoto();
-      if (res) {
-        setImage(res.data);
+      // follow 여부 추가
+      const [image, follow] = await Promise.all([
+        downloadProfilePhoto(userId),
+        fetchIsFollowed(userId),
+      ]);
+      if (image) {
+        setImage(image.data);
+      }
+      console.log(follow);
+
+      if (follow) {
+        setIsFollowed(follow);
       }
     };
     initialData();
@@ -91,7 +105,7 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
       />
       <div className="flex relative justify-center pt-5">
         {/* jwt !== 해당 페이지 유저 */}
-        {userId !== numberId && (
+        {userId !== Number(currentMember) && (
           <button
             id="FollowButton"
             className="flex absolute right-3 ml-auto bg-indigo-500 border-0 py-1 px-2 focus:outline-none rounded"
