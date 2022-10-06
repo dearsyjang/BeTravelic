@@ -39,7 +39,7 @@ function SNS() {
   return (
     <div id="SNS" className="flex flex-row">
       <div className="SNSContainer">
-          {/* 피드작성 */}
+        {/* 피드작성 */}
         <div className="fadeIn">
           {isWrite ? (
             <div id="FeedCreate" className="flex flex-col mt-20">
@@ -57,7 +57,7 @@ function SNS() {
             </div>
           )}
         </div>
-        
+
         {/* 피드조회 */}
         <div id="Feed" className="flex flex-col mt-10 mr-10">
           {userId && <Feed user_id={userId} />}

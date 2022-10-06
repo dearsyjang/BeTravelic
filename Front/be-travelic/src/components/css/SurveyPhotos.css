@@ -11,7 +11,7 @@
 .photo {
   width: 600px;
   height: 500px;
-  transition: 0.5s;
+  transition: 0.2s;
   cursor: pointer;
   border-radius: 16px;
 }

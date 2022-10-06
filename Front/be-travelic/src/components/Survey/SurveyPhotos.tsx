@@ -8,7 +8,6 @@ import { authActions } from "../../store/auth";
 import "../css/SurveyPhotos.css";
 import { dummyPhotos } from "./SurveyData";
 import { Winners } from "../../apis/auth";
-import { fetchUserInfo } from "../../apis/mypage";
 
 interface Photo {
   id: number;
