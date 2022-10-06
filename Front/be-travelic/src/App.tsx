@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useParams } from "react-router-dom";
+import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { RecommendPlaceMain, PlaceDetailMain } from "./pages/index";
 import Navbar from "../src/components/common/Navbar";
 import Footer from "./components/common/Footer";
 import OnBoard from "./pages/OnBoard";
 import MyPage from "./pages/MyPage";
 import Survey from "./pages/Survey";
-import Redirect from "./components/oauth/Redirect";
 import SNS from "./pages/SNS";
-import { Provider, useSelector } from "react-redux";
-import store, { RootState } from "./store";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./App.css";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import { AuthState } from "../src/store/auth";
 import { springAxios } from "./apis";
 function App() {
   const isAuthenticated = useSelector(
@@ -26,6 +24,7 @@ function App() {
   }
   const location = useLocation();
   const userId = useSelector((state: RootState) => state.auth.userId);
+
   const isSurveyed = window.location.href.includes("survey");
 
   // const [isAuthenticated, setIsAuthenticated] = useState(false);

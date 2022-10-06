@@ -8,7 +8,6 @@ import { authActions } from "../../store/auth";
 import "../css/SurveyPhotos.css";
 import { dummyPhotos } from "./SurveyData";
 import { Winners } from "../../apis/auth";
-import { fetchUserInfo } from "../../apis/mypage";
 
 interface Photo {
   id: number;
@@ -55,7 +54,7 @@ const SurveyPhotos: React.FC<{
       const res = await fetchSurvey(finals);
 
       if (res?.status === 200) {
-        navigate(`/mypage/${userId}`);
+        navigate(`/recommendMain`);
       }
     }
 

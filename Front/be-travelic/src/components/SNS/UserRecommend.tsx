@@ -27,7 +27,7 @@ function UserRecommend( { user_id } : UserRecommend ) {
       <div id="UserRecommendCard" className="mt-20 ml-0">
         <div id="UserRecommendCardContainer" className="flex flex-col">
           <div id="UserRecommendCardHeader" className="justify-content-center align-content-center item-center">
-                <h2 className="text-center text-gray-900 m-3">다른 사용자 추천 🚀</h2>
+                <h2 className="text-center text-gray-900 m-3">다른 여행자 추천 🚀</h2>
             </div>
             <div id="UserRecommendCardBody" key="{user.recommend_user_id}">
               {userRecommends.map((user, index) => (
