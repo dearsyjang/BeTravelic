@@ -49,7 +49,7 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
 
   return (
     <div className="m-3">
-      <button className="kakao">
+      <button className="kakao" onClick={shareKakao}>
         <img
           id="kakaologo"
           src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
