@@ -20,6 +20,7 @@ export interface userInfoType {
   reviewCnt?: number;
   surveyKeyword?: string[];
   user_id: number;
+  nickname: string;
 }
 
 export const fetchFollowList = async (followType: string, user_id: number) => {
