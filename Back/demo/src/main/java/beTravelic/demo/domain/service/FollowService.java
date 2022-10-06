@@ -23,33 +23,39 @@ public class FollowService {
     public final FollowRepository followRepository;
     public final UserRepository userRepository;
 
-    public FollowSaveResponseDto followSave(String id, String follower_id){
+    public FollowSaveResponseDto followSave(String id, Long follower_id){
         Follow follow = new Follow();
         User following = userRepository.findUserById(id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
-        User follower = userRepository.findUserById(follower_id).orElseThrow(() ->
+        log.info("following");
+        User follower = userRepository.findUserByUserId(follower_id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
+        log.info("follower");
         follow.setFollower(follower);
         follow.setFollowing(following);
-
-
         followRepository.save(follow);
         return new FollowSaveResponseDto(follow.getFollow_id());
     }
 
-    public void followDelete(String id, String followId){
-        Follow follower = followRepository.findFollowByFollower(followId).orElseThrow(() ->
+    public void followDelete(String id, Long followId) throws Exception {
+        Follow follower = followRepository.findFollowByFollower(followId, id).orElseThrow(() ->
                 new RuntimeException("일치하는 사용자 없음"));
-        Follow following = followRepository.findFollowByFollower(followId).orElseThrow(() ->
-                new RuntimeException("일치하는 사용자 없음"));
-
-        if(follower.getFollow_id().equals(following.getFollow_id())){
-            System.out.println(follower.getFollow_id());
-            followRepository.delete(follower);
-            followRepository.delete(following);
-        }else{
-            new RuntimeException("일치하는 사용자 없음");
+        log.info("follower");
+        if (follower == null) {
+            throw new Exception("팔로우 상태가 아닙니다.");
         }
+        followRepository.delete(follower);
+
+//        Follow following = followRepository.findFollowByFollower(followId).orElseThrow(() ->
+//                new RuntimeException("일치하는 사용자 없음"));
+//        log.info("following");
+//        if(follower.getFollow_id().equals(following.getFollow_id())){
+//            System.out.println(follower.getFollow_id());
+//            followRepository.delete(follower);
+//            followRepository.delete(following);
+//        }else{
+//            new RuntimeException("일치하는 사용자 없음");
+//        }
     }
 
     public List<FollowingListResponseDto> followingList(Long userId){
