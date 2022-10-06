@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/image/logo(black).png";
+import logohomeblack from "../../assets/image/logohomeblack.png";
 import '../../pages/css/OnBoard.css'
 
 const OnBoardMain: React.FC<{
@@ -8,7 +8,7 @@ const OnBoardMain: React.FC<{
 }> = ({ setInProp, changeStatusHandler }) => {
   return (
     <div className="flex flex-col items-center fadeIn">
-      <img src={logo} />
+      <img src={logohomeblack} />
       <button
         onClick={changeStatusHandler.bind(this, "login")}
         className="w-64 my-5 text-white bg-blue-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

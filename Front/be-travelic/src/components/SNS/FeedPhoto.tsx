@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "../css/FeedPhoto.css";
-import logo from "../../assets/image/logo.png";
+import feedlogo from "../../assets/image/feedlogo.png";
 
 type DefaultImage = {
   type: string;
@@ -13,7 +13,7 @@ const AVATAR =
 const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
   const [image, setImage] = useState<string>(() => {
     if (type === "place") {
-      return logo;
+      return feedlogo;
     }
     return AVATAR;
   });
@@ -30,7 +30,7 @@ const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
     } else {
       //업로드 취소할 시
       if (type === "place") {
-        setImage(logo);
+        setImage('');
         return;
       } else if (type === "avatar") {
         setImage(AVATAR);
@@ -56,7 +56,7 @@ const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
     <>
       <div id="FeedPhoto">
         <div className="flex flex-row">
-          {type === "place" && image === logo && (
+          {type === "place" && image === feedlogo && (
             <label
               htmlFor="upload-image"
               className="block mr-3 ml-10 mt-1.5 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -64,7 +64,7 @@ const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
               사진 업로드
             </label>
           )}
-          {type === "place" && image === logo && (
+          {type === "place" && image === feedlogo && (
             <button
               id="ImageButton"
               onClick={uploadImageHandler}
@@ -85,9 +85,10 @@ const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
           ref={imageInput}
         />
 
-        <div className="flex relative justify-center pt-5">
+        <div id="FeedImgBox" className="flex relative justify-center mb-5">
           {/* jwt !== 해당 페이지 유저 */}
           <img
+            id="FeedImg"
             src={image}
             alt="avatar"
             className={`${type === "avatar" ? "avatar" : "place"}`}

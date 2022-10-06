@@ -117,7 +117,7 @@ function FeedCreate() {
   return (
     <div id="FeedCreateCard" className="justify-content-center items-center">
       <div id="FeedCreatePlace" className="flex items-center justify-center bg-gray-200 m-5 mb-0">
-        <GrMap id="placeIcon" size={30} className="mr-3"/>
+        <GrMap id="placeIcon" size={25} className="mr-3"/>
         {/* 지역 */}
         <select id="RegionPicker" onChange={handleRegionChange}>
           <option selected disabled>
@@ -195,9 +195,9 @@ function FeedCreate() {
 
         <textarea
           id="contents"
-          rows={4}
+          rows={5}
           className="block text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="내용을 입력해주세요!"
+          placeholder="  내용을 입력해주세요 :)"
           value={contents}
           onChange={(event) => {handleContentChange(event)}}
         ></textarea>
