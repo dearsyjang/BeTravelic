@@ -12,7 +12,8 @@ from django.shortcuts import render
 from .models import Categories
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import User, Place ,RecommendPlace , RecommendUser, RecommendFeed
+from .models import User, Place ,RecommendPlace , RecommendUser, RecommendFeed, Review
+from .serializers.review import ReviewListSerializer
 from .serializers.user import UserSerializer
 from .serializers.place import PlaceSerializer, PlaceListSerializer
 from .serializers.recommendplace import RecommendPlaceSerializer
@@ -78,12 +79,98 @@ okt = Okt()
 
 
 
-# @api_view(['GET'])
-# def get_places(request):
-#     if request.method=='GET':
-#         places = get_list_or_404(Place)
-#         serializer = PlaceListSerializer(places,many=True)
-#         return Response(serializer.data)
+@api_view(['GET'])
+def get_reviews(request,user_id):
+    current_user_id = user_id
+    if request.method=='GET':
+        reviews = get_list_or_404(Review)
+        serializer = ReviewListSerializer(reviews,many=True)
+        count = [0]*18
+        
+        for data in serializer.data:
+            if data['user_id']==current_user_id:
+                if data['region_id']==1:
+                    count[1]+=1
+                elif data['region_id']==2:
+                    count[2]+=1
+                elif data['region_id']==3:
+                    count[3]+=1
+                elif data['region_id']==4:
+                    count[4]+=1
+                elif data['region_id']==5:
+                    count[5]+=1
+                elif data['region_id']==6:
+                    count[6]+=1
+                elif data['region_id']==7:
+                    count[7]+=1
+                elif data['region_id']==8:
+                    count[8]+=1
+                elif data['region_id']==9:
+                    count[9]+=1
+                elif data['region_id']==10:
+                    count[10]+=1
+                elif data['region_id']==11:
+                    count[11]+=1
+                elif data['region_id']==12:
+                    count[12]+=1
+                elif data['region_id']==13:
+                    count[13]+=1
+                elif data['region_id']==14:
+                    count[14]+=1
+                elif data['region_id']==15:
+                    count[15]+=1
+                elif data['region_id']==16:
+                    count[16]+=1
+                elif data['region_id']==17:
+                    count[17]+=1
+        max_list = []
+        no1= max(count)
+        max_list.append(count.index(no1))
+        count.remove(no1)
+        no2= max(count)
+        max_list.append(count.index(no2))
+        count.remove(no2)
+        no3= max(count)
+        max_list.append(count.index(no3))
+        count.remove(no3)
+        
+        result = []
+        for m in max_list:
+            if m==1:
+                result.append('서울특별시')
+            elif m==2:
+                result.append('부산광역시')
+            elif m==3:
+                result.append('대구광역시')
+            elif m==4:
+                result.append('인천광역시')
+            elif m==5:
+                result.append('대전광역시')
+            elif m==6:
+                result.append('대전광역시')
+            elif m==7:
+                result.append('울산광역시')
+            elif m==8:
+                result.append('세종특별시')
+            elif m==9:
+                result.append('경기도')
+            elif m==10:
+                result.append('강원도')
+            elif m==11:
+                result.append('충청북도')
+            elif m==12:
+                result.append('충청남도')
+            elif m==13:
+                result.append('전라북도')
+            elif m==14:
+                result.append('전라남도')
+            elif m==15:
+                result.append('경상북도')
+            elif m==16:
+                result.append('경상남도')
+            elif m==17:
+                result.append('제주도')
+        return Response(result)
 
 
 # @api_view(['GET'])
