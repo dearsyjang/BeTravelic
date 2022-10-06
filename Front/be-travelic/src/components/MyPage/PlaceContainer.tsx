@@ -22,60 +22,6 @@ export interface PlaceData {
   placeName?: string;
 }
 
-// const dummyData: Array<PlaceData> = [
-//   {
-//     id: 1,
-//     imageUrl: "https://picsum.photos/200/300",
-//     title: "랜덤사진",
-//     visited_at: new Date("2022-09-20"),
-//   },
-//   {
-//     id: 2,
-//     imageUrl: "https://picsum.photos/200/300",
-//     title: "사진",
-//     visited_at: new Date("2021-04-01"),
-//   },
-//   {
-//     id: 3,
-//     imageUrl: "https://loremflickr.com/320/240",
-//     title: "랜덤",
-//     visited_at: new Date("2021-03-02"),
-//   },
-//   {
-//     id: 4,
-//     imageUrl: "https://loremflickr.com/320/240",
-//     title: "랜덤",
-//     visited_at: new Date("2021-01-02"),
-//   },
-// ];
-
-// const dummyData2: Array<PlaceData> = [
-//   {
-//     id: 1,
-//     imageUrl: "https://picsum.photos/200/300",
-//     title: "랜덤사진",
-//     visited_at: new Date("2022-09-20"),
-//   },
-//   {
-//     id: 2,
-//     imageUrl: "https://picsum.photos/200/300",
-//     title: "사진",
-//     visited_at: new Date("2021-04-01"),
-//   },
-//   {
-//     id: 3,
-//     imageUrl: "https://loremflickr.com/320/240",
-//     title: "랜덤",
-//     visited_at: new Date("2021-03-02"),
-//   },
-//   {
-//     id: 4,
-//     imageUrl: "https://loremflickr.com/320/240",
-//     title: "랜덤",
-//     visited_at: new Date("2021-01-02"),
-//   },
-// ];
-
 const PlaceContainer: React.FC<{
   openTab: number;
   setOpenTab: React.Dispatch<SetStateAction<number>>;
@@ -195,17 +141,16 @@ const PlaceContainer: React.FC<{
             />
           </div>
         )}
-        {!isLoading && !displayedPlace.length && 
-        (
+        {!isLoading && !displayedPlace?.length && (
           <div
             className="flex items-center justify-center"
             style={{ height: "700px" }}
           >
-            {openTab === 1 ? '아직 방문한 장소가 없네요. 여행지를 기록해보세요' : '아직 북마크한 장소가 없네요. 북마크를 해보세요.'}
-            </div>
-        )
-        
-        }
+            {openTab === 1
+              ? "아직 방문한 장소가 없네요. 여행지를 기록해보세요"
+              : "아직 북마크한 장소가 없네요. 북마크를 해보세요."}
+          </div>
+        )}
         {!isLoading && displayedPlace && (
           <PlaceItemList items={displayedPlace} />
         )}

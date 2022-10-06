@@ -20,7 +20,7 @@ import java.util.List;
 public class UserInfoResponseDto {
     private Long user_id;
     private String id;
-    private String pw;
+//    private String pw;
     private String nickname;
     private String email;
     private List<String> surveyKeyword;
@@ -34,7 +34,7 @@ public class UserInfoResponseDto {
         return UserInfoResponseDto.builder()
                 .user_id(user.getUser_id())
                 .id(user.getId())
-                .pw(user.getPw())
+//                .pw(user.getPw())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .surveyKeyword(surveyKeywordList)
