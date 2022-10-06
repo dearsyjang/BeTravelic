@@ -17,29 +17,29 @@ interface place {
   overview: string;
   score: number;
 }
-async function getRecommendPlace(userId: any, category: any) {
-  let places: place[] = [];
-  // console.log("userId in RecommendList : " + userId);
-  // console.log("category in RecommendList");
-  // console.log(category.category);
+// async function getRecommendPlace(userId: any, category: any) {
+//   let places: place[] = [];
+//   // console.log("userId in RecommendList : " + userId);
+//   // console.log("category in RecommendList");
+//   // console.log(category.category);
 
-  await axios
-    .get(
-      `http://j7d205.p.ssafy.io:8081/api/v1/place_recommend/${userId}/${category.category}`,
-    )
-    .then((res) => {
-      // console.log(res.data);
-      places = res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  // console.log(places);
+//   await axios
+//     .get(
+//       `http://j7d205.p.ssafy.io:8081/api/v1/place_recommend/${userId}/${category.category}`,
+//     )
+//     .then((res) => {
+//       // console.log(res.data);
+//       places = res.data;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+//   // console.log(places);
 
-  return places;
-}
+//   return places;
+// }
 
-function RecommendList(category: any) {
+function BookmarkList(category: any) {
   const [places, setPlaces] = useState<place[]>([]);
   const userId = useSelector((state: RootState) => state.auth.userId);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -47,7 +47,7 @@ function RecommendList(category: any) {
     var localplaces: place[] = [];
     (async () => {
       setIsLoaded(false);
-      localplaces = await getRecommendPlace(userId, category);
+      //   localplaces = await getRecommendPlace(userId, category);
       // console.log(localplaces);
       setPlaces(localplaces);
     })();
@@ -92,4 +92,4 @@ function RecommendList(category: any) {
     </div>
   );
 }
-export default RecommendList;
+export default BookmarkList;

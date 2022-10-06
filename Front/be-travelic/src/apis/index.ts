@@ -16,9 +16,8 @@ export const djangoAxios: AxiosInstance = axios.create({
   // withCredentials: true,
 });
 
+
 // AUTH_TOKEN 설정
-
-
 
 // refresh
 
