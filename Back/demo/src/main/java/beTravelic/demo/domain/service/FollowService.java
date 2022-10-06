@@ -4,10 +4,12 @@ import beTravelic.demo.domain.dto.FollowSaveResponseDto;
 import beTravelic.demo.domain.dto.FollowerListResponseDto;
 import beTravelic.demo.domain.dto.FollowingListResponseDto;
 import beTravelic.demo.domain.entity.Follow;
+import beTravelic.demo.domain.entity.ReviewLike;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.repository.FollowRepository;
 import beTravelic.demo.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FollowService {
 
     public final FollowRepository followRepository;
@@ -72,5 +75,16 @@ public class FollowService {
         return followerList;
     }
 
+
+    public boolean isFollowing(String id, Long user_id) {
+        Follow follow = followRepository.findFollowByFollowerIdAndFollowingId(id, user_id);
+        if(follow == null) {
+            log.info("팔로우하지 않은 계정입니다.");
+            return false;
+        } else {
+            log.info("팔로우 한 계정입니다.");
+            return true;
+        }
+    }
 
 }
