@@ -34,12 +34,16 @@ public class FollowController {
 
     @DeleteMapping
     @ApiOperation(value = "팔로우 취소", notes = "current_user_id, follower_id 입력")
-    public ResponseEntity<CommonResponse> followDelete(HttpServletRequest request, @RequestParam("follower_id") Long follower_id) throws Exception {
+    public ResponseEntity<?> followDelete(HttpServletRequest request, @RequestParam("follower_id") Long follower_id) throws Exception {
         String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
         request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
         String id = (String) request.getAttribute("id");
-        followService.followDelete(id, follower_id);
-        return null;
+        try{
+            followService.followDelete(id, follower_id);
+            return new ResponseEntity<>(true, HttpStatus.valueOf(200));
+        } catch (Exception e) {
+            return new ResponseEntity<>("팔로우 하지 않은 유저입니다.", HttpStatus.valueOf(400));
+        }
     }
 
     @GetMapping("/followingList")
