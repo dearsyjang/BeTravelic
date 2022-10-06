@@ -61,23 +61,6 @@ const OnBoard = () => {
           <source src={background} type="video/mp4" />
         </video>
         <div className="mainDiv fadeIn">
-          {/* <CSSTransition
-            nodeRef={onboard}
-            in={inProp}
-            timeout={200}
-            classNames="my-node"
-          > */}
-          {/* {status === "onboard" ? (
-            <OnBoardMain
-              changeStatusHandler={changeStatusHandler}
-              setInProp={setInProp}
-            />
-          ) : (
-            <SignUpForm status={status} setStatus={setStatus} />
-          )} */}
-          {/* </CSSTransition> */}
-
-          {/* <SwitchTransition mode="in-out"> */}
           {status === "onboard" && (
             <OnBoardMain
               changeStatusHandler={changeStatusHandler}
@@ -90,9 +73,6 @@ const OnBoard = () => {
           {status === "signup" && (
             <SignUpForm status={status} setStatus={setStatus} />
           )}
-          {/* <CSSTransition key={"login"} timeout={500} classNames="my-node">
-          </CSSTransition> */}
-          {/* </SwitchTransition> */}
         </div>
       </div>
     </div>

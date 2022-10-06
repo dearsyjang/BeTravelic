@@ -5,13 +5,12 @@ import { getMemberId } from "../apis/auth";
 import { FeedCreate, Feed, UserRecommend } from "../components/index";
 import "./css/SNS.css";
 
-
 function SNS() {
-
-  const [ userId, setUserId ] = useState();
-  const accessToken = localStorage.getItem("accessToken");
-  const [changes, setChanges] = useState(false)
-
+  const [userId, setUserId] = useState();
+  const [isWrite, setIsWrite] = useState(false);
+  const changeWriteHandler = () => {
+    setIsWrite((prev) => !prev);
+  };
   // userId GET (spring)
   // const getUserId = async() => {
   //   const response = await axios.get(`http://j7d205.p.ssafy.io:8443/users`,
@@ -28,43 +27,48 @@ function SNS() {
   //   getUserId()
   // }, [])
 
-
   // userId GET
   useLayoutEffect(() => {
-    const getId = async() => {
-      const user_id = await getMemberId()
-      setUserId(user_id)
-    }
-    getId()
-  }, [])
-
+    const getId = async () => {
+      const user_id = await getMemberId();
+      setUserId(user_id);
+    };
+    getId();
+  }, []);
 
   return (
-      <div id="SNS" className="flex flex-row">
-        <div className="SNSContainer">
+    <div id="SNS" className="flex flex-row">
+      <div className="SNSContainer">
           {/* 피드작성 */}
-          <div id="FeedCreate" className="flex flex-col mt-20 mr-10">
-            <FeedCreate />
-          </div>
-
-          {/* 피드조회 */}
-          <div id="Feed" className="flex flex-col mt-10 mr-10">
-            {userId &&
-              <Feed
-              user_id = {userId}
-              />}
-          </div>
+        <div className="fadeIn">
+          {isWrite ? (
+            <div id="FeedCreate" className="flex flex-col mt-20">
+              <FeedCreate changeWriteHandler={changeWriteHandler} />
+            </div>
+          ) : (
+            <div className="flex flex-col mt-20 mr-40 items-center fadeIn ">
+              <button
+                id="FeedcreateButton"
+                onClick={changeWriteHandler}
+                className="text-black py-2 px-4 rounded"
+              >
+                작성하기 💌
+              </button>
+            </div>
+          )}
         </div>
         
-        {/* 팔로우 추천 */}
-        <div id="UserRecommend">
-          { userId && 
-            <UserRecommend
-            user_id = {userId}
-            />
-          }
+        {/* 피드조회 */}
+        <div id="Feed" className="flex flex-col mt-10 mr-10">
+          {userId && <Feed user_id={userId} />}
         </div>
       </div>
+
+      {/* 팔로우 추천 */}
+      <div id="UserRecommend">
+        {userId && <UserRecommend user_id={userId} />}
+      </div>
+    </div>
   );
 }
 

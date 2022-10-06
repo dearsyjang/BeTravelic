@@ -59,16 +59,16 @@ const UploadPhoto = ({ type, feedImage }: DefaultImage) => {
           {type === "place" && image === feedlogo && (
             <label
               htmlFor="upload-image"
-              className="block mr-3 ml-10 mt-1.5 text-sm font-medium text-gray-900 dark:text-gray-400"
+              className="block mr-3 ml-10 mt-1.5 text-ml font-medium text-gray-900 dark:text-gray-400"
             >
-              사진 업로드
+              여행 사진
             </label>
           )}
           {type === "place" && image === feedlogo && (
             <button
               id="ImageButton"
               onClick={uploadImageHandler}
-              className="flex bg-indigo-500 border-0 py-1 px-2 focus:outline-none rounded"
+              className="flex bg-indigo-500 text-sm border-0 mt-1 py-1 px-2 focus:outline-none rounded"
             >
               첨부파일
             </button>
