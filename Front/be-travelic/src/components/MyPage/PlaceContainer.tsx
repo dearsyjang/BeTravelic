@@ -28,16 +28,17 @@ const PlaceContainer: React.FC<{
   displayedPlace: PlaceData[];
   setDisplayedPlace: React.Dispatch<SetStateAction<PlaceData[]>>;
 }> = ({ openTab, setOpenTab, setDisplayedPlace, displayedPlace }) => {
-  const { id } = useParams();
+  let { id } = useParams();
   const [allPlaces, setAllPlaces] = useState<PlaceData[]>([]);
   const [allBookmarks, setAllBookmarks] = useState<PlaceData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
     const initialData = async () => {
+      const userId = Number(id);
       const [visited, bookmark] = await Promise.all([
-        fetchAllVisitedPlaces(),
-        fetchAllBookMarks(),
+        fetchAllVisitedPlaces(userId),
+        fetchAllBookMarks(userId),
       ]);
 
       setDisplayedPlace(visited);

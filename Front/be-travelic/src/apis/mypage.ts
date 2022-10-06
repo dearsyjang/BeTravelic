@@ -22,13 +22,14 @@ export interface userInfoType {
   user_id: number;
 }
 
-export const fetchFollowList = async (followType: string) => {
+export const fetchFollowList = async (followType: string, user_id: number) => {
   const url = `/follow/${followType}`;
 
   try {
     const res = await springAxios({
       method: "get",
       url,
+      params: { user_id },
     });
 
     console.log(res, "팔로우리스트");
@@ -40,9 +41,8 @@ export const fetchFollowList = async (followType: string) => {
   }
 };
 
-export const fetchAllVisitedPlaces = async () => {
+export const fetchAllVisitedPlaces = async (user_id: number) => {
   const url = `/mypage/travel-history/user`;
-  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
@@ -60,10 +60,9 @@ export const fetchAllVisitedPlaces = async () => {
 
 export const fetchRegionalVisitedPlaces = async (
   regionId: string,
-  userId: string
+  user_id: number
 ) => {
   const url = `/mypage/travel-history/region/${regionId}/user`;
-  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
@@ -78,9 +77,8 @@ export const fetchRegionalVisitedPlaces = async (
   }
 };
 
-export const fetchAllBookMarks = async () => {
+export const fetchAllBookMarks = async (user_id: number) => {
   const url = `/bookmark/user`;
-  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
@@ -95,11 +93,9 @@ export const fetchAllBookMarks = async () => {
 
 export const fetchRegionalBookMarks = async (
   regionId: string,
-  userId: string
+  user_id: number
 ) => {
   const url = `/bookmark/region/${regionId}/user`;
-
-  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
@@ -115,9 +111,8 @@ export const fetchRegionalBookMarks = async (
   }
 };
 
-export const fetchUserInfo = async () => {
+export const fetchUserInfo = async (user_id: number) => {
   const url = "users";
-  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
