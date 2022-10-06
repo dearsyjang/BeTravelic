@@ -149,79 +149,79 @@
 #     for s in user_keywords_selected:
 #         user_keywords.append(s[0])
     
-#     # 리뷰가 없는 유저들 설문조사 기반 keyword 추출
-#     for i in range(len(keyword_data)):
-#         if keyword_data['user_id'][i]== current_user_id:
-#             user_keywords.append(keyword_data['survey_keyword'][i])
+    # 리뷰가 없는 유저들 설문조사 기반 keyword 추출
+    for i in range(len(keyword_data)):
+        if keyword_data['user_id'][i]== current_user_id:
+            user_keywords.append(keyword_data['survey_keyword'][i])
 
 
-#     # 해당 카테고리에 속하는 place의 모든 키워드 추출
-#     all_keywords= []
-#     for i in range(len(Place_review_category_data['contents'])):
-#         if Place_review_category_data['category_name'][i]== selected_category:
+    # 해당 카테고리에 속하는 place의 모든 키워드 추출
+    all_keywords= []
+    for i in range(len(Place_review_category_data['contents'])):
+        if Place_review_category_data['category_name'][i]== selected_category:
             
-#             place_review= Place_review_category_data['contents'][i]
-#             word_tokens = okt.morphs(place_review)
-#             result = [word for word in word_tokens if not word in stop_words]
+            place_review= Place_review_category_data['contents'][i]
+            word_tokens = okt.morphs(place_review)
+            result = [word for word in word_tokens if not word in stop_words]
             
-#             for word in result:
-#                 all_keywords += [keyword_dict[word] if keyword_dict.get(word) else '']
+            for word in result:
+                all_keywords += [keyword_dict[word] if keyword_dict.get(word) else '']
     
-#     #키워드 카운트
-#     all_keywords_count = Counter(all_keywords)
-#     #빈도 높은 20개의 키워드 추출
-#     all_keywords_most = list(all_keywords_count.most_common(20))
-#     # 키워드 빈도가 3 이상인 키워드 추출
-#     all_keywords_selected = list(filter(lambda x : x[1] >= 3, all_keywords_most))
+    #키워드 카운트
+    all_keywords_count = Counter(all_keywords)
+    #빈도 높은 20개의 키워드 추출
+    all_keywords_most = list(all_keywords_count.most_common(20))
+    # 키워드 빈도가 3 이상인 키워드 추출
+    all_keywords_selected = list(filter(lambda x : x[1] >= 3, all_keywords_most))
 
-#     all_place_keywords=[]
-#     for s in all_keywords_selected:
-#         all_place_keywords.append(s[0])
+    all_place_keywords=[]
+    for s in all_keywords_selected:
+        all_place_keywords.append(s[0])
 
 
-#     # place 마다 키워드 추출
-#     lst= [set() for _ in range(len(place_data))]        #중복 제거를 위해 set으로 만들어줌
-#     k=1
-#     for i in range(1,len(place_review_data['contents'])):
-#         if place_review_data['place_id'][i-1]== place_review_data['place_id'][i]:
+    # place 마다 키워드 추출
+    lst= [set() for _ in range(len(place_data))]        #중복 제거를 위해 set으로 만들어줌
+    k=1
+    for i in range(1,len(place_review_data['contents'])):
+        if place_review_data['place_id'][i-1]== place_review_data['place_id'][i]:
 
-#             place_review= place_review_data['contents'][i]
-#             word_tokens = okt.morphs(place_review)
-#             result = [word for word in word_tokens if not word in stop_words]
-#             for word in result:
-#                 lst[k].add(keyword_dict[word] if keyword_dict.get(word) else '')
+            place_review= place_review_data['contents'][i]
+            word_tokens = okt.morphs(place_review)
+            result = [word for word in word_tokens if not word in stop_words]
+            for word in result:
+                lst[k].add(keyword_dict[word] if keyword_dict.get(word) else '')
 
         
-#         else:
-#             k+=1
-#             place_review= place_review_data['contents'][i]
-#             word_tokens = okt.morphs(place_review)
-#             result = [word for word in word_tokens if not word in stop_words]
-#             for word in result:
-#                 lst[k].add(keyword_dict[word] if keyword_dict.get(word) else '')
+        else:
+            k+=1
+            place_review= place_review_data['contents'][i]
+            word_tokens = okt.morphs(place_review)
+            result = [word for word in word_tokens if not word in stop_words]
+            for word in result:
+                lst[k].add(keyword_dict[word] if keyword_dict.get(word) else '')
             
 
 
-#     set_user_keywords = set(user_keywords)
-#     set_all_keywords= set(all_place_keywords)
+    set_user_keywords = set(user_keywords)
+    set_all_keywords= set(all_place_keywords)
 
     
 
 
-#     # 기준이 되는 키워드와 벡터 키워드 리스트를 받아서 키워드별 빈도를 구하는 함수
-#     def make_matrix(feats, list_data):
-#         freq_list = []
-#         for feat in feats:
-#             freq = 0
-#             for word in list_data:
-#                 if feat == word:
-#                     freq += 1
-#             freq_list.append(freq)
-#         return freq_list
+    # 기준이 되는 키워드와 벡터 키워드 리스트를 받아서 키워드별 빈도를 구하는 함수
+    def make_matrix(feats, list_data):
+        freq_list = []
+        for feat in feats:
+            freq = 0
+            for word in list_data:
+                if feat == word:
+                    freq += 1
+            freq_list.append(freq)
+        return freq_list
 
 
-#     #로그인한 user keyword matrix
-#     my_matrix = np.array(make_matrix(set_all_keywords, set_user_keywords))
+    #로그인한 user keyword matrix
+    my_matrix = np.array(make_matrix(set_all_keywords, set_user_keywords))
     
 
 #     #선택한 카테고리에 속하는 모든 여행지의 keyword matrix
@@ -292,11 +292,11 @@
     
         
 
-#         #cursor=conn.cursor()
-#         sql="insert into recommendplace(recommend_id,place_id,addr,score,mapx,mapy,title,image,overview) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-#         cursor.executemany(sql,info_list)
-#         conn.commit()
-#         conn.close()
-#     mysql_save(info_list)
+        #cursor=conn.cursor()
+        sql="insert into recommendplace(recommend_id,place_id,addr,score,mapx,mapy,title,image,overview) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql,info_list)
+        conn.commit()
+        conn.close()
+    mysql_save(info_list)
 
-# place_recommendations(current_user_id, selected_category)
+place_recommendations(current_user_id, selected_category)

@@ -254,7 +254,6 @@ def place_recommend(request,user_id,category):
 
         
 
-    # 현재 유저의 리뷰에서 키워드를 추출
         # 현재 유저의 리뷰에서 키워드를 추출
         user_keywords_all=[]
         for i in range(len(Place_review_category_data['contents'])):
@@ -376,20 +375,21 @@ def place_recommend(request,user_id,category):
 
         #코사인 유사도 높은 순서대로 정렬
         sorted_dic = sorted(dic.items(), reverse = True, key = lambda item: item[1])
-
+        #print(sorted_dic)
 
         #인덱스 추출
         index_list=[]
         for i in sorted_dic:
             index_list.append(i[0])
         #상위 30개만
-        index_list_30 = index_list[:100]
+        index_list_30 = index_list[:1000]
         #print(place_data)
         #코사인 유사도 높은 순서대로
         info_list=[]
+        print(index_list_30)
         for i in range(len(index_list_30)):
             for j in range(len(place_data['place_id'])):
-                if index_list_30[i] == place_data['place_id'][j]:
+                if index_list_30[i] == j:
                     s_category_name=''
                     if place_data['category_id'][j]==1:
                         s_category_name="관광지"
@@ -407,9 +407,8 @@ def place_recommend(request,user_id,category):
                         info_list.append(tuple([i,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
 
         #return info_list
-        #print(info_list)
         df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
-        #print(df)
+        print(df)
 
         def mysql_save(info_list):
             conn=pymysql.connect(host='j7d205.p.ssafy.io',
@@ -429,7 +428,6 @@ def place_recommend(request,user_id,category):
             conn.close()
         mysql_save(info_list)
 
-    
     place_recommendations(current_user_id, selected_category)
 
     if request.method=='GET':
