@@ -253,26 +253,6 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
                   추천 여행지
                 </a>
               </li>
-
-              <li className='w-1/2 flex-ato text-center'>
-                <a
-                  className={
-                    "text-s px-2 py-2 shadow-lg rounded block leading-rnomal cusor-pointer" +
-                    (openTab === 3
-                      ? "text-white bg-blue-400"
-                      : "text-gray-600 bg-white")
-                  }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(3);
-                  }}
-                  href='#link3'
-                  data-toggle='tab'
-                  role='tablist'
-                >
-                  북마크
-                </a>
-              </li>
             </ul>
 
             <div
