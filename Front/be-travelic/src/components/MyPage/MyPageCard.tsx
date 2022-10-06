@@ -25,10 +25,7 @@ const MyPageCard = () => {
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchUserInfo(userInfos.user_id);
-<<<<<<< HEAD
-      const { followerCnt, followingCnt, reviewCnt, surveyKeyword, user_id } =
-        res;
-=======
+
       const {
         followerCnt,
         followingCnt,
@@ -37,7 +34,6 @@ const MyPageCard = () => {
         user_id,
         nickname,
       } = res;
->>>>>>> caa970a4f0ffc833dcb24363732cbe9cfcd6b2c4
       console.log(res, "여기는 마이페이지 카드");
 
       setUserInfo({
@@ -55,7 +51,7 @@ const MyPageCard = () => {
   return (
     <div className="cardContainer">
       <div className="flex justify-center font-bold text-xl m-10 text-blue-400">
-        <img src={myhome} className='w-7 mr-2' />
+        <img src={myhome} className="w-7 mr-2" />
         {userInfos.nickname}
         <p className="font-light text-sm text-dark-gray m-1">님의 마이페이지</p>
       </div>
