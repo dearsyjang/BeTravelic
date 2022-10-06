@@ -110,6 +110,8 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
     mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=df4bdb2422933e11c1563504af4b0c33&libraries=clusterer&autoload=false`;
 
     document.head.appendChild(mapScript);
+    var markers: any;
+    var clusterer: any;
     const onLoadKakaoMap = () => {
       //   console.log("Loading Kakao Map...");
 
@@ -122,7 +124,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
         const map = new window.kakao.maps.Map(container, options);
 
         // 아래는 마커 테스트 및 센터 좌표 구하기 위함
-        var markers = places.map((place) => {
+        markers = places.map((place) => {
           console.log("place ");
           console.log(place);
 
@@ -132,12 +134,11 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
             position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
           });
         });
-        const clusterer = new window.kakao.maps.MarkerClusterer({
+        clusterer = new window.kakao.maps.MarkerClusterer({
           map: map,
           averageCenter: true,
           minLevel: 12,
         });
-        clusterer.addMarkers(markers);
 
         // window.kakao.maps.event.addListener(map, "center_changed", function () {
         //   var level = map.getLevel();
@@ -146,6 +147,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
         //   console.log("Level : " + level);
         // });
       });
+      clusterer.addMarkers(markers);
     };
     mapScript.addEventListener("load", onLoadKakaoMap);
 
