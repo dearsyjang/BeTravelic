@@ -95,22 +95,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const userId = useSelector((state: RootState) => state.auth.userId);
   var map: any;
-  const getInnerMapPlace = (map: any, mapx: any, mapy: any) => {
-    var neLat = map.getBounds().getNorthEast().getLat(); // 북동 좌표(위도)
-    var neLng = map.getBounds().getNorthEast().getLng(); // 북동 좌표(경도)
-    var swLat = map.getBounds().getSouthWest().getLat(); // 남서 좌표(위도)
-    var swLng = map.getBounds().getSouthWest().getLng(); // 남서 좌표(경도)
-    if (mapy < neLat) {
-      if (swLat < mapy) {
-        return true;
-      }
-    }
-    if (mapx < neLng) {
-      if (swLng < mapx) {
-        return true;
-      }
-    }
-  };
+
   useEffect(() => {
     console.log("!!!!useEffect CALL!!!!");
 
@@ -124,6 +109,37 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
 
       console.log(places);
     })();
+    var markers = places.map((place) => {
+      var infoWindow = new window.kakao.maps.InfoWindow({
+        content: `<div style='font-size:15px;width:100px;height:100px;'>${place.title}<div>${place.addr}</div></div>`,
+      });
+      var marker = new window.kakao.maps.Marker({
+        map: map,
+        position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
+        placeId: place.place_id,
+        clickable: true,
+      });
+      window.kakao.maps.event.addListener(
+        marker,
+        "mouseover",
+        makeOverListener(map, marker, infoWindow),
+      );
+      window.kakao.maps.event.addListener(
+        marker,
+        "mouseout",
+        makeOutListener(infoWindow),
+      );
+      window.kakao.maps.event.addListener(marker, "click", function () {
+        navigate(`/place/${place.place_id}`);
+      });
+      return marker;
+    });
+    const clusterer = new window.kakao.maps.MarkerClusterer({
+      map: map,
+      averageCenter: true,
+      minLevel: 12,
+    });
+    clusterer.addMarkers(markers);
   }, [category]);
 
   useLayoutEffect(() => {
@@ -162,38 +178,6 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
         console.log("Places in if");
 
         console.log(places);
-
-        var markers = places.map((place) => {
-          var infoWindow = new window.kakao.maps.InfoWindow({
-            content: `<div style='font-size:15px;width:100px;height:100px;'>${place.title}<div>${place.addr}</div></div>`,
-          });
-          var marker = new window.kakao.maps.Marker({
-            map: map,
-            position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
-            placeId: place.place_id,
-            clickable: true,
-          });
-          window.kakao.maps.event.addListener(
-            marker,
-            "mouseover",
-            makeOverListener(map, marker, infoWindow),
-          );
-          window.kakao.maps.event.addListener(
-            marker,
-            "mouseout",
-            makeOutListener(infoWindow),
-          );
-          window.kakao.maps.event.addListener(marker, "click", function () {
-            navigate(`/place/${place.place_id}`);
-          });
-          return marker;
-        });
-        const clusterer = new window.kakao.maps.MarkerClusterer({
-          map: map,
-          averageCenter: true,
-          minLevel: 12,
-        });
-        clusterer.addMarkers(markers);
       });
     };
 
@@ -202,7 +186,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
     return () => {
       mapScript.removeEventListener("load", onLoadKakaoMap);
     };
-  }, [latitude, longitude, places]);
+  }, [latitude, longitude]);
   function makeOverListener(map: any, marker: any, infowindow: any) {
     return function () {
       infowindow.open(map, marker);
