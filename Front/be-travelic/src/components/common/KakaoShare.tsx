@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import "../css/KakaoShare.css"
-
+import React, { useEffect, useLayoutEffect, useRef } from "react";
+import "../css/KakaoShare.css";
 
 interface Kakao {
   placeId?: number;
