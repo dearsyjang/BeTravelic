@@ -105,9 +105,13 @@ const SignUpForm: React.FC<{
       setStatus(identifier);
     }
 
-    // 버튼 유효성
     // if (!errors.email || !errors.pw) {
     //   console.log(errors.email, errors.pw);
+      
+    //   setIsAlert(true);
+    //   return;
+    // } else {
+      const id = email;
 
     //   setIsAlert(true);
     //   return;
