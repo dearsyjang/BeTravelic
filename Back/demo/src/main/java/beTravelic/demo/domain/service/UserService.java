@@ -1,6 +1,8 @@
 package beTravelic.demo.domain.service;
 
 import beTravelic.demo.domain.dto.*;
+import beTravelic.demo.domain.entity.SurveyCategory;
+import beTravelic.demo.domain.entity.SurveyKeyword;
 import beTravelic.demo.domain.exception.DuplicatedNickNameException;
 import beTravelic.demo.domain.entity.User;
 import beTravelic.demo.domain.exception.NoExistUserException;
@@ -72,6 +74,9 @@ public class UserService {
         int follower_cnt = followRepository.countByFollower_UserId(userId);
         int following_cnt = followRepository.countByFollowing_UserId(userId);
         int review_cnt = reviewRepository.countReviewByUser_userId(userId);
+        long lst[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.ofUser(user, surveyKeyword);
         userInfoResponseDto.setFollowerCnt(follower_cnt);
         userInfoResponseDto.setFollowingCnt(following_cnt);
@@ -79,6 +84,22 @@ public class UserService {
 //        userInfoResponseDto.setSurveyKeyword(surveyKeyword);
         return userInfoResponseDto;
     }
+
+//    public void surveySave(String id, List<Long> surveyCategory, List<String> surveyKeyword) {
+//
+//        for (int i = 0; i < surveyKeyword.size(); i++) {
+//            String temp = surveyKeyword.get(i);
+//            SurveyKeyword sk = new SurveyKeyword(user, temp);
+//            surveyKeywordRepository.save(sk);
+//        }
+//        for (int i = 0; i < surveyCategory.size(); i++) {
+//            Long temp = surveyCategory.get(i);
+//            SurveyCategory sc = new SurveyCategory(user, temp);
+//            surveyCategoryRepository.save(sc);
+//        }
+//
+////        return new SurveySaveResponseDto();
+//    }
 
     public GetAccessTokenResponseDto getAccessToken(String refreshToken) {
         User user = userRepository.findUserByRefreshToken(refreshToken).orElseThrow(() ->
