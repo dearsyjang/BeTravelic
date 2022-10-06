@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
-import CommentsModal from "./CommentsModal"
+import Comments from "./Comments"
 import Like from "./Like";
 
 import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
@@ -52,7 +52,7 @@ function FeedItem( props: FeedItem ) {
             </Link>
           </div>
 
-          {/* 장소 표시하려 했으나, 데이터 없어서 빼겠습니다 */}
+          {/* 장소 => 데이터 없음 */}
           {/* <FaMapMarkerAlt id="MarkIcon" />
           <h2 className="ml-1 mr-5">장소</h2> */}
 
@@ -91,15 +91,17 @@ function FeedItem( props: FeedItem ) {
               </svg>
             </button>
 
-            <CommentsModal
-              open={modalOpen}
-              close={closeModal}
-              review_id={review_id}/>
+            
           </div>
         </div>
 
         <div id="FeedContent" className="w-full m-3 mb-5">
           <p className="leading-relaxed">{contents}</p>
+          <hr/>
+        </div>
+        <div>
+          <Comments
+              review_id={review_id}/>
         </div>
       </div>
     </div>
