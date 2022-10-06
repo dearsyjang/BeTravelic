@@ -93,7 +93,7 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
   const [places, setPlaces] = useState<place[]>([]);
   const userId = useSelector((state: RootState) => state.auth.userId);
   useEffect(() => {
-    // console.log("UseEffect CALL in RecommendPlaceMain");
+    console.log("UseEffect CALL in RecommendPlaceMain");
     // const KakaoAppKey = process.env.REACT_APP_KAKAO_API_KEY;
     var localplaces: place[] = [];
     (async () => {
@@ -125,10 +125,10 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
 
         // 아래는 마커 테스트 및 센터 좌표 구하기 위함
         markers = places.map((place) => {
-          console.log("place ");
-          console.log(place);
+          // console.log("place ");
+          // console.log(place);
 
-          console.log("place mapx, mapy --> " + place.mapx + ", " + place.mapy);
+          // console.log("place mapx, mapy --> " + place.mapx + ", " + place.mapy);
 
           return new window.kakao.maps.Marker({
             position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
@@ -147,22 +147,25 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
         //   console.log("Level : " + level);
         // });
       });
-      clusterer.addMarkers(markers);
+      console.log("clusterer");
+      console.log(clusterer);
+      if (clusterer !== undefined) {
+        clusterer.addMarkers(markers);
+      }
     };
     mapScript.addEventListener("load", onLoadKakaoMap);
 
     return () => {
       mapScript.removeEventListener("load", onLoadKakaoMap);
     };
-  }, [latitude, longitude]);
+  }, [latitude, longitude, category]);
 
   useEffect(() => {}, [places]);
 
   function changeCategory(type: string) {
     setCategory(type);
-    console.log("changed type name in function");
-
-    console.log(category);
+    // console.log("changed type name in function");
+    // console.log(category);
   }
   return (
     <>
