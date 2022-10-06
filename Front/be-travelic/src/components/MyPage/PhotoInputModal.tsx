@@ -4,7 +4,8 @@ import CloseButton from "./CloseButton";
 import "../css/PhotoInputModal.css";
 import ArticleModal from "../common/ArticleModal";
 import { Display } from "../../pages/MyPage";
-import { fetchMapPhoto } from "../../apis/mypage";
+import { deleteMapPhoto, fetchMapPhoto } from "../../apis/mypage";
+import * as d3 from "d3";
 
 // 허용가능한 확장자 목록!
 const ALLOW_FILE_EXTENSION = "jpg,jpeg,png";
@@ -14,8 +15,11 @@ const PhotoInputModal: React.FC<{
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   changeDisplayHandler: (id: number, image: string) => Promise<Display[]>;
   regionId: number;
-  // setShowArticleModal: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setShowModal, changeDisplayHandler, regionId }) => {
+}> = ({
+  setShowModal,
+  changeDisplayHandler,
+  regionId,
+}) => {
   const imageInput = useRef<HTMLInputElement>(null);
 
   const uploadImageHandler = () => {
@@ -23,11 +27,11 @@ const PhotoInputModal: React.FC<{
   };
 
   // image에
+  const stringId = String(regionId);
   const changePhotoHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (event.target.files![0]) {
-      const stringId = String(regionId);
       await fetchMapPhoto(event.target.files![0], stringId);
       console.log("여기");
 
@@ -52,10 +56,12 @@ const PhotoInputModal: React.FC<{
     setShowModal(false);
   };
 
-  // const showArticleModalHandler = () => {
-  //   props.setShowArticleModal(true);
-  //   props.setShowModal(false);
-  // };
+  const deleteImageHandler: () => void = async () => {
+    const res = await deleteMapPhoto(stringId);
+    if (res?.status === 200) {
+      d3.select(`#code${regionId}`).attr("fill", "white");
+    }
+  };
 
   return (
     <div className="backdrop">
@@ -82,7 +88,10 @@ const PhotoInputModal: React.FC<{
           >
             사진 등록
           </button>
-          <button className="bg-red-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button
+            className="bg-red-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={deleteImageHandler}
+          >
             사진 삭제
           </button>
         </div>
