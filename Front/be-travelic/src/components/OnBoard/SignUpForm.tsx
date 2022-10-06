@@ -105,9 +105,12 @@ const SignUpForm: React.FC<{
       setStatus(identifier);
     }
 
-    // 버튼 유효성
     // if (!errors.email || !errors.pw) {
     //   console.log(errors.email, errors.pw);
+
+    //   setIsAlert(true);
+    //   return;
+    // } else {
 
     //   setIsAlert(true);
     //   return;
@@ -140,7 +143,6 @@ const SignUpForm: React.FC<{
 
     const url = identifier === "signup" ? "/survey" : `/mypage/${userId}`;
     navigate(url, { replace: true });
-
     // }
   };
 
