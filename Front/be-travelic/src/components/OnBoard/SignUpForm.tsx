@@ -113,32 +113,37 @@ const SignUpForm: React.FC<{
     // } else {
       const id = email;
 
-      let res;
-      if (identifier === "login") {
-        res = await login({ email, pw });
-        console.log(res, "res");
-      } else if (identifier === "signup") {
-        res = await register({ nickname, email, pw, id });
-      }
+    //   setIsAlert(true);
+    //   return;
+    // } else {
+    const id = email;
 
-      const { accessToken, refreshToken } = res;
+    let res;
+    if (identifier === "login") {
+      res = await login({ email, pw });
+      console.log(res, "res");
+    } else if (identifier === "signup") {
+      res = await register({ nickname, email, pw, id });
+    }
 
-      // const {userId} = await fetchUserInfo()
+    const { accessToken, refreshToken } = res;
 
-      // token 저장
-      dispatch(
-        authActions.authenticate({
-          accessToken,
-          refreshToken,
-        })
-      );
-      const { user_id } = await fetchUserInfo();
-      // const userId = await getMemberId();
-      dispatch(authActions.saveUserId(user_id));
-      console.log("dispatch완", user_id);
+    // const {userId} = await fetchUserInfo()
 
-      const url = identifier === "signup" ? "/survey" : `/mypage/${user_id}`;
-      navigate(url, { replace: true });
+    // token 저장
+    dispatch(
+      authActions.authenticate({
+        accessToken,
+        refreshToken,
+      })
+    );
+    // const { user_id } = await fetchUserInfo();
+    const userId = await getMemberId();
+    dispatch(authActions.saveUserId(userId));
+    console.log("dispatch완", userId);
+
+    const url = identifier === "signup" ? "/survey" : `/mypage/${userId}`;
+    navigate(url, { replace: true });
     // }
   };
 
@@ -276,9 +281,7 @@ const SignUpForm: React.FC<{
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <div>
-              입력한 내용을 다시 확인해주세요 :)
-            </div>
+            <div>입력한 내용을 다시 확인해주세요 :)</div>
           </div>
         )}
       </div>
