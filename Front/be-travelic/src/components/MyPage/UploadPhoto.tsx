@@ -6,6 +6,7 @@ import {
   fetchFollow,
   fetchIsFollowed,
   fetchProfilePhoto,
+  userInfoType,
 } from "../../apis/mypage";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -13,10 +14,12 @@ import { RootState } from "../../store";
 const AVATAR =
   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
-const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
-  type,
-  userId,
-}) => {
+const UploadPhoto: React.FC<{
+  type: string;
+  userId: number;
+  setUserInfo: React.Dispatch<React.SetStateAction<userInfoType>>;
+  followerCnt: number;
+}> = ({ type, userId, setUserInfo, followerCnt }) => {
   const [image, setImage] = useState<string>(() => {
     if (type === "place") {
       return logo;
@@ -25,14 +28,24 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
   });
   const currentMember = useSelector((state: RootState) => state.auth.userId);
   const [isFollowed, setIsFollowed] = useState(false);
-
   const [file, setFile] = useState<File>();
 
   const imageInput = useRef<HTMLInputElement>(null);
 
   const fetchFollowHandler = async () => {
-    await fetchFollow(String(userId), isFollowed);
-    setIsFollowed((prev) => !prev);
+    const res = await fetchFollow(userId, isFollowed);
+    if (res?.status === 200) {
+      setIsFollowed((prev) => !prev);
+      const calc = isFollowed ? -1 : 1;
+      console.log("변경");
+
+      setUserInfo((prev) => {
+        return {
+          ...prev,
+          followerCnt: followerCnt + calc,
+        };
+      });
+    }
   };
 
   const changePhotoHandler = async (
