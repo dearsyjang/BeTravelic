@@ -20,7 +20,7 @@ const UserInfo: React.FC<{ userInfos: userInfoType }> = ({ userInfos }) => {
   const { id } = useParams();
 
   const showModalHandler = async (identifier: string) => {
-    const res = await fetchFollowList(identifier);
+    const res = await fetchFollowList(identifier, Number(id));
     setFollows(res.data);
 
     setShowFollowModal(true);
@@ -37,7 +37,7 @@ const UserInfo: React.FC<{ userInfos: userInfoType }> = ({ userInfos }) => {
           tabNumber={tabNumber}
           follows={follows}
           setFollows={setFollows}
-          userId={id!}
+          userId={Number(id)!}
         />
       )}
       <div className="border border-blue-200 m-5 rounded-2xl pt-2 px-3 pb-5">
