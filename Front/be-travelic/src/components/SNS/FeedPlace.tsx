@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 
+interface FeedPlace {
+  place_id: number
+  placeName: string
+}
+
 
 function FeedPlace() {
 
-  const [ selectRegion, setSelectRegion ] = useState<String>()
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value
-    setSelectRegion(value)
-    console.log(value)
-  }
-
-
   return (
     <div>
-      <select onChange={handleChange}>
-        <option selected disabled>
-          지역
-        </option>
         <option value="1">서울특별시</option>
         <option value="2">부산광역시</option>
         <option value="3">대구광역시</option>
@@ -35,7 +27,6 @@ function FeedPlace() {
         <option value="15">경상북도</option>
         <option value="16">경상남도</option>
         <option value="17">제주특별자치도</option>
-      </select>
     </div>
   );
 }

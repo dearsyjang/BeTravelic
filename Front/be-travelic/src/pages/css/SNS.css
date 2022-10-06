@@ -1,13 +1,7 @@
-#SNS{
-  justify-content: center;
-  margin-right: 250px;
-}
-
 #FeedContainer{
   height: auto;
 }
 
-#CategoryListIcons{
-  width: 50%;
-  justify-content: center;
+#SNSContainer{
+  position: fixed;
 }

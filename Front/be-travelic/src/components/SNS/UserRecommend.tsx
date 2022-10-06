@@ -24,7 +24,7 @@ function UserRecommend( { user_id } : UserRecommend ) {
   }, [])
 
   return (
-      <div id="UserRecommendCard" className="mt-20">
+      <div id="UserRecommendCard" className="mt-20 ml-0">
         <div id="UserRecommendCardContainer" className="flex flex-col">
           <div id="UserRecommendCardHeader" className="justify-content-center align-content-center item-center">
                 <h2 className="text-center text-gray-900 m-3">다른 사용자 추천 🚀</h2>

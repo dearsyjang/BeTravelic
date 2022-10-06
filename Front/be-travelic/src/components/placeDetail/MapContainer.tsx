@@ -16,7 +16,13 @@ function MapContainer( props : MapContainer ){
   const { mapx, mapy } = props
 
   useEffect(() => {
-    
+
+    // const mapScript = document.createElement("script");
+    // mapScript.async = true;
+    // mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=df4bdb2422933e11c1563504af4b0c33&libraries=clusterer&autoload=false;`
+
+    // document.head.appendChild(mapScript);
+
       let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
       let options = { //지도를 생성할 때 필요한 기본 옵션
         center: new window.kakao.maps.LatLng(mapy, mapx), //지도의 중심좌표.

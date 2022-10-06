@@ -15,6 +15,7 @@
 }
 
 #UserRecommendCard{
+  /* margin-left: 350px; */
   width: 300px;
   height: auto;
   border-style: solid;
