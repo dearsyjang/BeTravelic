@@ -64,9 +64,9 @@ function Comments ( props: Comments ) {
       },
     }
     )
-    console.log(response.data)
-    window.location.reload()
-    if (response.data === 'true')
+    console.log('댓글', response.data)
+    getComment()
+    if (response.data === true)
       setReview('');
   }
 
@@ -81,6 +81,7 @@ function Comments ( props: Comments ) {
                 createdAt={comment.createdAt}
                 userId={comment.userId}
                 review_id={review_id}
+                nickname={comment.nickname}
               />
             ))}
           </div>

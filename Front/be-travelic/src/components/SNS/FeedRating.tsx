@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BsPencil } from "react-icons/bs"
 
 const StarRatings: React.FC<{
   rates: number;
@@ -11,7 +10,6 @@ const StarRatings: React.FC<{
 
   return (
     <div id="FeedRating" className="m-5 mr-10 flex flex-row">
-      <BsPencil className="mt-4 mr-2"/>
       <label
         htmlFor="rates"
         className="block mt-3 text-ml font-medium text-gray-900 dark:text-gray-400"
