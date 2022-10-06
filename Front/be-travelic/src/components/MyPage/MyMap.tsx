@@ -216,11 +216,10 @@ const MyMap: React.FC<{
           console.log(res, "지역 북마크");
         }
         setDisplayedPlace(res);
-      }, 3000);
+      }, 1500);
     }
 
     if (e.type === "mouseleave") {
-      console.log(timer, "클리어 번호");
       clearTimeout(timer);
     }
   };
@@ -289,7 +288,7 @@ const MyMap: React.FC<{
     const defs = svg.append("defs");
 
     const initialPhotos = async () => {
-      const res = await getMapPothos();
+      const res = await getMapPothos(Number(id));
       setDisplays(res);
 
       mapInfo.map((initial) => {
