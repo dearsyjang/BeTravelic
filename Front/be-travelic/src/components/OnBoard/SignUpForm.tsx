@@ -105,40 +105,41 @@ const SignUpForm: React.FC<{
       setStatus(identifier);
     }
 
+    // 버튼 유효성
     // if (!errors.email || !errors.pw) {
     //   console.log(errors.email, errors.pw);
-      
+
     //   setIsAlert(true);
     //   return;
     // } else {
-      const id = email;
+    const id = email;
 
-      let res;
-      if (identifier === "login") {
-        res = await login({ email, pw });
-        console.log(res, "res");
-      } else if (identifier === "signup") {
-        res = await register({ nickname, email, pw, id });
-      }
+    let res;
+    if (identifier === "login") {
+      res = await login({ email, pw });
+      console.log(res, "res");
+    } else if (identifier === "signup") {
+      res = await register({ nickname, email, pw, id });
+    }
 
-      const { accessToken, refreshToken } = res;
+    const { accessToken, refreshToken } = res;
 
-      // const {userId} = await fetchUserInfo()
+    // const {userId} = await fetchUserInfo()
 
-      // token 저장
-      dispatch(
-        authActions.authenticate({
-          accessToken,
-          refreshToken,
-        })
-      );
-      const { user_id } = await fetchUserInfo();
-      // const userId = await getMemberId();
-      dispatch(authActions.saveUserId(user_id));
-      console.log("dispatch완", user_id);
+    // token 저장
+    dispatch(
+      authActions.authenticate({
+        accessToken,
+        refreshToken,
+      })
+    );
+    // const { user_id } = await fetchUserInfo();
+    const userId = await getMemberId();
+    dispatch(authActions.saveUserId(userId));
+    console.log("dispatch완", userId);
 
-      const url = identifier === "signup" ? "/survey" : `/mypage/${user_id}`;
-      navigate(url, { replace: true });
+    const url = identifier === "signup" ? "/survey" : `/mypage/${userId}`;
+    navigate(url, { replace: true });
     // }
   };
 
@@ -276,9 +277,7 @@ const SignUpForm: React.FC<{
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <div>
-              입력한 내용을 다시 확인해주세요 :)
-            </div>
+            <div>입력한 내용을 다시 확인해주세요 :)</div>
           </div>
         )}
       </div>

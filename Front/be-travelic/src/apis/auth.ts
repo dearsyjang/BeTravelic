@@ -82,18 +82,15 @@ export const register = async (data: Register) => {
 };
 
 export const getMemberId = async () => {
-
-  const token = localStorage.getItem('accessToken')
+  const token = localStorage.getItem("accessToken");
   if (token) {
     const decodedJwt: any = jwt_decode(token);
     console.log(decodedJwt, "decoded");
-  
+
     const memberId = decodedJwt?.user_id;
     console.log("decoded id", memberId);
     return memberId;
-    
   }
-
 };
 
 export const fetchSurvey = async (data: Winners) => {
@@ -104,9 +101,6 @@ export const fetchSurvey = async (data: Winners) => {
       url: `/survey`,
       data,
     });
-
-
-    
 
     return res;
   } catch (error) {

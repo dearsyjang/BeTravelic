@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { getMemberId } from "./auth";
 import { djangoAxios, springAxios } from "./index";
 
 export interface Follow {
@@ -41,11 +42,12 @@ export const fetchFollowList = async (followType: string) => {
 
 export const fetchAllVisitedPlaces = async () => {
   const url = `/mypage/travel-history/user`;
-
+  const user_id = await getMemberId();
   try {
     const res = await springAxios({
       method: "get",
       url,
+      params: user_id,
     });
 
     return res.data;
@@ -156,14 +158,16 @@ export const fetchMapPhoto = async (data: File, regionId: string) => {
 
 export const getMapPothos = async () => {
   const url = "/mypage/downloadMyPicture";
+  const user_id = await getMemberId();
 
   try {
     const res = await springAxios({
       method: "get",
       url,
+      params: user_id,
     });
-    console.log(res.data, 'getmap');
-    
+    console.log(res.data, "getmap");
+
     return res.data;
   } catch (error) {
     const err = error as AxiosError;
