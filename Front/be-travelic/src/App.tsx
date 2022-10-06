@@ -21,10 +21,9 @@ function App() {
 
   const location = useLocation();
   const userId = useSelector((state: RootState) => state.auth.userId);
-  const isSurveyed = window.location.href.includes('survey')
+  const isSurveyed = window.location.href.includes("survey");
   console.log(isSurveyed);
-  
-  
+
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // survey 시 navbar 제거 위함

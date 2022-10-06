@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { RecommendList } from "../components/index";
 import { RadioGroup } from "@headlessui/react";
 import "./css/RecommendPlaceMain.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import KakaoShare from "../components/common/KakaoShare";
 
 // 카카오 맵 이용하기 위해서 전역변수로 인터페이스 Window 사용
 declare global {
@@ -68,8 +68,8 @@ const contentTypes = [
 async function getRecommendPlace(userId: number, category: string) {
   let places: place[] = [];
   // console.log("userId in RecommendList : " + userId);
-  console.log("category in RecommendList");
-  console.log(category);
+  // console.log("category in RecommendList");
+  // console.log(category);
 
   await axios
     .get(
@@ -88,19 +88,53 @@ async function getRecommendPlace(userId: number, category: string) {
 }
 
 function RecommendPlaceMain({ latitude, longitude }: MapProps) {
+  const navigate = useNavigate();
   const [openTab, setOpenTab] = useState(1);
-  const [category, setCategory] = useState<string>("관광지");
+  const [category, setCategory] = useState<string>("");
   const [places, setPlaces] = useState<place[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const userId = useSelector((state: RootState) => state.auth.userId);
+  var map: any;
+  const getInnerMapPlace = (map: any, mapx: any, mapy: any) => {
+    var neLat = map.getBounds().getNorthEast().getLat(); // 북동 좌표(위도)
+    var neLng = map.getBounds().getNorthEast().getLng(); // 북동 좌표(경도)
+    var swLat = map.getBounds().getSouthWest().getLat(); // 남서 좌표(위도)
+    var swLng = map.getBounds().getSouthWest().getLng(); // 남서 좌표(경도)
+    if (mapy < neLat) {
+      if (swLat < mapy) {
+        return true;
+      }
+    }
+    if (mapx < neLng) {
+      if (swLng < mapx) {
+        return true;
+      }
+    }
+  };
   useEffect(() => {
-    console.log("UseEffect CALL in RecommendPlaceMain");
-    // const KakaoAppKey = process.env.REACT_APP_KAKAO_API_KEY;
+    console.log("!!!!useEffect CALL!!!!");
+
     var localplaces: place[] = [];
     (async () => {
       localplaces = await getRecommendPlace(userId, category);
-      // console.log(localplaces);
+      console.log("localPlaces");
+      console.log(localplaces);
       setPlaces(localplaces);
+      console.log("places");
+
+      console.log(places);
     })();
+  }, [category]);
+
+  useLayoutEffect(() => {
+    // console.log("UseEffect CALL in RecommendPlaceMain");
+    // const KakaoAppKey = process.env.REACT_APP_KAKAO_API_KEY;
+    // var localplaces: place[] = [];
+    // (async () => {
+    //   localplaces = await getRecommendPlace(userId, category);
+    //   // console.log(localplaces);
+    //   setPlaces(localplaces);
+    // })();
     // console.log(localplaces);
     // console.log("places");
     // console.log(places);
@@ -110,8 +144,8 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
     mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=df4bdb2422933e11c1563504af4b0c33&libraries=clusterer&autoload=false`;
 
     document.head.appendChild(mapScript);
-    var markers: any;
-    var clusterer: any;
+    // console.log("Category : " + category);
+
     const onLoadKakaoMap = () => {
       //   console.log("Loading Kakao Map...");
 
@@ -121,52 +155,76 @@ function RecommendPlaceMain({ latitude, longitude }: MapProps) {
           center: new window.kakao.maps.LatLng(latitude, longitude),
           level: 12,
         };
-        const map = new window.kakao.maps.Map(container, options);
+        map = new window.kakao.maps.Map(container, options);
 
         // 아래는 마커 테스트 및 센터 좌표 구하기 위함
-        markers = places.map((place) => {
-          // console.log("place ");
-          // console.log(place);
 
-          // console.log("place mapx, mapy --> " + place.mapx + ", " + place.mapy);
+        console.log("Places in if");
 
-          return new window.kakao.maps.Marker({
-            position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
+        console.log(places);
+
+        var markers = places.map((place) => {
+          var infoWindow = new window.kakao.maps.InfoWindow({
+            content: `<div style='font-size:15px;width:100px;height:100px;'>${place.title}<div>${place.addr}</div></div>`,
           });
+          var marker = new window.kakao.maps.Marker({
+            map: map,
+            position: new window.kakao.maps.LatLng(place.mapy, place.mapx),
+            placeId: place.place_id,
+            clickable: true,
+          });
+          window.kakao.maps.event.addListener(
+            marker,
+            "mouseover",
+            makeOverListener(map, marker, infoWindow),
+          );
+          window.kakao.maps.event.addListener(
+            marker,
+            "mouseout",
+            makeOutListener(infoWindow),
+          );
+          window.kakao.maps.event.addListener(marker, "click", function () {
+            navigate(`/place/${place.place_id}`);
+          });
+          return marker;
         });
-        clusterer = new window.kakao.maps.MarkerClusterer({
+        const clusterer = new window.kakao.maps.MarkerClusterer({
           map: map,
           averageCenter: true,
           minLevel: 12,
         });
-
-        // window.kakao.maps.event.addListener(map, "center_changed", function () {
-        //   var level = map.getLevel();
-        //   var latlng = map.getCenter();
-        //   console.log("Center : " + latlng.getLat() + " ," + latlng.getLng());
-        //   console.log("Level : " + level);
-        // });
-      });
-      console.log("clusterer");
-      console.log(clusterer);
-      if (clusterer !== undefined) {
         clusterer.addMarkers(markers);
-      }
+      });
     };
+
     mapScript.addEventListener("load", onLoadKakaoMap);
 
     return () => {
       mapScript.removeEventListener("load", onLoadKakaoMap);
     };
-  }, [latitude, longitude, category]);
-
-  useEffect(() => {}, [places]);
-
+  }, [latitude, longitude, places]);
+  function makeOverListener(map: any, marker: any, infowindow: any) {
+    return function () {
+      infowindow.open(map, marker);
+    };
+  }
+  function makeOutListener(infowindow: any) {
+    return function () {
+      infowindow.close();
+    };
+  }
   function changeCategory(type: string) {
     setCategory(type);
     // console.log("changed type name in function");
+    var localplaces: place[] = [];
+    (async () => {
+      localplaces = await getRecommendPlace(userId, category);
+      // console.log(localplaces);
+      setPlaces(localplaces);
+    })();
     // console.log(category);
   }
+
   return (
     <>
       <div id='RecommendPlaceMap'>

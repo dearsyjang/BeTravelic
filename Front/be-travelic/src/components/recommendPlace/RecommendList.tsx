@@ -5,7 +5,6 @@ import RecommendListItem from "./RecommendListItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { ColorRing } from "react-loader-spinner";
-import { tree } from "d3";
 
 interface place {
   recommend_id: number;
