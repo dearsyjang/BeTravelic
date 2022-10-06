@@ -55,7 +55,7 @@ const SurveyPhotos: React.FC<{
       const res = await fetchSurvey(finals);
 
       if (res?.status === 200) {
-        navigate(`/mypage/${userId}`);
+        navigate(`/recommendMain`);
       }
     }
 

@@ -139,7 +139,6 @@ const SignUpForm: React.FC<{
     // const { user_id } = await fetchUserInfo();
     const userId = await getMemberId();
     dispatch(authActions.saveUserId(userId));
-    console.log("dispatch완", userId);
 
     const url = identifier === "signup" ? "/survey" : `/mypage/${userId}`;
     navigate(url, { replace: true });

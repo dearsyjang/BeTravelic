@@ -25,6 +25,10 @@ const MyPageCard = () => {
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchUserInfo(userInfos.user_id);
+<<<<<<< HEAD
+      const { followerCnt, followingCnt, reviewCnt, surveyKeyword, user_id } =
+        res;
+=======
       const {
         followerCnt,
         followingCnt,
@@ -33,6 +37,7 @@ const MyPageCard = () => {
         user_id,
         nickname,
       } = res;
+>>>>>>> caa970a4f0ffc833dcb24363732cbe9cfcd6b2c4
       console.log(res, "여기는 마이페이지 카드");
 
       setUserInfo({
