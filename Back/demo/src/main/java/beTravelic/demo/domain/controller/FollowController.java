@@ -59,4 +59,14 @@ public class FollowController {
 //        String id = (String) request.getAttribute("id");
         return new ResponseEntity<>(CommonResponse.getSuccessResponse(followService.followerList(user_id)), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "팔로우 상태 여부 확인", notes = "좋아요한 상태면 true, 아닌 경우 false")
+    @GetMapping("/{user_id}")
+    public ResponseEntity<?> isLike(HttpServletRequest request, @PathVariable Long user_id) throws Exception {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[0];
+        request.setAttribute("id", jwtProvider.getIdFromAccessToken(accessToken));
+        String id = (String) request.getAttribute("id");
+        boolean state = followService.isFollowing(id, user_id);
+        return new ResponseEntity<>(state, HttpStatus.valueOf(200));
+    }
 }
