@@ -7,7 +7,7 @@ const FollowModal: React.FC<{
   tabNumber: number;
   follows: Follow[];
   setFollows: React.Dispatch<React.SetStateAction<Follow[]>>;
-  userId: string;
+  userId: number;
 }> = ({ setShowFollowModal, tabNumber, follows, setFollows, userId }) => {
   const closeFollowModalHandler = () => {
     setShowFollowModal(false);
@@ -21,7 +21,7 @@ const FollowModal: React.FC<{
   ) => {
     e.preventDefault();
     const tabNum = identifier === "followerList" ? 1 : 2;
-    const res = await fetchFollowList(identifier);
+    const res = await fetchFollowList(identifier, userId);
     setFollows(res.data);
     setOpenTab(tabNum);
   };

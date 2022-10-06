@@ -7,21 +7,26 @@ import UserInfo from "./UserInfo";
 import { fetchUserInfo, userInfoType } from "../../apis/mypage";
 import { userInfo } from "os";
 import KakaoShare from "../common/KakaoShare";
+import { useParams } from "react-router-dom";
 
 const MyPageCard = () => {
+  const { id } = useParams();
+
   const [userInfos, setUserInfo] = useState<userInfoType>({
     followerCnt: 0,
     followingCnt: 0,
     surveyKeyword: [],
     reviewCnt: 0,
-    user_id: 0,
+    user_id: Number(id),
   });
 
   useLayoutEffect(() => {
     const initialData = async () => {
-      const res = await fetchUserInfo();
+      const res = await fetchUserInfo(userInfos.user_id);
       const { followerCnt, followingCnt, reviewCnt, surveyKeyword, user_id } =
         res;
+      console.log(res, "여기는 마이페이지 카드");
+
       setUserInfo({
         followerCnt,
         followingCnt,
@@ -36,7 +41,12 @@ const MyPageCard = () => {
   return (
     <div className="cardContainer" id="">
       <div>
-        <UploadPhoto userId={userInfos.user_id} type="avatar" />
+        <UploadPhoto
+          userId={userInfos.user_id}
+          setUserInfo={setUserInfo}
+          followerCnt={userInfos.followerCnt!}
+          type="avatar"
+        />
       </div>
       <div className="mt-10">
         <UserInfo userInfos={userInfos} />

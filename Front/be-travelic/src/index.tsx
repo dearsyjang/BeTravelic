@@ -9,10 +9,9 @@ import { PersistGate } from "reduxjs-toolkit-persist/integration/react";
 
 window.Kakao.init("df4bdb2422933e11c1563504af4b0c33");
 window.Kakao.isInitialized();
-console.log(window.Kakao.isInitialized());
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <Provider store={store}>
@@ -21,5 +20,5 @@ root.render(
         <App />
       </BrowserRouter>
     </PersistGate>
-  </Provider>,
+  </Provider>
 );

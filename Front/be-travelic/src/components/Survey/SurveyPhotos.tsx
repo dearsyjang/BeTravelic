@@ -51,12 +51,11 @@ const SurveyPhotos: React.FC<{
       };
 
       // axios 요청 + 다른 곳으로 route
-      console.log(finals, "winners");
-      const { user_id } = await fetchUserInfo();
+      const userId = await getMemberId();
       const res = await fetchSurvey(finals);
 
       if (res?.status === 200) {
-        navigate(`/mypage/${user_id}`);
+        navigate(`/mypage/${userId}`);
       }
     }
 
