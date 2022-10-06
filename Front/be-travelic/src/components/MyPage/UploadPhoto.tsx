@@ -111,7 +111,7 @@ const UploadPhoto: React.FC<{ type: string; userId: number }> = ({
             className="flex absolute right-3 ml-auto bg-indigo-500 border-0 py-1 px-2 focus:outline-none rounded"
             onClick={fetchFollowHandler}
           >
-            팔로우
+            {isFollowed ? "언팔로우" : "팔로우"}
           </button>
         )}
         <img
