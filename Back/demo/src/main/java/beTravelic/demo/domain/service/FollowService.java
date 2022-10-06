@@ -63,7 +63,7 @@ public class FollowService {
     }
 
     public List<FollowingListResponseDto> followingList(Long userId){
-        List<Follow> tmpList = followRepository.findFollowByFollowerUserId(userId);
+        List<Follow> tmpList = followRepository.findFollowByFollowingUserId(userId);
         List<FollowingListResponseDto> followingList = new ArrayList<>();
 
         for (Follow f : tmpList){
@@ -75,7 +75,7 @@ public class FollowService {
 
     public List<FollowerListResponseDto> followerList(Long userId){
 //        List<Follow> tmpList = followRepository.findFollowByFollowing_Id(userId);
-        List<Follow> tmpList = followRepository.findFollowByFollowingUserId(userId);
+        List<Follow> tmpList = followRepository.findFollowByFollowerUserId(userId);
         List<FollowerListResponseDto> followerList = new ArrayList<>();
 
         for (Follow f : tmpList){

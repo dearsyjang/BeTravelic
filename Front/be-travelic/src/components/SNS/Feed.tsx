@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 
 import FeedItem from "./FeedItem"
+import { djangoAxios } from "../../apis";
 
 interface UserId {
   user_id: number;
@@ -14,7 +15,8 @@ function Feed( { user_id }: UserId ) {
   // Feed GET (django)
   const getFeed = async() => {
     console.log('props', user_id)
-    const response = await (await axios.get(`http://j7d205.p.ssafy.io:8081/api/v1/feed_recommend/${user_id}`))
+    
+    const response = await djangoAxios.get(`api/v1/feed_recommend/${user_id}`)
     console.log('feed', response.data)
     setFeeds(response.data)
   }

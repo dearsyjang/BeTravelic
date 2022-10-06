@@ -46,6 +46,7 @@ function CommentItem ( props : CommentItem ) {
     }
     )
     console.log(response)
+    window.location.reload()
   }
   
   return (
@@ -53,6 +54,7 @@ function CommentItem ( props : CommentItem ) {
       <div id="Comments" className="flex items-center">
         <div className="m-3">
           <div className="inline-flex items-center">
+            {/* 닉네임, 프사 => 데이터 없음 */}
             {/* <img
                   alt=""
                   className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center"

@@ -4,8 +4,6 @@ import axios from "axios";
 
 import { DetailInfo, DetailRecommend, MapContainer } from "../components/index";
 import "./css/PlaceDetailMain.css";
-import KakaoShare from "../components/common/KakaoShare";
-import { image } from "d3";
 
 function PlaceDetailMain() {
   const { place_id } = useParams();
@@ -66,7 +64,7 @@ function PlaceDetailMain() {
       {/* 추천여행지 카드 */}
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap w-full mb-10">
+          <div className="flex flex-wrap w-full">
             <div className="w-full mb-6 lg:mb-0">
               <h1 className="sm:text-3xl text-2xl text-center font-medium title-font mb-4 text-gray-900">
                 다른 여행지는 어때요? 😎
