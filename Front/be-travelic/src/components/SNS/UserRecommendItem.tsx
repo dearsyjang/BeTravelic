@@ -14,7 +14,7 @@ function UserRecommendItem( props: UserRecommendItem ) {
       <div id="UserRecommendCardItem">
           <p className="flex items-center m-4">
               <div className="inline-flex items-center">
-                  <img src={file_name} className="w-8 h-8 rounded-full object-cover object-center" />
+                  <img src={real_file_name} className="w-8 h-8 rounded-full object-cover object-center" />
                       <Link to={`/mypage/${user_id}`}>
                           <span className="flex-grow flex flex-col pl-3">
                               <span className="title-font font-medium text-gray-900">{nickname}</span>
@@ -23,7 +23,7 @@ function UserRecommendItem( props: UserRecommendItem ) {
               </div>
               
               {/* 팔로우 버튼 */}
-              <button id="FollowButton" className="flex ml-auto bg-indigo-500 border-0 py-1 px-2 focus:outline-none rounded">팔로우</button>
+              {/* <button id="FollowButton" className="flex ml-auto bg-indigo-500 border-0 py-1 px-2 focus:outline-none rounded">팔로우</button> */}
           </p>
       </div>
     )

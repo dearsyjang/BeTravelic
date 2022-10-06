@@ -7,7 +7,6 @@ import Like from "./Like";
 import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa'
 import "../css/Feed.css"
 
-
 interface FeedItem {
   contents: string
   created_at: string
@@ -57,51 +56,31 @@ function FeedItem( props: FeedItem ) {
           <h2 className="ml-1 mr-5">장소</h2> */}
 
           <FaRegCalendarAlt id="CalendarIcon" />
-          <h2 className="ml-1 mr-3">{visited_at}</h2>
+          <h2 className="ml-1 mr-3">{visited_at.slice(0, 10)}</h2>
         </div>
       </div>
 
       <div id="FeedCardBody">
-        <div id="FeedImageContainer">
+        <div id="FeedImageContainer" className="items-center">
           <img id="FeedImage" className="" alt="SNSimage" src={real_file_name} />
+          {/* 좋아요 버튼 */}
+        <div id="FeedButton" className="flex ml-2">
+          <Like
+            review_id={review_id} />
+        </div>
         </div>
 
-        {/* 좋아요 버튼 => 수정 예정 */}
-        <div id="FeedButton" className="flex">
-          <Like 
-          review_id = {review_id}/>
-          <p className="mt-2"></p>
+        <div>
 
-          {/* 댓글 버튼 */}
-          <div>
-            <button
-              onClick={openModal}
-              className="rounded-full ml-3 w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-              </svg>
-            </button>
-
-            
-          </div>
         </div>
+        
 
-        <div id="FeedContent" className="w-full m-3 mb-5">
-          <p className="leading-relaxed">{contents}</p>
-          <hr/>
+        <div id="FeedContent">
+          <p className="leading-relaxed w-full ml-7 m-3">{contents}</p>
         </div>
         <div>
           <Comments
-              review_id={review_id}/>
+            review_id={review_id} />
         </div>
       </div>
     </div>

@@ -148,7 +148,7 @@ const SignUpForm: React.FC<{
   return (
     <div className='w-full  md:mt-0 sm:max-w-md xl:p-0 fadeIn'>
       <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
-        <h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center'>
+        <h1 className='text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-3xl text-center'>
           회원 정보 입력
         </h1>
         <form className='space-y-4 md:space-y-6' action='#'>
@@ -156,7 +156,7 @@ const SignUpForm: React.FC<{
             <div>
               <label
                 htmlFor='nickname'
-                className='block mb-2 text-sm font-medium text-gray-900'
+                className='block mb-2 text-xl font-medium text-gray-900'
               >
                 닉네임
               </label>
@@ -175,7 +175,7 @@ const SignUpForm: React.FC<{
           <div>
             <label
               htmlFor='email'
-              className='block mb-2 text-sm font-medium text-gray-900'
+              className='block mb-2 text-xl font-medium text-gray-900'
             >
               Email
             </label>
@@ -183,7 +183,7 @@ const SignUpForm: React.FC<{
               type='email'
               name='email'
               id='email'
-              className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+              className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-ml rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               placeholder='name@gmail.com'
               required
               onChange={inputChangeHandler.bind(this, "email")}
@@ -198,7 +198,7 @@ const SignUpForm: React.FC<{
           <div>
             <label
               htmlFor='pw'
-              className='block mb-2 text-sm font-medium text-gray-900'
+              className='block mb-2 text-xl font-medium text-gray-900'
             >
               비밀번호
             </label>
@@ -207,7 +207,7 @@ const SignUpForm: React.FC<{
               name='pw'
               id='pw'
               placeholder='••••••••'
-              className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+              className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-ml rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               required
               // ref={pwRef}
               onChange={inputChangeHandler.bind(this, "pw")}
@@ -224,7 +224,7 @@ const SignUpForm: React.FC<{
             <div>
               <label
                 htmlFor='confirm-pw'
-                className='block mb-2 text-sm font-medium text-gray-900'
+                className='block mb-2 text-xl font-medium text-gray-900'
               >
                 비밀번호 확인
               </label>
@@ -248,14 +248,14 @@ const SignUpForm: React.FC<{
             <button
               onClick={signUpHandler.bind(this, status)}
               type='submit'
-              className='text-white bg-blue-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+              className='text-white mt-3 bg-blue-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-ml px-5 py-2.5 text-center'
             >
               {status === "signup" ? "회원가입 하기" : "로그인 하기"}
             </button>
             <button
               onClick={signUpHandler.bind(this, "onboard")}
               type='submit'
-              className='text-white bg-blue-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+              className='text-black mt-3 bg-blue-200 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-ml px-5 py-2.5 text-center'
             >
               뒤로 가기
             </button>
