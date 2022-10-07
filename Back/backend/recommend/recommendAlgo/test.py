@@ -122,7 +122,7 @@
 #     for i in range(len(follow_data)):
 #         if follow_data['follower_user_id'][i]==current_user_id:
 #             following_list.append(follow_data['following_user_id'][i])
-
+    
 
 #     #리뷰 점수를 기준으로 비슷한 유저 찾아냄 
 #     place_user_score = place_review_data.pivot_table('score_y', index ='title', columns='user_id').fillna(0)
@@ -145,7 +145,7 @@
 #     if current_user_id in users_list:
 #         coffey_hands = users_list.index(current_user_id)
 #         corr_coffey_hands = corr[coffey_hands]
-#         lst= list(users[(corr_coffey_hands>=0.5)] )
+#         lst= list(users[(corr_coffey_hands>=0.2)] )
 #         lst.remove(current_user_id)
     
 
@@ -160,13 +160,10 @@
 #     rec_feed=[]
 #     for i in lst2:
 #         if i != current_user_id and i not in following_list:
-#             user_index = user_data.index[(user_data['user_id']==i)]
+#             user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
 #             user_index2= user_index.values[0]
-#             print(user_review_place_data['file_name_x'])
-#             print(user_review_place_data['file_name_y'])
-#             print(user_review_place_data['real_file_name_x'])
-#             print(user_review_place_data['real_file_name_y'])
-#             rec_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+        
+#             rec_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #             #rec_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #     set_rec_feed = set(rec_feed)
 #     set_rec_feed2 = list(set_rec_feed)
@@ -181,13 +178,10 @@
 #     for i in following_list:
 #         for j in range(len(user_review_place_data)):
 #             if i== user_review_place_data['user_id'][j]:
-#                 user_index = user_data.index[(user_data['user_id']==i)]
+#                 user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
 #                 user_index2= user_index.values[0]
-#                 print(user_review_place_data['file_name_x'])
-#                 print(user_review_place_data['file_name_y'])
-#                 print(user_review_place_data['real_file_name_x'])
-#                 print(user_review_place_data['real_file_name_y'])
-#                 follow_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+                
+#                 follow_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #                 #follow_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #     set_follow_feed = set(follow_feed)
 #     set_follow_feed2 = list(set_follow_feed)
@@ -210,11 +204,8 @@
 #             user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
 #             user_index3= user_index.values
 #             for user_index2 in user_index3:
-#                 print(user_review_place_data['file_name_x'])
-#                 print(user_review_place_data['file_name_y'])
-#                 print(user_review_place_data['real_file_name_x'])
-#                 print(user_review_place_data['real_file_name_y'])
-#                 random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+                
+#                 random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #                 # random_rec.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #     #print(random_rec)
 #     random_rec2 = set(random_rec)
@@ -222,15 +213,17 @@
 #     random_rec3_sorted = sorted(random_rec3,  reverse= True, key=lambda x: x[9])
 
 
-#     # #1순위
-#     # print(set_follow_feed2_sorted)
-#     # #2순위
-#     # print(set_rec_feed2_sorted)
-#     # #3순위
-#     #print(random_rec3_sorted)
+#     #1순위
+#     print(set_follow_feed2_sorted)
+#     print(1)
+#     #2순위
+#     print(set_rec_feed2_sorted)
+#     print(1)
+#     #3순위
+#     print(random_rec3_sorted)
 
 #     user_review_list = set_rec_feed2_sorted + set_follow_feed2_sorted + random_rec3_sorted
-    
+#     print(user_review_list)
 #     #print(user_review_list)
 #     user_review_list2=[]
 #     for re in user_review_list:
