@@ -603,7 +603,7 @@ def feed_recommend(request, user_id):
         rec_feed=[]
         for i in lst2:
             if i != current_user_id and i not in following_list:
-                user_index = user_data.index[(user_data['user_id']==i)]
+                user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
                 user_index2= user_index.values[0]
             
                 rec_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
@@ -621,7 +621,7 @@ def feed_recommend(request, user_id):
         for i in following_list:
             for j in range(len(user_review_place_data)):
                 if i== user_review_place_data['user_id'][j]:
-                    user_index = user_data.index[(user_data['user_id']==i)]
+                    user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
                     user_index2= user_index.values[0]
                
                     follow_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
