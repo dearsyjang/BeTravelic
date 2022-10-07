@@ -20,16 +20,16 @@ const KakaoShare = ({ placeId, image, title, overview }: Kakao) => {
         title,
         imageUrl: image,
         link: {
-          mobileWebUrl: `http://j7d205.p.ssafy.io/place/${placeId}`,
-          webUrl: `http://j7d205.p.ssafy.io/place/${placeId}`,
+          mobileWebUrl: `http://j7d205.p.ssafy.io:3000/place/${placeId}`,
+          webUrl: `http://j7d205.p.ssafy.io/place:3000/${placeId}`,
         },
       },
       buttons: [
         {
           title: "보러 가기",
           link: {
-            mobileWebUrl: `http://j7d205.p.ssafy.io/place/${placeId}`,
-            webUrl: `http://j7d205.p.ssafy.io/place/${placeId}`,
+            mobileWebUrl: `http://j7d205.p.ssafy.io:3000/place/${placeId}`,
+            webUrl: `http://j7d205.p.ssafy.io:3000/place/${placeId}`,
           },
         },
       ],
