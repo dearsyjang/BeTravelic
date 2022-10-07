@@ -382,7 +382,7 @@ def place_recommend(request,user_id,category):
         for i in sorted_dic:
             index_list.append(i[0])
         #상위 30개만
-        index_list_30 = index_list[:200]
+        index_list_30 = index_list[:1000]
         #print(place_data)
         #코사인 유사도 높은 순서대로
         info_list=[]
