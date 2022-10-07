@@ -62,7 +62,9 @@ function FeedItem( props: FeedItem ) {
 
       <div id="FeedCardBody">
         <div id="FeedImageContainer" className="items-center">
+          <div id="FeedImgBox">
           <img id="FeedImage" className="" alt="SNSimage" src={real_file_name} />
+          </div>
           {/* 좋아요 버튼 */}
         <div id="FeedButton" className="flex ml-2">
           <Like
@@ -76,7 +78,7 @@ function FeedItem( props: FeedItem ) {
         
 
         <div id="FeedContent">
-          <p className="leading-relaxed w-full ml-7 m-3">{contents}</p>
+          <p className="leading-relaxed w-full mt-3">{contents}</p>
         </div>
         <div>
           <Comments
