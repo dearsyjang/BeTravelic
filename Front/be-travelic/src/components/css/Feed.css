@@ -23,8 +23,8 @@
 }
 
 #FeedImage {
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
 }
 
 .input {
@@ -37,6 +37,8 @@
   border-bottom-width: 100%;
   border-bottom-color: #C3CBCD;
   border-style: solid;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -46,6 +48,7 @@
     border-bottom-width: 100%;
     border-bottom-color: #C3CBCD;
     border-style: solid;
+    width: 100%;
 }
 
 #FeedImage{
@@ -53,4 +56,8 @@
   width: 500px;
   height: 500px;
   margin-bottom: 10px;
+}
+
+#FeedImgBox{
+  margin-left: 100px;
 }
