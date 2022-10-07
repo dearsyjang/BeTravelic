@@ -151,10 +151,10 @@
 
 
 
-#     #앞에서 10명 
-#     lst2 = lst[:10]
-#     #뒤에서 5명
-#     lst3 = lst[-5:]
+# #     #앞에서 10명 
+# #     lst2 = lst[:10]
+# #     #뒤에서 5명
+# #     lst3 = lst[-5:]
 
 #     #팔로우한 사람을 제외한 추천 피드 (2순위)
 #     rec_feed=[]
@@ -192,10 +192,10 @@
 
 
     
-#     #모든 유저의 리스트
-#     all_user_list=list(user_data['user_id'])
-#     #현재 사용자 제외
-#     all_user_list.remove(current_user_id)
+# #     #모든 유저의 리스트
+# #     all_user_list=list(user_data['user_id'])
+# #     #현재 사용자 제외
+# #     all_user_list.remove(current_user_id)
     
 
 
@@ -225,15 +225,15 @@
 
 #     user_review_list = set_rec_feed2_sorted + set_follow_feed2_sorted + random_rec3_sorted
     
-#     #print(user_review_list)
-#     user_review_list2=[]
-#     for re in user_review_list:
-#         value= user_review_list.index(re)
-#         list_re = list(re)
-#         list_re.insert(0,value+1)
-#         user_review_list2.append(tuple(list_re))
+# #     #print(user_review_list)
+# #     user_review_list2=[]
+# #     for re in user_review_list:
+# #         value= user_review_list.index(re)
+# #         list_re = list(re)
+# #         list_re.insert(0,value+1)
+# #         user_review_list2.append(tuple(list_re))
     
-#     #print(user_review_list2) 
+# #     #print(user_review_list2) 
         
 #     df=pd.DataFrame(user_review_list2,columns=['recommend_user_id','place_id','user_id','review_id','contents','file_name','file_name_user','real_file_name','real_file_name_user','nickname','created_at','visited_at'])
 
@@ -250,21 +250,21 @@
 #         cursor.execute(sql)
 
 
-#         #cursor=conn.cursor()
-#         sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,file_name,file_name_user,real_file_name,real_file_name_user,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-#         cursor.executemany(sql,user_review_list2)
-#         # conn.commit()
-#         # conn.close()
+# #         #cursor=conn.cursor()
+# #         sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,file_name,file_name_user,real_file_name,real_file_name_user,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+# #         cursor.executemany(sql,user_review_list2)
+# #         # conn.commit()
+# #         # conn.close()
 
-#         # #cursor=conn.cursor()
-#         # sql = "truncate recommenduser"
-#         # cursor.execute(sql)
+# #         # #cursor=conn.cursor()
+# #         # sql = "truncate recommenduser"
+# #         # cursor.execute(sql)
 
-#         # #cursor=conn.cursor()
-#         # sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
-#         # cursor.executemany(sql,set_rec_user2)
-#         conn.commit()
-#         conn.close()
+# #         # #cursor=conn.cursor()
+# #         # sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
+# #         # cursor.executemany(sql,set_rec_user2)
+# #         conn.commit()
+# #         conn.close()
 
 #     #mysql_save(user_review_list)
 #     mysql_save(user_review_list2)
