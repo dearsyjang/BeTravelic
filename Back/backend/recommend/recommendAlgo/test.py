@@ -151,10 +151,10 @@
 
 
 
-# #     #앞에서 10명 
-# #     lst2 = lst[:10]
-# #     #뒤에서 5명
-# #     lst3 = lst[-5:]
+#     #앞에서 10명 
+#     lst2 = lst[:10]
+#     #뒤에서 5명
+#     lst3 = lst[-5:]
 
 #     #팔로우한 사람을 제외한 추천 피드 (2순위)
 #     rec_feed=[]
@@ -162,8 +162,10 @@
 #         if i != current_user_id and i not in following_list:
 #             user_index = user_data.index[(user_data['user_id']==i)]
 #             user_index2= user_index.values[0]
+#             print(user_review_place_data['file_name_x'])
+#             print(user_review_place_data['file_name_y'])
+#             print(user_review_place_data['real_file_name_x'])
 #             print(user_review_place_data['real_file_name_y'])
-#             #print(user_review_place_data['real_file_name_x'])
 #             rec_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #             #rec_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #     set_rec_feed = set(rec_feed)
@@ -181,8 +183,10 @@
 #             if i== user_review_place_data['user_id'][j]:
 #                 user_index = user_data.index[(user_data['user_id']==i)]
 #                 user_index2= user_index.values[0]
+#                 print(user_review_place_data['file_name_x'])
+#                 print(user_review_place_data['file_name_y'])
+#                 print(user_review_place_data['real_file_name_x'])
 #                 print(user_review_place_data['real_file_name_y'])
-#                 #print(user_review_place_data['real_file_name_x'])
 #                 follow_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #                 #follow_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #     set_follow_feed = set(follow_feed)
@@ -192,10 +196,10 @@
 
 
     
-# #     #모든 유저의 리스트
-# #     all_user_list=list(user_data['user_id'])
-# #     #현재 사용자 제외
-# #     all_user_list.remove(current_user_id)
+#     #모든 유저의 리스트
+#     all_user_list=list(user_data['user_id'])
+#     #현재 사용자 제외
+#     all_user_list.remove(current_user_id)
     
 
 
@@ -206,8 +210,10 @@
 #             user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
 #             user_index3= user_index.values
 #             for user_index2 in user_index3:
+#                 print(user_review_place_data['file_name_x'])
+#                 print(user_review_place_data['file_name_y'])
+#                 print(user_review_place_data['real_file_name_x'])
 #                 print(user_review_place_data['real_file_name_y'])
-#                 #print(user_review_place_data['real_file_name_x'])
 #                 random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #                 # random_rec.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
 #     #print(random_rec)
@@ -221,19 +227,19 @@
 #     # #2순위
 #     # print(set_rec_feed2_sorted)
 #     # #3순위
-#     print(random_rec3_sorted)
+#     #print(random_rec3_sorted)
 
 #     user_review_list = set_rec_feed2_sorted + set_follow_feed2_sorted + random_rec3_sorted
     
-# #     #print(user_review_list)
-# #     user_review_list2=[]
-# #     for re in user_review_list:
-# #         value= user_review_list.index(re)
-# #         list_re = list(re)
-# #         list_re.insert(0,value+1)
-# #         user_review_list2.append(tuple(list_re))
+#     #print(user_review_list)
+#     user_review_list2=[]
+#     for re in user_review_list:
+#         value= user_review_list.index(re)
+#         list_re = list(re)
+#         list_re.insert(0,value+1)
+#         user_review_list2.append(tuple(list_re))
     
-# #     #print(user_review_list2) 
+#     #print(user_review_list2) 
         
 #     df=pd.DataFrame(user_review_list2,columns=['recommend_user_id','place_id','user_id','review_id','contents','file_name','file_name_user','real_file_name','real_file_name_user','nickname','created_at','visited_at'])
 
@@ -250,23 +256,23 @@
 #         cursor.execute(sql)
 
 
-# #         #cursor=conn.cursor()
-# #         sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,file_name,file_name_user,real_file_name,real_file_name_user,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-# #         cursor.executemany(sql,user_review_list2)
-# #         # conn.commit()
-# #         # conn.close()
+#         #cursor=conn.cursor()
+#         sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,file_name,file_name_user,real_file_name,real_file_name_user,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+#         cursor.executemany(sql,user_review_list2)
+#         # conn.commit()
+#         # conn.close()
 
-# #         # #cursor=conn.cursor()
-# #         # sql = "truncate recommenduser"
-# #         # cursor.execute(sql)
+#         # #cursor=conn.cursor()
+#         # sql = "truncate recommenduser"
+#         # cursor.execute(sql)
 
-# #         # #cursor=conn.cursor()
-# #         # sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
-# #         # cursor.executemany(sql,set_rec_user2)
-# #         conn.commit()
-# #         conn.close()
+#         # #cursor=conn.cursor()
+#         # sql="insert into recommenduser(recommend_user_id,image,nickname,user_id) values(%s,%s,%s,%s)"
+#         # cursor.executemany(sql,set_rec_user2)
+#         conn.commit()
+#         conn.close()
 
 #     #mysql_save(user_review_list)
 #     mysql_save(user_review_list2)
-        
+    
 # feed_recommendations(current_user_id)
