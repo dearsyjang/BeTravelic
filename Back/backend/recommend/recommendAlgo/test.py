@@ -14,51 +14,51 @@
 
 
 
-# # # from konlpy.tag import Okt
-# # # from numpy import dot
-# # # from numpy.linalg import norm
-# # # import numpy as np
+# from konlpy.tag import Okt
+# from numpy import dot
+# from numpy.linalg import norm
+# import numpy as np
 
-# # # from sklearn.decomposition import TruncatedSVD
-# # # import pandas as pd
-# # # import numpy as np
-# # # import pymysql
+# from sklearn.decomposition import TruncatedSVD
+# import pandas as pd
+# import numpy as np
+# import pymysql
 
-# # # import matplotlib.pyplot as plt
-# # # import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 
-# # # from collections import Counter
-
-
-# # # okt = Okt()
-
-# # # conn = pymysql.connect(host='j7d205.p.ssafy.io',
-# # #                         user='root',
-# # #                         password='betravelic205',
-# # #                         db='D205_2',
-# # #                         charset='utf8')
+# from collections import Counter
 
 
+# okt = Okt()
 
-# # # follow_table = "SELECT * FROM follow"
-# # # user_table = "SELECT * FROM user"
-# # # place_table = "SELECT * FROM place"
-# # # category_table = "SELECT * FROM categories"
-# # # review_table = "SELECT * FROM review"
-# # # keyword_table = "SELECT * FROM survey_keyword"
+# conn = pymysql.connect(host='j7d205.p.ssafy.io',
+#                         user='root',
+#                         password='betravelic205',
+#                         db='D205_2',
+#                         charset='utf8')
 
-# # # follow_data = pd.read_sql_query(follow_table, conn)
-# # # user_data = pd.read_sql_query(user_table, conn)
-# # # place_data = pd.read_sql_query(place_table, conn)
-# # # category_data = pd.read_sql_query(category_table, conn)
-# # # review_data = pd.read_sql_query(review_table, conn)
-# # # keyword_data = pd.read_sql_query(keyword_table, conn)
 
-# # # user_review_data = pd.merge(user_data, review_data, on='user_id')
-# # # place_category_data = pd.merge(place_data, category_data, on='category_id')
-# # # place_review_data = pd.merge(place_data, review_data, on='place_id')
-# # # user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
-# # # Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
+
+# follow_table = "SELECT * FROM follow"
+# user_table = "SELECT * FROM user"
+# place_table = "SELECT * FROM place"
+# category_table = "SELECT * FROM categories"
+# review_table = "SELECT * FROM review"
+# keyword_table = "SELECT * FROM survey_keyword"
+
+# follow_data = pd.read_sql_query(follow_table, conn)
+# user_data = pd.read_sql_query(user_table, conn)
+# place_data = pd.read_sql_query(place_table, conn)
+# category_data = pd.read_sql_query(category_table, conn)
+# review_data = pd.read_sql_query(review_table, conn)
+# keyword_data = pd.read_sql_query(keyword_table, conn)
+
+# user_review_data = pd.merge(user_data, review_data, on='user_id')
+# place_category_data = pd.merge(place_data, category_data, on='category_id')
+# place_review_data = pd.merge(place_data, review_data, on='place_id')
+# user_review_place_data = pd.merge(user_review_data, place_data, on='place_id')
+# Place_review_category_data = pd.merge(place_review_data, place_category_data, on='place_id')
 
 # # # keyword_dict = {
 # # #                 '전통적인' : '전통적인', '옛날' : '전통적인', '전통미' : '전통적인', '고려' : '전통적인', '조선' : '전통적인', '조상' : '전통적인', '선조' : '전통적인', '역사' : '전통적인',
@@ -106,66 +106,47 @@
 # # # stop_words = "에서 를 으로는 는 에 화 을 하는 이 습니 곳 . , 랑 수 많은 많음 사람 장소 느낌 느껴지는 있는 있어서 지는 이랑 이런 와 곳 가 인 적 수 곳 너무 에 는데 라도 어서 에서 이 어서 어요 과 는 부터 것 을 어요 고 게 던 은 었 내내 도 고 ㅋ ㅎ 나오 는 님 했 던 보다"
 # # # stop_words = set(stop_words.split(' '))
 
+# current_user_id=282
 
+# def feed_recommendations(current_user_id):
 
-# # # current_user_id=282
-# # # selected_category = "관광지"
-# # # def place_recommendations(current_user_id, selected_category):
-
-# # #     def mysql_delete():
-# # #         conn=pymysql.connect(host='j7d205.p.ssafy.io',
-# # #                     user='root',
-# # #                     password='betravelic205',
-# # #                     db='D205_2',
-# # #                     charset='utf8')
-# # #         cursor=conn.cursor()
-# # #         sql = "truncate table recommendplace"
-# # #         cursor.execute(sql)
-# # #         conn.commit()
-# # #         conn.close()
-# # #     mysql_delete()
-
-# # #     # 현재 유저의 리뷰에서 키워드를 추출
-# # #     user_keywords_all=[]
-# # #     for i in range(len(Place_review_category_data['contents'])):
-# # #         if Place_review_category_data['user_id'][i]== current_user_id and Place_review_category_data['category_name'][i]== selected_category:
-
-# # #             user_review= Place_review_category_data['contents'][i]
-# # #             word_tokens = okt.morphs(user_review)
-# # #             result = [word for word in word_tokens if not word in stop_words]
-# # #             for word in result:
-# # #                 user_keywords_all += [keyword_dict[word] if keyword_dict.get(word) else '']
-
-
-
-# # #     #키워드 카운트
-# # #     user_keywords_count = Counter(user_keywords_all)
-# # #     #빈도 높은 5개의 키워드 추출
-# # #     user_keywords_most = list(user_keywords_count.most_common(5))
-# # #     # 키워드 빈도가 3 이상인 키워드 추출
-# # #     user_keywords_selected = list(filter(lambda x : x[1] >= 3, user_keywords_most))
-
-# # #     user_keywords=[]
-# # #     for s in user_keywords_selected:
-# # #         user_keywords.append(s[0])
     
-#     # 리뷰가 없는 유저들 설문조사 기반 keyword 추출
-#     for i in range(len(keyword_data)):
-#         if keyword_data['user_id'][i]== current_user_id:
-#             user_keywords.append(keyword_data['survey_keyword'][i])
+        
 
 
-#     # 해당 카테고리에 속하는 place의 모든 키워드 추출
-#     all_keywords= []
-#     for i in range(len(Place_review_category_data['contents'])):
-#         if Place_review_category_data['category_name'][i]== selected_category:
-            
-#             place_review= Place_review_category_data['contents'][i]
-#             word_tokens = okt.morphs(place_review)
-#             result = [word for word in word_tokens if not word in stop_words]
-            
-#             for word in result:
-#                 all_keywords += [keyword_dict[word] if keyword_dict.get(word) else '']
+#     #최종 리스트
+#     user_review_list=[]
+
+#     #팔로우 리스트
+#     following_list=[]
+#     for i in range(len(follow_data)):
+#         if follow_data['follower_user_id'][i]==current_user_id:
+#             following_list.append(follow_data['following_user_id'][i])
+
+
+#     #리뷰 점수를 기준으로 비슷한 유저 찾아냄 
+#     place_user_score = place_review_data.pivot_table('score_y', index ='title', columns='user_id').fillna(0)
+#     user_place_score = place_user_score.values.T
+#     #print(place_user_score)
+
+#     SVD = TruncatedSVD(n_components=3)
+#     matrix=SVD.fit_transform(user_place_score)
+#     #print(matrix[0])
+
+#     corr = np.corrcoef(matrix)
+#     #print(corr.shape)
+
+
+#     users = place_user_score.columns
+#     users_list = list(users)
+
+
+#     lst=[]
+#     if current_user_id in users_list:
+#         coffey_hands = users_list.index(current_user_id)
+#         corr_coffey_hands = corr[coffey_hands]
+#         lst= list(users[(corr_coffey_hands>=0.5)] )
+#         lst.remove(current_user_id)
     
 
 
@@ -175,34 +156,38 @@
 # #     #뒤에서 5명
 # #     lst3 = lst[-5:]
 
-# #     #팔로우한 사람을 제외한 추천 피드 (2순위)
-# #     rec_feed=[]
-# #     for i in lst2:
-# #         if i != current_user_id and i not in following_list:
-# #             user_index = user_data.index[(user_data['user_id']==i)]
-# #             user_index2= user_index.values[0]
-# #             rec_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-# #             #rec_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-# #     set_rec_feed = set(rec_feed)
-# #     set_rec_feed2 = list(set_rec_feed)
-# #     set_rec_feed2_sorted = sorted(set_rec_feed2, reverse= True, key=lambda x: x[9])
+#     #팔로우한 사람을 제외한 추천 피드 (2순위)
+#     rec_feed=[]
+#     for i in lst2:
+#         if i != current_user_id and i not in following_list:
+#             user_index = user_data.index[(user_data['user_id']==i)]
+#             user_index2= user_index.values[0]
+#             print(user_review_place_data['real_file_name_y'])
+#             #print(user_review_place_data['real_file_name_x'])
+#             rec_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+#             #rec_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+#     set_rec_feed = set(rec_feed)
+#     set_rec_feed2 = list(set_rec_feed)
+#     set_rec_feed2_sorted = sorted(set_rec_feed2, reverse= True, key=lambda x: x[9])
 
 
     
     
 
-# #     #팔로우한 유저 피드 (1순위로 나옴)
-# #     follow_feed=[]
-# #     for i in following_list:
-# #         for j in range(len(user_review_place_data)):
-# #             if i== user_review_place_data['user_id'][j]:
-# #                 user_index = user_data.index[(user_data['user_id']==i)]
-# #                 user_index2= user_index.values[0]
-# #                 follow_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-# #                 #follow_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-# #     set_follow_feed = set(follow_feed)
-# #     set_follow_feed2 = list(set_follow_feed)
-# #     set_follow_feed2_sorted = sorted(set_follow_feed2, reverse= True, key=lambda x: x[9])
+#     #팔로우한 유저 피드 (1순위로 나옴)
+#     follow_feed=[]
+#     for i in following_list:
+#         for j in range(len(user_review_place_data)):
+#             if i== user_review_place_data['user_id'][j]:
+#                 user_index = user_data.index[(user_data['user_id']==i)]
+#                 user_index2= user_index.values[0]
+#                 print(user_review_place_data['real_file_name_y'])
+#                 #print(user_review_place_data['real_file_name_x'])
+#                 follow_feed.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+#                 #follow_feed.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+#     set_follow_feed = set(follow_feed)
+#     set_follow_feed2 = list(set_follow_feed)
+#     set_follow_feed2_sorted = sorted(set_follow_feed2, reverse= True, key=lambda x: x[9])
 
 
 
@@ -214,29 +199,31 @@
     
 
 
-# #     random_rec=[]
-# #     # 팔로우도 없고 리뷰도 없는 유저 (3순위)
-# #     if current_user_id not in users_list and current_user_id not in list(follow_data['follower_user_id']):
-# #         for i in all_user_list:
-# #             user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
-# #             user_index3= user_index.values
-# #             for user_index2 in user_index3:
-# #                 random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-# #                 # random_rec.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
-# #     #print(random_rec)
-# #     random_rec2 = set(random_rec)
-# #     random_rec3 = list(random_rec2)
-# #     random_rec3_sorted = sorted(random_rec3,  reverse= True, key=lambda x: x[9])
+#     random_rec=[]
+#     # 팔로우도 없고 리뷰도 없는 유저 (3순위)
+#     if current_user_id not in users_list and current_user_id not in list(follow_data['follower_user_id']):
+#         for i in all_user_list:
+#             user_index = user_review_place_data.index[(user_review_place_data['user_id']==i)]
+#             user_index3= user_index.values
+#             for user_index2 in user_index3:
+#                 print(user_review_place_data['real_file_name_y'])
+#                 #print(user_review_place_data['real_file_name_x'])
+#                 random_rec.append(tuple([user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+#                 # random_rec.append(tuple([user_review_place_data['review_id'][user_index2],user_review_place_data['place_id'][user_index2],user_review_place_data['user_id'][user_index2],user_review_place_data['review_id'][user_index2],user_review_place_data['contents'][user_index2],user_review_place_data['file_name_x'][user_index2],user_review_place_data['file_name_y'][user_index2],user_review_place_data['real_file_name_x'][user_index2],user_review_place_data['real_file_name_y'][user_index2],user_review_place_data['nickname'][user_index2],user_review_place_data['created_at'][user_index2],user_review_place_data['visited_at'][user_index2]]))
+#     #print(random_rec)
+#     random_rec2 = set(random_rec)
+#     random_rec3 = list(random_rec2)
+#     random_rec3_sorted = sorted(random_rec3,  reverse= True, key=lambda x: x[9])
 
 
-# #     # #1순위
-# #     # print(set_follow_feed2_sorted)
-# #     # #2순위
-# #     # print(set_rec_feed2_sorted)
-# #     # #3순위
-# #     print(random_rec3_sorted)
+#     # #1순위
+#     # print(set_follow_feed2_sorted)
+#     # #2순위
+#     # print(set_rec_feed2_sorted)
+#     # #3순위
+#     print(random_rec3_sorted)
 
-# #     user_review_list = set_rec_feed2_sorted + set_follow_feed2_sorted + random_rec3_sorted
+#     user_review_list = set_rec_feed2_sorted + set_follow_feed2_sorted + random_rec3_sorted
     
 # #     #print(user_review_list)
 # #     user_review_list2=[]
@@ -248,75 +235,20 @@
     
 # #     #print(user_review_list2) 
         
-# #     df=pd.DataFrame(user_review_list2,columns=['recommend_user_id','place_id','user_id','review_id','contents','file_name','file_name_user','real_file_name','real_file_name_user','nickname','created_at','visited_at'])
+#     df=pd.DataFrame(user_review_list2,columns=['recommend_user_id','place_id','user_id','review_id','contents','file_name','file_name_user','real_file_name','real_file_name_user','nickname','created_at','visited_at'])
 
-# # #     #선택한 카테고리에 속하는 모든 여행지의 keyword matrix
-# # #     v_lst=[]
-# # #     for i in range(len(lst)):
-# # #         v_lst.append(np.array(make_matrix(set_all_keywords, lst[i])))
-
-
-
-
-# # #     # 코사인 유사도를 구하는 함수
-# # #     def cos_sim(a, b):
-# # #         return dot(a, b)/(norm(a)*norm(b))
-
-
-# # #     #place_id 와 코사인 유사도를 딕셔너리 형태로 저장
-# # #     dic=dict()
-# # #     for i in range(len(v_lst)):
-# # #         cs = cos_sim(my_matrix, v_lst[i])
-# # #         dic[i]=cs
-
-
-# # #     #코사인 유사도 높은 순서대로 정렬
-# # #     sorted_dic = sorted(dic.items(), reverse = True, key = lambda item: item[1])
-# # #     #print(sorted_dic)
-
-# # #     #인덱스 추출
-# # #     index_list=[]
-# # #     for i in sorted_dic:
-# # #         index_list.append(i[0])
-# # #     #상위 30개만
-# # #     index_list_30 = index_list[:1000]
-# # #     #print(place_data)
-# # #     #코사인 유사도 높은 순서대로
-# # #     info_list=[]
-# # #     print(index_list_30)
-# # #     for i in range(len(index_list_30)):
-# # #         for j in range(len(place_data['place_id'])):
-# # #             if index_list_30[i] == j:
-# # #                 s_category_name=''
-# # #                 if place_data['category_id'][j]==1:
-# # #                     s_category_name="관광지"
-# # #                 elif place_data['category_id'][j]==2:
-# # #                     s_category_name="박물관"
-# # #                 elif place_data['category_id'][j]==3:
-# # #                     s_category_name="축제"
-# # #                 elif place_data['category_id'][j]==4:
-# # #                     s_category_name="레저스포츠"
-# # #                 elif place_data['category_id'][j]==5:
-# # #                     s_category_name="쇼핑"
-# # #                 elif place_data['category_id'][j]==6:
-# # #                     s_category_name="음식점"
-# # #                 if s_category_name==selected_category:
-# # #                     info_list.append(tuple([i,place_data['place_id'][j],place_data['addr'][j],place_data['score'][j],place_data['mapx'][j],place_data['mapy'][j],place_data['title'][j],place_data['image'][j],place_data['overview'][j]]))
-
-# # #     #return info_list
-# # #     df=pd.DataFrame(info_list,columns=['recommend_id','place_id','addr','score','mapx','mapy','title','image','overview'])
-# # #     print(df)
-
-# # #     def mysql_save(info_list):
-# # #         conn=pymysql.connect(host='j7d205.p.ssafy.io',
-# # #                     user='root',
-# # #                     password='betravelic205',
-# # #                     db='D205_2',
-# # #                     charset='utf8')
-
-# # #         cursor=conn.cursor()
     
-        
+
+#     def mysql_save(user_review_list2):
+#         conn=pymysql.connect(host='j7d205.p.ssafy.io',
+#                     user='root',
+#                     password='betravelic205',
+#                     db='D205_2',
+#                     charset='utf8')
+#         cursor=conn.cursor()
+#         sql = "truncate table recommendfeed"
+#         cursor.execute(sql)
+
 
 # #         #cursor=conn.cursor()
 # #         sql="insert into recommendfeed(recommend_user_id,place_id,user_id,review_id,contents,file_name,file_name_user,real_file_name,real_file_name_user,nickname,created_at,visited_at) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
@@ -334,7 +266,7 @@
 # #         conn.commit()
 # #         conn.close()
 
-# #     #mysql_save(user_review_list)
-# #     mysql_save(user_review_list2)
-    
-# # feed_recommendations(current_user_id)
+#     #mysql_save(user_review_list)
+#     mysql_save(user_review_list2)
+        
+# feed_recommendations(current_user_id)
