@@ -149,23 +149,23 @@
 # #     for s in user_keywords_selected:
 # #         user_keywords.append(s[0])
     
-#     # 리뷰가 없는 유저들 설문조사 기반 keyword 추출
-#     for i in range(len(keyword_data)):
-#         if keyword_data['user_id'][i]== current_user_id:
-#             user_keywords.append(keyword_data['survey_keyword'][i])
+    # 리뷰가 없는 유저들 설문조사 기반 keyword 추출
+    for i in range(len(keyword_data)):
+        if keyword_data['user_id'][i]== current_user_id:
+            user_keywords.append(keyword_data['survey_keyword'][i])
 
 
-#     # 해당 카테고리에 속하는 place의 모든 키워드 추출
-#     all_keywords= []
-#     for i in range(len(Place_review_category_data['contents'])):
-#         if Place_review_category_data['category_name'][i]== selected_category:
+    # 해당 카테고리에 속하는 place의 모든 키워드 추출
+    all_keywords= []
+    for i in range(len(Place_review_category_data['contents'])):
+        if Place_review_category_data['category_name'][i]== selected_category:
             
-#             place_review= Place_review_category_data['contents'][i]
-#             word_tokens = okt.morphs(place_review)
-#             result = [word for word in word_tokens if not word in stop_words]
+            place_review= Place_review_category_data['contents'][i]
+            word_tokens = okt.morphs(place_review)
+            result = [word for word in word_tokens if not word in stop_words]
             
-#             for word in result:
-#                 all_keywords += [keyword_dict[word] if keyword_dict.get(word) else '']
+            for word in result:
+                all_keywords += [keyword_dict[word] if keyword_dict.get(word) else '']
     
 
 
