@@ -58,8 +58,8 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://1270.0.1:8000',
-    'http://localhost:3000'
-    'http://j7d205.p.ssafy.io:3000/'
+    'http://localhost:3000',
+    'http://j7d205.p.ssafy.io:3000'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
