@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { getMemberId, login, register } from "../../apis/auth";
 import { authActions } from "../../store/auth";
 import "../../pages/css/OnBoard.css";
-import { fetchUserInfo } from "../../apis/mypage";
 
 interface error {
   email: boolean;
