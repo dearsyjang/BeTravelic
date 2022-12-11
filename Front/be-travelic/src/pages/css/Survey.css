@@ -1,0 +1,63 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.surveyBody {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* bg만 opacity 적용 */
+.surveyBody::before {
+  content: "";
+  background-image: url("../../assets/image/onboard.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.4;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.surveyDiv {
+  background-color: #f7fbfc;
+  width: 1300px;
+  height: 920px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 16px;
+}
+
+.surveyLogo {
+  position: absolute;
+  top: 36px;
+  width: 415px;
+  height: 200px;
+}
+
+.surveyTitle {
+  position: absolute;
+  top: 15vh;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.photosContainer {
+  display: flex;
+  position: absolute;
+  bottom: 40px;
+}
+
+.progressBar {
+  position: absolute;
+  top: 16px;
+}

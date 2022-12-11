@@ -1,0 +1,59 @@
+.cardContainer {
+  width: 400px;
+  height: 750px;
+  background-color: white;
+  margin-top: 40px;
+  border-radius: 16px;
+  border-color: #d6e6f2;
+  border-width: 1px;
+}
+
+.placeContainer {
+  width: 400px;
+  height: 750px;
+  background-color: white;
+  margin-top: 40px;
+  border-radius: 16px;
+  border-color: #d6e6f2;
+  border-width: 1px;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.card {
+  width: 350px;
+  height: 180px;
+  border-radius: 24px;
+}
+
+.imageContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.titleContainer {
+  position: relative;
+}
+
+.cardTitle {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  left: 24px;
+  top: 12px;
+}
+
+.cardDate {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  left: 24px;
+  top: 48px;
+}

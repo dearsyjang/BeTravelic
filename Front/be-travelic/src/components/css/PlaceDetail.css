@@ -1,0 +1,44 @@
+hr {
+  margin: 5px;
+  margin-bottom: 8px;
+  border: 0;
+  width: auto;
+  height: 1px;
+  background: #c3cbcd;
+}
+
+#placeDetailInfoCard {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c3cbcd;
+}
+
+#placeDetailInfo {
+  margin: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#line {
+  border: 3px;
+  color: black;
+}
+
+.flexbox > * {
+  flex-grow: 0;
+}
+
+#DetailRecommendItem {
+  width: 300px;
+}
+
+#DetailRecommendContainer {
+  justify-content: center;
+  align-items: center;
+}
+.makeCenter {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

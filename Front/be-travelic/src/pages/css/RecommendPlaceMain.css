@@ -1,0 +1,22 @@
+#RecommendPlaceMap {
+  min-height: 850px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+#RecommendListContainer {
+  height: 600px;
+  width: 750px;
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px #cfd2cf;
+}
+.placeInfoContainer {
+  height: 320px;
+  padding: 5px;
+  overflow: auto;
+}

@@ -1,0 +1,63 @@
+#FeedCard {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #C3CBCD;
+  margin-left: 450px;
+  width: 700px;
+}
+
+#FeedCardHeader {
+  border-bottom-style: solid;
+  border-bottom: 1px;
+  border-bottom-width: 100%;
+  border-bottom-color: #C3CBCD;
+  border-style: solid;
+}
+
+#MarkIcon {
+  color: #112D4E;
+}
+
+#CalendarIcon {
+  color: #112D4E
+}
+
+#FeedImage {
+  width: 100px;
+  height: 100px;
+}
+
+.input {
+  text-align: center;
+}
+
+#FeedImageContainer {
+  border-bottom-style: solid;
+  border-bottom: 1px;
+  border-bottom-width: 100%;
+  border-bottom-color: #C3CBCD;
+  border-style: solid;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#FeedContent{
+    border-bottom-style: solid;
+    border-bottom: 1px;
+    border-bottom-width: 100%;
+    border-bottom-color: #C3CBCD;
+    border-style: solid;
+    width: 100%;
+}
+
+#FeedImage{
+  margin: 10px;
+  width: 500px;
+  height: 500px;
+  margin-bottom: 10px;
+}
+
+#FeedImgBox{
+  margin-left: 100px;
+}

@@ -1,0 +1,15 @@
+FROM python:3.9.10
+WORKDIR /var/jenkins_home/workspace/BeTravelic/backend
+COPY requirements.txt ./
+
+RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade setuptools
+RUN pip3 install django
+ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk/jre
+RUN apt-get update && apt-get install -y g++ default-jdk
+RUN pip3 install konlpy
+
+RUN pip3 install -r requirements.txt
+COPY . .
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8081"]
+EXPOSE 8081

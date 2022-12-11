@@ -1,0 +1,13 @@
+#ImageButton{
+  background-color: grey;
+  color: white;
+  height: 30%;
+}
+
+#FeedImg{
+  margin: 10px;
+  width: 500px;
+  height: 500px;
+  margin-bottom: 10px;
+}
+

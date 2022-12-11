@@ -1,0 +1,170 @@
+.onBoardBackGround {
+  position: relative;
+}
+
+.wrapperOnboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.videoBackground {
+  width: 100vw;
+  /* height: 110vh; */
+}
+
+.mainDiv {
+  /* background-color: #f7fbfc; */
+  width: 780px;
+  height: 630px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 24px;
+}
+
+.mainDiv img {
+  padding-bottom: 24px;
+}
+
+.kakao {
+  margin-top: 16px;
+}
+
+.onBoardBody {
+  /* height: 100vh;
+  width: 100vw; */
+  position: relative;
+}
+
+/* bg만 opacity 적용 */
+.onBoardBody::before {
+  content: "";
+  /* background-image: url("../../assets/image/onboard.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.4;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.surveyDiv {
+  background-color: #f7fbfc;
+  width: 1300px;
+  height: 920px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.surveyLogo {
+  position: absolute;
+  top: 0;
+  width: 415px;
+  height: 300px;
+}
+
+.surveyTitle {
+  position: absolute;
+  top: 30vh;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.photosContainer {
+  display: flex;
+  position: absolute;
+  bottom: 40px;
+}
+
+.my-node-enter {
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+}
+.my-node-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+}
+.my-node-exit {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+}
+.my-node-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-enter-active {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 500ms;
+}
+
+.transition-group {
+  position: relative;
+}
+
+.transitionDiv {
+  background: red;
+  height: 100px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+@keyframes inAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes outAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.fadeIn {
+  animation: fadeInAnimation 1s;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
