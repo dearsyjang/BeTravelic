@@ -1,4 +1,6 @@
-# 여행이 체질 Be Travelic 🚋
+<div align=center>
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/97591083/206909173-ed7af8a5-ef69-4fb8-9b14-5acb35000b80.png">
+</div>
 
 ## 목차
 - [기획배경](#기획배경)
