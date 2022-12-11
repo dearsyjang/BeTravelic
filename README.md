@@ -51,26 +51,26 @@
 
 1. 백엔드를 실행합니다.
 
-```java
+```
 run application
 ```
 
 **[ DATA ]**
 
 1. 추천 데이터를 실행합니다.
-```python
+```
 python manage.py runserver
 ```
 
 **[ FRONT-END ]**
 
 1. pacakge.json에 정의된 패키지 및 모듈을 설치합니다.
-```jsx
+```
 npm install
 ```
 2. 설치 완료 후, 프론트엔드를 실행합니다.
-```jsx
-npm run 
+```
+npm run start
 ```
 
 ## 추천 알고리즘
