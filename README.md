@@ -135,10 +135,6 @@ npm run start
 ### 💙여행 기록 SNS
 <img width="800" src="https://user-images.githubusercontent.com/94509971/194459715-651780a3-af71-4fff-9b58-743248006098.PNG">
 
-
-## ERD
-<img width="800" src="https://user-images.githubusercontent.com/97591083/206901004-1702f1e4-5e57-4914-b08c-7dc48a2b236a.png">
-
 ## 시스템 아키텍처
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/97591083/206901568-60949f9b-3c18-4e22-abdd-550291ad45ec.png">
 
