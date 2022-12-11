@@ -304,7 +304,7 @@ npm run
 └── 📄requirements.txt
 ```
 
-**[ DATA ]**
+**[ BACK ]**
 ```markdown
 📁 Back
 ├── 📁demo
