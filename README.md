@@ -42,7 +42,7 @@
 
 |   이름   |     [정윤해](https://github.com/JEONGYOONHAE)         |     [강지명](https://github.com/rainbow77777)     |     [조호형](https://github.com/johoh0)     |     [신혜원](https://github.com/HeyWonee)     |     [임채현](https://github.com/dlacogus5239)     |     [장수영](https://github.com/dearsyjang)     |
 | :------------: | :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
-|  포지션  |                 Team Leader<br/>Back-end                 |         Data          |         Back-end          |            Front-end Leader<br/>UI/UX            | Front-end<br/>UI/UX<br/>CI/CD | Front-end<br/>UI/UX |
+|  포지션  |                 Team Leader<br/>Back-end                 |         Back-end<br/>Data          |         Back-end          |            Front-end Leader<br/>UI/UX            | Front-end<br/>UI/UX<br/>CI/CD | Front-end<br/>Data<br/>UI/UX |
 
 ## 설치
 
