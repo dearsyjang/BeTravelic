@@ -112,13 +112,9 @@ npm run start
 #### 설문조사
 <img width="800" src="https://user-images.githubusercontent.com/94509971/194459358-a4417a93-882d-499f-bd9d-4db3c3a38a5b.png">
 
-### 💙마이페이지
+### 💙마이페이지: 여행기록 & 나만의 국내 여행지도
 
-<img width="800" src="https://user-images.githubusercontent.com/94509971/194459634-32f375ae-ce96-431c-bb59-ba7201d35523.PNG">
-<img width="800" src="https://user-images.githubusercontent.com/97591083/206900633-5c2dfeb1-b54c-4eb5-8430-a5bbe2ed32e4.gif">
-
-#### 나만의 여행지도
-<img width="500" src="https://user-images.githubusercontent.com/94509971/194459683-633f7701-abda-4791-8be8-bce09f13da0a.png">
+<img width="800" src="https://user-images.githubusercontent.com/97591083/228906190-a8641660-f68b-484b-8516-3bc527394fcc.png">
 
 
 ### 💙여행지 추천: 컨텐츠 기반 필터링을 이용한 사용자 맞춤 여행지 추천
