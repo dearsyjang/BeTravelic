@@ -124,14 +124,14 @@ npm run start
 <img width="800" alt="여행지 상세2" src="https://user-images.githubusercontent.com/94509971/194459470-2422d6cd-0ac0-4633-acc4-ce7465dfad09.png">
 <img width="800" alt="여행지 상세" src="https://user-images.githubusercontent.com/94509971/194459530-3a875083-07db-4e50-91fc-b7421c9addae.png">
 
-#### 반응형 페이지
+#### - 반응형 페이지
 <div>
 <img width="350" alt="상세페이지 반응형" src="https://user-images.githubusercontent.com/94509971/194459584-ac1f7540-a1e0-441a-9c21-b110ff4f217b.png">
 <img width="350" src="https://user-images.githubusercontent.com/94509971/194459603-fa2e52ce-9d30-4b92-aa4c-6b1dc80a6b44.png">
 </div>
 
-### 💙여행 기록 SNS
-<img width="800" src="https://user-images.githubusercontent.com/94509971/194459715-651780a3-af71-4fff-9b58-743248006098.PNG">
+#### - 카카오톡 공유하기
+<img width="350" src="https://user-images.githubusercontent.com/97591083/229362633-21f60090-1237-40ef-9892-d241811a7d83.png">
 
 ## 시스템 아키텍처
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/97591083/206901568-60949f9b-3c18-4e22-abdd-550291ad45ec.png">
