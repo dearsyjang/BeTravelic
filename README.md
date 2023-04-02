@@ -105,11 +105,11 @@ npm run start
 | SNS | 여행기록 작성 <br/> 다른 사용자 여행기록 조회 <br/> 팔로우할 만한 다른 사용자 |- 지역&여행지, 방문날짜, 여행지 평가 별점, 여행사진, 여행기록 작성 <br/> - 사용자 맞춤 다른 사용자의 여행기록 추천 <br/> - 여행 스타일이 비슷한 다른 사용자 계정 추천 <br/> - 클릭시 해당 사용자 마이페이지 방문 |
 
 ### 💙회원
-#### 회원가입 및 로그인
+#### - 회원가입 및 로그인
 <img width="800" src="https://user-images.githubusercontent.com/94509971/194459308-11885d97-b489-4d55-bde9-d42ca2887fb9.JPG">
 <img width="800" src="https://user-images.githubusercontent.com/94509971/194459332-13bfd756-9b1f-49e1-a368-520b9423ddbc.JPG">
 
-#### 설문조사
+#### - 설문조사
 <img width="800" src="https://user-images.githubusercontent.com/94509971/194459358-a4417a93-882d-499f-bd9d-4db3c3a38a5b.png">
 
 ### 💙마이페이지: 여행기록 & 나만의 국내 여행지도
