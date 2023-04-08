@@ -133,10 +133,6 @@ npm run start
 #### - 카카오톡 공유하기
 <img width="350" src="https://user-images.githubusercontent.com/97591083/229362633-21f60090-1237-40ef-9892-d241811a7d83.png">
 
-### 💙SNS
-<img width="800" src="https://user-images.githubusercontent.com/97591083/230720779-01324c74-a2d2-48af-b0c6-7f6e025f2a5e.png">
-<img width="800" src="https://user-images.githubusercontent.com/97591083/230720807-00927e1c-4e1b-4cc3-bd39-8c373e7be7f5.png">
-
 ## 시스템 아키텍처
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/97591083/206901568-60949f9b-3c18-4e22-abdd-550291ad45ec.png">
 
